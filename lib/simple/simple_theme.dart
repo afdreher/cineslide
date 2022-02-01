@@ -42,6 +42,12 @@ class SimpleTheme extends PuzzleTheme {
   Color get pressedColor => PuzzleColors.primary7;
 
   @override
+  Color get correctPressedColor => PuzzleColors.lime90;
+
+  @override
+  Color get correctColor => PuzzleColors.lime50;
+
+  @override
   bool get isLogoColored => true;
 
   @override

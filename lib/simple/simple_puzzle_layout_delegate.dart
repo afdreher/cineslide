@@ -345,9 +345,15 @@ class SimplePuzzleTile extends StatelessWidget {
         backgroundColor: MaterialStateProperty.resolveWith<Color?>(
           (states) {
             if (tile.value == state.lastTappedTile?.value) {
-              return theme.pressedColor;
+              if (tile.isInCorrectPosition) {
+                return theme.correctPressedColor;
+              } else {
+                return theme.pressedColor;
+              }
             } else if (states.contains(MaterialState.hovered)) {
               return theme.hoverColor;
+            } else if (tile.isInCorrectPosition) {
+              return theme.correctColor;
             } else {
               return theme.defaultColor;
             }

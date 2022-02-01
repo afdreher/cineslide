@@ -41,6 +41,12 @@ abstract class DashatarTheme extends PuzzleTheme {
   Color get pressedColor => PuzzleColors.white2;
 
   @override
+  Color get correctPressedColor => PuzzleColors.lime90;
+
+  @override
+  Color get correctColor => PuzzleColors.lime50;
+
+  @override
   bool get isLogoColored => false;
 
   @override

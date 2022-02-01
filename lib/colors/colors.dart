@@ -86,4 +86,10 @@ abstract class PuzzleColors {
 
   /// Yellow 50
   static const Color yellow50 = Color(0xFF9E9400);
+
+  /// Green
+  static const Color lime90 = Color(0xFF00FF00);
+
+  /// Lime
+  static const Color lime50 = Color(0xFF32CD32);
 }

@@ -53,6 +53,16 @@ abstract class PuzzleTheme extends Equatable {
   /// that was pressed.
   Color get pressedColor;
 
+  /// The pressed color of this theme when the tile is in the correct position.
+  ///
+  /// Used for the puzzle tile that was pressed.
+  Color get correctPressedColor;
+
+  /// The color shown when a tile is in the correct position
+  ///
+  /// Used for the puzzle tile that was pressed.
+  Color get correctColor;
+
   /// Whether Flutter logo is colored or white.
   ///
   /// Applied to the color of [AppFlutterLogo] displayed
