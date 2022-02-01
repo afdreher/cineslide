@@ -2,6 +2,9 @@
 import 'dart:math';
 import 'dart:ui';
 
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
@@ -220,4 +223,20 @@ class Puzzle extends Equatable {
 
   @override
   List<Object> get props => [tiles];
+
+  @override
+  String toString() {
+    StringBuffer buffer = StringBuffer();
+    buffer.writeln("${objectRuntimeType(this, 'Puzzle')}:");
+
+    // I want these sorted, but if you don't, just comment out the sort line.
+    List<Tile> copied = tiles.toList();
+    copied.sort((a, b) => a.value.compareTo(b.value));
+
+    for (final tile in copied) {
+      buffer.writeln('\t| $tile');
+    }
+
+    return buffer.toString();
+  }
 }

@@ -1,3 +1,6 @@
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:equatable/equatable.dart';
 
@@ -26,6 +29,9 @@ class Tile extends Equatable {
   /// The current 2D [Position] of the [Tile].
   final Position currentPosition;
 
+  /// Denotes if the [Tile] is in the correct position or not.
+  bool get isInCorrectPosition => currentPosition == correctPosition;
+
   /// Denotes if the [Tile] is the whitespace tile or not.
   final bool isWhitespace;
 
@@ -46,4 +52,9 @@ class Tile extends Equatable {
         currentPosition,
         isWhitespace,
       ];
+
+  @override
+  String toString() {
+    return "${objectRuntimeType(this, 'Tile')} $value${isWhitespace ? ' (WS)' : ''}: $currentPosition ${isInCorrectPosition ? '=' : '≠'} $correctPosition";
+  }
 }
