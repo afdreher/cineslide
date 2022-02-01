@@ -7,14 +7,20 @@
 
 // ignore_for_file: public_member_api_docs, avoid_print
 
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
-import 'package:very_good_slide_puzzle/helpers/helpers.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+
+// Project imports:
+import 'package:cineslide/helpers/helpers.dart';
+import 'package:cineslide/l10n/l10n.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
 
 class App extends StatefulWidget {
   const App({Key? key, ValueGetter<PlatformHelper>? platformHelperFactory})

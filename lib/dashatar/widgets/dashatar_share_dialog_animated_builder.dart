@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs
 
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+
+// Project imports:
+import 'package:cineslide/dashatar/dashatar.dart';
 
 /// The animation builder of [DashatarShareDialog].
 class DashatarShareDialogAnimatedBuilder extends StatelessWidget {

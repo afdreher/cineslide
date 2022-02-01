@@ -1,10 +1,14 @@
 // ignore_for_file: public_member_api_docs
 
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
 
 part 'timer_event.dart';
 part 'timer_state.dart';

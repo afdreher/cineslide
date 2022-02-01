@@ -5,11 +5,15 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+// Dart imports:
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
+import 'package:bloc/bloc.dart';
 
 /// Custom instance of [BlocObserver] which logs
 /// any state changes and errors.

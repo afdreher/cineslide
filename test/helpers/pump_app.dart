@@ -5,17 +5,21 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:very_good_slide_puzzle/timer/timer.dart';
 
+// Project imports:
+import 'package:cineslide/audio_control/audio_control.dart';
+import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/l10n/l10n.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
+import 'package:cineslide/theme/theme.dart';
+import 'package:cineslide/timer/timer.dart';
 import 'helpers.dart';
 
 extension PumpApp on WidgetTester {

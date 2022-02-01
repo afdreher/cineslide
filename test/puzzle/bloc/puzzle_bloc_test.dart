@@ -1,10 +1,15 @@
 // ignore_for_file: prefer_const_constructors
+
+// Dart imports:
 import 'dart:math';
 
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
 
 void main() {
   const seed = 2;

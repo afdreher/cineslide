@@ -1,7 +1,12 @@
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:google_fonts/google_fonts.dart';
-import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/typography/typography.dart';
+
+// Project imports:
+import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/typography/typography.dart';
 
 /// Defines text styles for the puzzle UI.
 class PuzzleTextStyle {

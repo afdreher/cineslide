@@ -1,14 +1,19 @@
 // ignore_for_file: prefer_const_constructors, avoid_redundant_argument_values
 
+// Dart imports:
 import 'dart:async';
 
-import 'package:bloc_test/bloc_test.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 
+// Project imports:
+import 'package:cineslide/audio_control/audio_control.dart';
 import '../../helpers/helpers.dart';
 
 void main() {

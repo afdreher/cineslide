@@ -5,13 +5,16 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:very_good_slide_puzzle/app/app.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 
+// Project imports:
+import 'package:cineslide/app/app.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
 import '../../helpers/helpers.dart';
 
 void main() {

@@ -1,8 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
+
+// Project imports:
+import 'package:cineslide/audio_control/audio_control.dart';
+import 'package:cineslide/layout/layout.dart';
+import 'package:cineslide/theme/theme.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current audio status of the puzzle.

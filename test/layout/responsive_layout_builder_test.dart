@@ -1,7 +1,11 @@
+// Flutter imports:
 import 'package:flutter/widgets.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
 
+// Package imports:
+import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
+import 'package:cineslide/layout/layout.dart';
 import '../helpers/helpers.dart';
 
 void main() {

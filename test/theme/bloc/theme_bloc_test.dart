@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
-import 'package:very_good_slide_puzzle/simple/simple.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
 
+// Project imports:
+import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/simple/simple.dart';
+import 'package:cineslide/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
 void main() {

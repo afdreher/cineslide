@@ -1,7 +1,12 @@
-import 'package:equatable/equatable.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+
+// Package imports:
+import 'package:equatable/equatable.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
 
 /// {@template puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI.

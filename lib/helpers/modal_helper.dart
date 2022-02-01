@@ -1,5 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
+
+// Project imports:
+import 'package:cineslide/theme/theme.dart';
 
 /// Displays the [AppDialog] above the current contents of the app.
 Future<T?> showAppDialog<T>({

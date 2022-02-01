@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/typography/typography.dart';
+
+// Project imports:
+import 'package:cineslide/typography/typography.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

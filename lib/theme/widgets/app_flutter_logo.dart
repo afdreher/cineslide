@@ -1,6 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
+
+// Project imports:
+import 'package:cineslide/layout/layout.dart';
+import 'package:cineslide/theme/themes/themes.dart';
 
 /// {@template app_flutter_logo}
 /// Variant of Flutter logo that can be either white or colored.

@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, avoid_redundant_argument_values
 
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+
+// Project imports:
+import 'package:cineslide/audio_control/audio_control.dart';
 
 void main() {
   group('AudioControlBloc', () {

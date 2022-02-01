@@ -1,17 +1,22 @@
 // ignore_for_file: prefer_const_constructors,
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+// Dart imports:
 import 'dart:async';
 
-import 'package:bloc_test/bloc_test.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/timer/timer.dart';
 
+// Project imports:
+import 'package:cineslide/audio_control/audio_control.dart';
+import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
+import 'package:cineslide/timer/timer.dart';
 import '../../helpers/helpers.dart';
 
 void main() {

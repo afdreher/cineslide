@@ -1,9 +1,11 @@
+// Dart imports:
 import 'dart:ui';
 
-import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/simple/simple.dart';
-import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
+// Project imports:
+import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/layout/layout.dart';
+import 'package:cineslide/simple/simple.dart';
+import 'package:cineslide/theme/themes/themes.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.

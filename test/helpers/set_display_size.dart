@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
+
+// Project imports:
+import 'package:cineslide/layout/layout.dart';
 
 extension PuzzleWidgetTester on WidgetTester {
   void setDisplaySize(Size size) {

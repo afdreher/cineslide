@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
 
 void main() {
   const unsolvable3x3Tile0 = Tile(

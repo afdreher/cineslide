@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors, avoid_redundant_argument_values
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/timer/timer.dart';
+
+// Project imports:
+import 'package:cineslide/timer/timer.dart';
 
 void main() {
   group('TimerState', () {

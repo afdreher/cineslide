@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+
+// Project imports:
+import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/l10n/l10n.dart';
 
 /// {@template green_dashatar_theme}
 /// The green dashatar puzzle theme.

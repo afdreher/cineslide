@@ -1,9 +1,13 @@
+// Dart imports:
 import 'dart:math';
 import 'dart:ui';
 
+// Package imports:
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
 
 // A 3x3 puzzle board visualization:
 //

@@ -1,8 +1,12 @@
 // ignore_for_file: avoid_print
 
+// Dart imports:
 import 'dart:typed_data';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 
 /// A comparator for golden tests that allows for a small difference in pixels.

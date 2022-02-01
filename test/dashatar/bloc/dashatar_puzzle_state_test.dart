@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+
+// Project imports:
+import 'package:cineslide/dashatar/dashatar.dart';
 
 void main() {
   group('DashatarPuzzleState', () {

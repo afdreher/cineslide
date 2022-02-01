@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
 
 void main() {
   final position = Position(x: 1, y: 1);

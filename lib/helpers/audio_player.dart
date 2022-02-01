@@ -1,6 +1,10 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:just_audio/just_audio.dart';
 
 /// Signature for the factory of [AudioPlayer].

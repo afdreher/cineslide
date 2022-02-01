@@ -1,5 +1,5 @@
-name: very_good_slide_puzzle
-description: A Very Good Project created by Very Good CLI.
+name: cineslide
+description: Devpost Flutter Sliding Puzzle Competition Entry
 version: 1.0.0+1
 publish_to: none
 
@@ -8,25 +8,26 @@ environment:
   flutter: 2.8.0
 
 dependencies:
-  bloc: ^8.0.1
+  bloc: ^8.0.2
   equatable: ^2.0.3
   fake_async: ^1.2.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.0
+  flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
   gap: ^2.0.0
-  google_fonts: ^2.1.0
+  google_fonts: ^2.2.0
   intl: ^0.17.0
   just_audio: ^0.9.18
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.0.17
+  url_launcher: ^6.0.18
 
 dev_dependencies:
   bloc_test: ^9.0.1
   flutter_test:
     sdk: flutter
+  import_sorter: ^4.6.0
   mocktail: ^0.2.0
   very_good_analysis: ^2.4.0
 

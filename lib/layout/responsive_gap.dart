@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:gap/gap.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
+
+// Project imports:
+import 'package:cineslide/layout/layout.dart';
 
 /// {@template responsive_gap}
 /// A wrapper around [Gap] that renders a [small], [medium]

@@ -1,13 +1,18 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
-import 'package:very_good_slide_puzzle/theme/widgets/widgets.dart';
-import 'package:very_good_slide_puzzle/typography/typography.dart';
+
+// Project imports:
+import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/l10n/l10n.dart';
+import 'package:cineslide/layout/layout.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
+import 'package:cineslide/theme/themes/themes.dart';
+import 'package:cineslide/theme/widgets/widgets.dart';
+import 'package:cineslide/typography/typography.dart';
 
 /// {@template dashatar_score}
 /// Displays the score of the solved Dashatar puzzle.

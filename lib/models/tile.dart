@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
 
 /// {@template tile}
 /// Model for a puzzle tile.

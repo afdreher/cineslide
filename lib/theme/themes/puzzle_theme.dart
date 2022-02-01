@@ -1,7 +1,12 @@
-import 'package:equatable/equatable.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
+
+// Package imports:
+import 'package:equatable/equatable.dart';
+
+// Project imports:
+import 'package:cineslide/layout/layout.dart';
+import 'package:cineslide/theme/theme.dart';
 
 /// {@template puzzle_theme}
 /// Template for creating custom puzzle UI.

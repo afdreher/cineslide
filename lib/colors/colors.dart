@@ -1,3 +1,4 @@
+// Flutter imports:
 import 'package:flutter/widgets.dart';
 
 /// Defines the color palette for the puzzle UI.

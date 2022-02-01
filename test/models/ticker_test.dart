@@ -1,6 +1,9 @@
+// Package imports:
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
 
 void main() {
   group('Ticker', () {

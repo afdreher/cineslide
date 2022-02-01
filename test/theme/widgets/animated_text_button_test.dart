@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: avoid_positional_boolean_parameters
 
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
 
+// Package imports:
+import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
+import 'package:cineslide/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
 const switchKey = Key('switchKey');

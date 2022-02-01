@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:url_launcher/url_launcher.dart';
 
 /// Opens the given [url] in a new tab of the host browser

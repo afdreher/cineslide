@@ -1,8 +1,10 @@
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
-import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
+// Project imports:
+import 'package:cineslide/helpers/helpers.dart';
 import 'helpers.dart';
 
 void main() {

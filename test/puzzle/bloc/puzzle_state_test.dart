@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 
+// Package imports:
+import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
+import 'package:cineslide/models/models.dart';
+import 'package:cineslide/puzzle/puzzle.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
