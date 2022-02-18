@@ -44,6 +44,36 @@ class Puzzle extends Equatable {
   /// {@macro puzzle}
   const Puzzle({required this.tiles});
 
+  factory Puzzle.fromValues({required List<int> values}) {
+    int size = sqrt(values.length).floor();
+    final int sq = size * size;
+
+    List<Tile> tiles = [];
+    for (int i = 0; i < sq; i++) {
+      final int v = values[i];
+      final int currentX = i % size + 1;
+      final int currentY = i ~/ size + 1;
+      final bool isWhitespace = v == 0;
+
+      final int correctX = isWhitespace ? size : (v - 1) % size + 1;
+      final int correctY = isWhitespace ? size : (v - 1) ~/ size + 1;
+
+      tiles.add(Tile(
+        value: v,
+        correctPosition: Position(x: correctX, y: correctY),
+        currentPosition: Position(x: currentX, y: currentY),
+        isWhitespace: isWhitespace,
+      ));
+    }
+
+    return Puzzle(tiles: tiles);
+  }
+
+  Puzzle copy() {
+    // Use a copy of the list
+    return Puzzle(tiles: List.from(tiles));
+  }
+
   /// List of [Tile]s representing the puzzle's current arrangement.
   final List<Tile> tiles;
 
@@ -74,21 +104,19 @@ class Puzzle extends Equatable {
 
   /// Gets the number of tiles that are currently in their correct position.
   int getNumberOfCorrectTiles() {
-    final whitespaceTile = getWhitespaceTile();
-    var numberOfCorrectTiles = 0;
-    for (final tile in tiles) {
-      if (tile != whitespaceTile) {
+    return tiles.fold(0, (prev, tile) {
+      if (!tile.isWhitespace) {
         if (tile.currentPosition == tile.correctPosition) {
-          numberOfCorrectTiles++;
+          return prev + 1;
         }
       }
-    }
-    return numberOfCorrectTiles;
+      return prev;
+    });
   }
 
   /// Determines if the puzzle is completed.
   bool isComplete() {
-    return (tiles.length - 1) - getNumberOfCorrectTiles() == 0;
+    return getNumberOfCorrectTiles() == (tiles.length - 1);
   }
 
   /// Determines if the tapped tile can move in the direction of the whitespace
@@ -145,7 +173,7 @@ class Puzzle extends Equatable {
 
       for (var b = a + 1; b < tiles.length; b++) {
         final tileB = tiles[b];
-        if (_isInversion(tileA, tileB)) {
+        if (isInversion(tileA, tileB)) {
           count++;
         }
       }
@@ -154,7 +182,7 @@ class Puzzle extends Equatable {
   }
 
   /// Determines if the two tiles are inverted.
-  bool _isInversion(Tile a, Tile b) {
+  bool isInversion(Tile a, Tile b) {
     if (!b.isWhitespace && a.value != b.value) {
       if (b.value < a.value) {
         return b.currentPosition.compareTo(a.currentPosition) > 0;
@@ -226,11 +254,11 @@ class Puzzle extends Equatable {
 
   @override
   String toString() {
-    StringBuffer buffer = StringBuffer();
+    final StringBuffer buffer = StringBuffer();
     buffer.writeln("${objectRuntimeType(this, 'Puzzle')}:");
 
     // I want these sorted, but if you don't, just comment out the sort line.
-    List<Tile> copied = tiles.toList();
+    final List<Tile> copied = tiles.toList();
     copied.sort((a, b) => a.value.compareTo(b.value));
 
     for (final tile in copied) {

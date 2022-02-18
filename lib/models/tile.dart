@@ -35,6 +35,12 @@ class Tile extends Equatable {
   /// Denotes if the [Tile] is the whitespace tile or not.
   final bool isWhitespace;
 
+  /// Get the manhattan distance between the current and correct positions
+  int get manhattanDistance {
+    return (currentPosition.x - correctPosition.x).abs() +
+        (currentPosition.y - correctPosition.y).abs();
+  }
+
   /// Create a copy of this [Tile] with updated current position.
   Tile copyWith({required Position currentPosition}) {
     return Tile(

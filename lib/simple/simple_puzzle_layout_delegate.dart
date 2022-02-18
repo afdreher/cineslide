@@ -220,6 +220,24 @@ class SimpleStartSection extends StatelessWidget {
           medium: (_, __) => const SizedBox(),
           large: (_, __) => const SimplePuzzleShuffleButton(),
         ),
+        const ResponsiveGap(
+          large: 32,
+          small: 16,
+        ),
+        Center(
+          child: PuzzleButton(
+            textColor: PuzzleColors.primary0,
+            backgroundColor: PuzzleColors.primary6,
+            onPressed: () =>
+                context.read<PuzzleBloc>().add(const PuzzleSolve()),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text('Solve!'),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -18,6 +18,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
+    on<PuzzleSolve>(_onPuzzleSolve); // Compute solution
   }
 
   final int _size;
@@ -85,6 +86,12 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
       ),
     );
+  }
+
+  void _onPuzzleSolve(PuzzleSolve event, Emitter<PuzzleState> emit) {
+    print('Requesting puzzle solution');
+    final solver = Solver(puzzle: state.puzzle);
+    solver.solve();
   }
 
   /// Build a randomized, solvable puzzle of the given size.
