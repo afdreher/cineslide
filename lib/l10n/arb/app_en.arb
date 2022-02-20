@@ -28,6 +28,10 @@
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"
     },
+    "puzzleCommit": "Commit move",
+    "@puzzleCommit": {
+        "description": "Shown on the floating action button to commit moves and exit from the pending state."
+    },
     "dashatarStartGame": "Start Game",
     "@dashatarStartGame": {
         "description": "Shown before the puzzle is started"

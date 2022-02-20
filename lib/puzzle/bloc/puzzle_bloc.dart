@@ -17,6 +17,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   PuzzleBloc(this._size, {this.random}) : super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
+    on<TileConfirmed>(_onTileConfirmed);
     on<PuzzleReset>(_onPuzzleReset);
     on<PuzzleSolve>(_onPuzzleSolve); // Compute solution
   }
@@ -38,13 +39,32 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
+  void _emitUnmovableTile(Emitter<PuzzleState> emit) {
+    emit(
+      state.copyWith(tileMovementStatus: TileMovementStatus.cannotBeMoved),
+    );
+  }
+
   void _onTileTapped(TileTapped event, Emitter<PuzzleState> emit) {
+    final bool requireConfirmation = true;
+
     final tappedTile = event.tile;
     if (state.puzzleStatus == PuzzleStatus.incomplete) {
       if (state.puzzle.isTileMovable(tappedTile)) {
+        // Move the puzzle status to pending
         final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
         final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
-        if (puzzle.isComplete()) {
+        if (requireConfirmation) {
+          emit(
+            state.copyWith(
+              puzzle: puzzle.sort(),
+              puzzleStatus: PuzzleStatus.pending,
+              tileMovementStatus: TileMovementStatus.moved,
+              lastTappedTile: tappedTile,
+              originalWhitespaceTile: state.puzzle.getWhitespaceTile(),
+            ),
+          );
+        } else if(puzzle.isComplete()) {
           emit(
             state.copyWith(
               puzzle: puzzle.sort(),
@@ -66,15 +86,78 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
             ),
           );
         }
+        return;
+      }
+    } else if (state.puzzleStatus == PuzzleStatus.pending) {
+      // Already in the pending state.
+      // Check if the current tile is even movable.
+      if (state.puzzle.isTileMovable(tappedTile)) {
+        final originalRow =
+            state.originalWhitespaceTile?.currentPosition.y ?? -1;
+        final originalColumn =
+            state.originalWhitespaceTile?.currentPosition.x ?? -1;
+
+        final Tile? currentWS = state.puzzle.getWhitespaceTile();
+        final int currentWSRow = currentWS?.currentPosition.y ?? -2;
+        final int currentWSColumn = currentWS?.currentPosition.x ?? -2;
+
+        final int tappedRow = tappedTile.currentPosition.y;
+        final int tappedColumn = tappedTile.currentPosition.x;
+
+        if ((currentWSRow == originalRow &&
+                currentWSColumn == originalColumn) ||
+            (tappedColumn == originalColumn) ||
+            (tappedRow == originalRow)) {
+          // Move the puzzle status to pending
+          final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
+          final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
+          emit(
+            state.copyWith(
+              puzzle: puzzle.sort(),
+              lastTappedTile: tappedTile,
+            ),
+          );
+          return;
+        }
+      }
+    }
+
+    _emitUnmovableTile(emit);
+  }
+
+  void _onTileConfirmed(TileConfirmed event, Emitter<PuzzleState> emit) {
+    if (state.puzzleStatus == PuzzleStatus.pending) {
+      bool whitespaceMoved = state.puzzle.getWhitespaceTile().currentPosition !=
+          state.originalWhitespaceTile?.currentPosition;
+      int add = whitespaceMoved ? 1 : 0;
+
+      if (state.puzzle.isComplete()) {
+        emit(
+          state.copyWith(
+            puzzle: state.puzzle.sort(),
+            puzzleStatus: PuzzleStatus.complete,
+            tileMovementStatus: TileMovementStatus.moved,
+            numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
+            numberOfMoves: state.numberOfMoves + add,
+            lastTappedTile: state.lastTappedTile,
+            originalWhitespaceTile: null, // Clear
+          ),
+        );
       } else {
         emit(
-          state.copyWith(tileMovementStatus: TileMovementStatus.cannotBeMoved),
+          state.copyWith(
+            puzzle: state.puzzle.sort(),
+            puzzleStatus: PuzzleStatus.incomplete,
+            tileMovementStatus: TileMovementStatus.moved,
+            numberOfCorrectTiles: state.puzzle.getNumberOfCorrectTiles(),
+            numberOfMoves: state.numberOfMoves + add,
+            lastTappedTile: state.lastTappedTile,
+            originalWhitespaceTile: null, // Clear
+          ),
         );
       }
     } else {
-      emit(
-        state.copyWith(tileMovementStatus: TileMovementStatus.cannotBeMoved),
-      );
+      _emitUnmovableTile(emit);
     }
   }
 
@@ -88,10 +171,19 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
-  void _onPuzzleSolve(PuzzleSolve event, Emitter<PuzzleState> emit) {
-    print('Requesting puzzle solution');
-    final solver = Solver(puzzle: state.puzzle);
-    solver.solve();
+  void _onPuzzleSolve(PuzzleSolve event, Emitter<PuzzleState> emit) async {
+    // final solver = Solver(puzzle: state.puzzle);
+    // List<Tile> moves = solver.solve();
+
+    // Play solution...  Emit a tile every n seconds.
+    int delay = 0;
+    for (int i in [1, 2, 4, 5, 8, 9, 0]) {
+      Future<void>.delayed(Duration(seconds: delay), () {
+        print('$delay: swapping tile: $i');
+        //_onTileTapped(TileTapped event, Emitter<PuzzleState> emit)
+      });
+      delay++;
+    }
   }
 
   /// Build a randomized, solvable puzzle of the given size.
@@ -115,7 +207,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     }
 
     if (shuffle) {
-      // Randomize only the current tile posistions.
+      // Randomize only the current tile positions.
       currentPositions.shuffle(random);
     }
 

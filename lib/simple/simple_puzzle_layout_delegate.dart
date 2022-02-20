@@ -378,7 +378,7 @@ class SimplePuzzleTile extends StatelessWidget {
           },
         ),
       ),
-      onPressed: state.puzzleStatus == PuzzleStatus.incomplete
+      onPressed: (state.puzzleStatus == PuzzleStatus.incomplete || state.puzzleStatus == PuzzleStatus.pending)
           ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
           : null,
       child: Text(

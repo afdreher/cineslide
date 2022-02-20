@@ -135,6 +135,9 @@ class Puzzle extends Equatable {
     return true;
   }
 
+  int get whitespaceRow => getWhitespaceTile().currentPosition.y;
+  int get whitesapceColumn => getWhitespaceTile().currentPosition.x;
+
   /// Determines if the puzzle is solvable.
   bool isSolvable() {
     final size = getDimension();
@@ -148,9 +151,6 @@ class Puzzle extends Equatable {
     if (size.isOdd) {
       return inversions.isEven;
     }
-
-    final whitespace = tiles.singleWhere((tile) => tile.isWhitespace);
-    final whitespaceRow = whitespace.currentPosition.y;
 
     if (((height - whitespaceRow) + 1).isOdd) {
       return inversions.isEven;

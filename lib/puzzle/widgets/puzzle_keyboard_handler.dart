@@ -72,22 +72,31 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
 
     if (event is RawKeyDownEvent && canMoveTiles) {
       final puzzle = context.read<PuzzleBloc>().state.puzzle;
+      //final preference = context.read<PreferencesBloc>().state;
       final physicalKey = event.data.physicalKey;
 
       Tile? tile;
+      // Make this optional so that you can move either the whitespace or the
+      // block.  Also make it so you can confirm, if so desired.  Confirm with
+      // pop-up / enter would be useful for lower vision users.
       if (physicalKey == PhysicalKeyboardKey.arrowDown) {
-        tile = puzzle.getTileRelativeToWhitespaceTile(const Offset(0, -1));
-      } else if (physicalKey == PhysicalKeyboardKey.arrowUp) {
         tile = puzzle.getTileRelativeToWhitespaceTile(const Offset(0, 1));
+      } else if (physicalKey == PhysicalKeyboardKey.arrowUp) {
+        tile = puzzle.getTileRelativeToWhitespaceTile(const Offset(0, -1));
       } else if (physicalKey == PhysicalKeyboardKey.arrowRight) {
-        tile = puzzle.getTileRelativeToWhitespaceTile(const Offset(-1, 0));
-      } else if (physicalKey == PhysicalKeyboardKey.arrowLeft) {
         tile = puzzle.getTileRelativeToWhitespaceTile(const Offset(1, 0));
+      } else if (physicalKey == PhysicalKeyboardKey.arrowLeft) {
+        tile = puzzle.getTileRelativeToWhitespaceTile(const Offset(-1, 0));
+      } else if (physicalKey == PhysicalKeyboardKey.enter) {
+        // Confirm move
+        context.read<PuzzleBloc>().add(const TileConfirmed());
+        unawaited(_audioPlayer.replay());
+        return;
       }
 
       if (tile != null) {
         context.read<PuzzleBloc>().add(TileTapped(tile));
-        unawaited(_audioPlayer.replay());
+        unawaited(_audioPlayer.replay()); // This needs to be moved elsewhere!
       }
     }
   }

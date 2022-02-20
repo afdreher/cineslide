@@ -148,8 +148,10 @@ class _AppState extends State<App> {
         );
       }
 
-      for (final audioAsset in audioAssets) {
-        prefetchToMemory(audioAsset);
+      if (_platformHelper.isWeb) {
+        for (final audioAsset in audioAssets) {
+          prefetchToMemory(audioAsset);
+        }
       }
     });
   }

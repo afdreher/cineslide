@@ -2,7 +2,7 @@
 
 part of 'puzzle_bloc.dart';
 
-enum PuzzleStatus { incomplete, complete }
+enum PuzzleStatus { incomplete, complete, pending }
 
 enum TileMovementStatus { nothingTapped, cannotBeMoved, moved }
 
@@ -14,6 +14,7 @@ class PuzzleState extends Equatable {
     this.numberOfCorrectTiles = 0,
     this.numberOfMoves = 0,
     this.lastTappedTile,
+    this.originalWhitespaceTile,
   });
 
   /// [Puzzle] containing the current tile arrangement.
@@ -30,6 +31,13 @@ class PuzzleState extends Equatable {
   /// The value is `null` if the user has not interacted with
   /// the puzzle yet.
   final Tile? lastTappedTile;
+
+  /// The original whitespace tile.  This is only used for the pending state.
+  /// It is used to compute whether the direction is locked, and if so, what
+  /// direction that is.
+  final Tile? originalWhitespaceTile;
+
+  bool get isPending => puzzleStatus == PuzzleStatus.pending;
 
   /// Number of tiles currently in their correct position.
   final int numberOfCorrectTiles;
@@ -51,6 +59,7 @@ class PuzzleState extends Equatable {
     int? numberOfCorrectTiles,
     int? numberOfMoves,
     Tile? lastTappedTile,
+    Tile? originalWhitespaceTile,
   }) {
     return PuzzleState(
       puzzle: puzzle ?? this.puzzle,
@@ -59,8 +68,10 @@ class PuzzleState extends Equatable {
       numberOfCorrectTiles: numberOfCorrectTiles ?? this.numberOfCorrectTiles,
       numberOfMoves: numberOfMoves ?? this.numberOfMoves,
       lastTappedTile: lastTappedTile ?? this.lastTappedTile,
+      originalWhitespaceTile: originalWhitespaceTile ?? this.originalWhitespaceTile
     );
   }
+
 
   @override
   List<Object?> get props => [
@@ -70,5 +81,7 @@ class PuzzleState extends Equatable {
         numberOfCorrectTiles,
         numberOfMoves,
         lastTappedTile,
+        isPending,
+        originalWhitespaceTile
       ];
 }

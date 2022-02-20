@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
+import 'package:cineslide/colors/colors.dart';
 import 'package:cineslide/dashatar/dashatar.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/layout/layout.dart';
@@ -63,7 +64,17 @@ class PuzzlePage extends StatelessWidget {
           create: (_) => AudioControlBloc(),
         ),
       ],
-      child: const PuzzleView(),
+      child: BlocProvider(
+                create: (context) => PuzzleBloc(4)
+                  ..add(
+                    PuzzleInitialized(
+      /// Shuffle only if the current theme is Simple.
+                      shufflePuzzle: context.read<ThemeBloc>().state.theme is SimpleTheme,
+                    ),
+                  ),
+        child: const PuzzleView(),
+              ),
+
     );
   }
 }
@@ -77,12 +88,34 @@ class PuzzleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final PuzzleTheme theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    /// Shuffle only if the current theme is Simple.
-    final shufflePuzzle = theme is SimpleTheme;
 
     return Scaffold(
+      floatingActionButton: BlocBuilder<PuzzleBloc, PuzzleState>(
+        builder: (BuildContext context, PuzzleState state) {
+          final bool isVisible = context
+              .read<PuzzleBloc>()
+              .state
+              .isPending;
+          const duration = Duration(milliseconds: 150);
+          return AnimatedSlide(
+            duration: duration,
+            offset: isVisible ? Offset.zero : Offset(0, 2),
+            child: AnimatedOpacity(
+              duration: duration,
+              opacity: isVisible ? 1 : 0.25,
+              child: FloatingActionButton(
+                backgroundColor: theme.buttonColor,
+                tooltip: context.l10n.puzzleCommit,
+                child: Icon(Icons.check, color: PuzzleColors.white),
+                onPressed: () =>
+                    context.read<PuzzleBloc>().add(TileConfirmed()),
+              ),
+            ),
+          );
+        },
+      ),
       body: AnimatedContainer(
         duration: PuzzleThemeAnimationDuration.backgroundColorChange,
         decoration: BoxDecoration(color: theme.backgroundColor),
@@ -97,14 +130,6 @@ class PuzzleView extends StatelessWidget {
                 create: (context) => TimerBloc(
                   ticker: const Ticker(),
                 ),
-              ),
-              BlocProvider(
-                create: (context) => PuzzleBloc(4)
-                  ..add(
-                    PuzzleInitialized(
-                      shufflePuzzle: shufflePuzzle,
-                    ),
-                  ),
               ),
             ],
             child: const _Puzzle(
