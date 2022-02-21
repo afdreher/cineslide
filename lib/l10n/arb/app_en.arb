@@ -1,5 +1,16 @@
 {
     "@@locale": "en",
+
+    "settingsTitle": "Settings",
+    "@settingsTitle": {
+        "description": "Title for the settings page"
+    },
+
+    "settingsConfirmMoves": "Confirm moves",
+    "@settingsConfirmMoves": {
+        "description": "Settings option to require move confirmation"
+    },
+
     "puzzleChangeTooltip": "Changing the theme will reset your score",
     "@puzzleChangeTooltip": {
         "description": "Shown as a tooltip for puzzle menu buttons"

@@ -9,12 +9,13 @@ import 'package:equatable/equatable.dart';
 
 // Project imports:
 import 'package:cineslide/models/models.dart';
+import 'package:cineslide/settings/settings.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this._size, {this.random}) : super(const PuzzleState()) {
+  PuzzleBloc(this._size, {this.random, this.settings}) : super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<TileConfirmed>(_onTileConfirmed);
@@ -25,6 +26,18 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   final int _size;
 
   final Random? random;
+
+  final SettingsBloc? settings;
+
+   // StreamSubscription settingsSubscription;
+   //
+   //  settingsSubscription = settings.listen((state) {
+   //    if (state is TodosLoadSuccess) {
+   //      add(TodosUpdated((todosBloc.state as TodosLoadSuccess).todos));
+   //    }
+   //  });
+  // }
+
 
   void _onPuzzleInitialized(
     PuzzleInitialized event,
@@ -46,7 +59,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onTileTapped(TileTapped event, Emitter<PuzzleState> emit) {
-    final bool requireConfirmation = true;
+    final bool confirmMoves = settings?.state.confirmMoves ?? false;
 
     final tappedTile = event.tile;
     if (state.puzzleStatus == PuzzleStatus.incomplete) {
@@ -54,7 +67,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         // Move the puzzle status to pending
         final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
         final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
-        if (requireConfirmation) {
+        if (confirmMoves) {
           emit(
             state.copyWith(
               puzzle: puzzle.sort(),

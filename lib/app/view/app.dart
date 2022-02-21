@@ -14,6 +14,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,6 +22,10 @@ import 'package:http/http.dart' as http;
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
+import 'package:cineslide/simple/simple.dart';
+import 'package:cineslide/theme/theme.dart';
+import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/settings/settings.dart';
 
 class App extends StatefulWidget {
   const App({Key? key, ValueGetter<PlatformHelper>? platformHelperFactory})
@@ -178,19 +183,47 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SettingsBloc(),
         ),
-      ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
+        BlocProvider(
+          create: (_) => DashatarThemeBloc(
+            themes: const [
+              BlueDashatarTheme(),
+              GreenDashatarTheme(),
+              YellowDashatarTheme()
+            ],
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ThemeBloc(
+            initialThemes: [
+              const SimpleTheme(),
+              context.read<DashatarThemeBloc>().state.theme,
+            ],
+          ),
+        ),
       ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const PuzzlePage(),
+      child: MaterialApp(
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+          colorScheme: ColorScheme.fromSwatch(
+            accentColor: const Color(0xFF13B9FF),
+          ),
+        ),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        routes: <String, WidgetBuilder>{
+          '/settings': (BuildContext context) =>
+              const SettingsPage(title: context.l10n.settingsTitle),
+        },
+        home: const PuzzlePage(),
+      ),
     );
   }
 }

@@ -13,6 +13,7 @@ import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
+import 'package:cineslide/settings/settings.dart';
 import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
 import 'package:cineslide/timer/timer.dart';
@@ -33,28 +34,12 @@ class PuzzlePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => DashatarThemeBloc(
-            themes: const [
-              BlueDashatarTheme(),
-              GreenDashatarTheme(),
-              YellowDashatarTheme()
-            ],
-          ),
-        ),
-        BlocProvider(
           create: (_) => DashatarPuzzleBloc(
             secondsToBegin: 3,
             ticker: const Ticker(),
           ),
         ),
-        BlocProvider(
-          create: (context) => ThemeBloc(
-            initialThemes: [
-              const SimpleTheme(),
-              context.read<DashatarThemeBloc>().state.theme,
-            ],
-          ),
-        ),
+
         BlocProvider(
           create: (_) => TimerBloc(
             ticker: const Ticker(),
@@ -65,16 +50,16 @@ class PuzzlePage extends StatelessWidget {
         ),
       ],
       child: BlocProvider(
-                create: (context) => PuzzleBloc(4)
-                  ..add(
-                    PuzzleInitialized(
-      /// Shuffle only if the current theme is Simple.
-                      shufflePuzzle: context.read<ThemeBloc>().state.theme is SimpleTheme,
-                    ),
-                  ),
+        create: (context) => PuzzleBloc(4, settings: context.read<SettingsBloc>())
+          ..add(
+            PuzzleInitialized(
+              /// Shuffle only if the current theme is Simple.
+              shufflePuzzle:
+                  context.read<ThemeBloc>().state.theme is SimpleTheme,
+            ),
+          ),
         child: const PuzzleView(),
-              ),
-
+      ),
     );
   }
 }
@@ -88,29 +73,26 @@ class PuzzleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PuzzleTheme theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-
+    final PuzzleTheme theme =
+        context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return Scaffold(
       floatingActionButton: BlocBuilder<PuzzleBloc, PuzzleState>(
         builder: (BuildContext context, PuzzleState state) {
-          final bool isVisible = context
-              .read<PuzzleBloc>()
-              .state
-              .isPending;
+          final bool isVisible = context.read<PuzzleBloc>().state.isPending;
           const duration = Duration(milliseconds: 150);
           return AnimatedSlide(
             duration: duration,
-            offset: isVisible ? Offset.zero : Offset(0, 2),
+            offset: isVisible ? Offset.zero : const Offset(0, 2),
             child: AnimatedOpacity(
               duration: duration,
               opacity: isVisible ? 1 : 0.25,
               child: FloatingActionButton(
                 backgroundColor: theme.buttonColor,
                 tooltip: context.l10n.puzzleCommit,
-                child: Icon(Icons.check, color: PuzzleColors.white),
+                child: const Icon(Icons.check, color: PuzzleColors.white),
                 onPressed: () =>
-                    context.read<PuzzleBloc>().add(TileConfirmed()),
+                    context.read<PuzzleBloc>().add(const TileConfirmed()),
               ),
             ),
           );
@@ -201,6 +183,13 @@ class PuzzleHeader extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(right: 34),
                 child: AudioControl(key: audioControlKey),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 34),
+                child: SettingsControl(key: settingsControlKey),
               ),
             ),
           ],
@@ -386,6 +375,8 @@ class PuzzleMenu extends StatelessWidget {
             return Row(
               children: [
                 const Gap(44),
+                SettingsControl(key: settingsControlKey),
+                const Gap(44),
                 AudioControl(
                   key: audioControlKey,
                 )
@@ -530,3 +521,9 @@ final numberOfMovesAndTilesLeftKey =
 /// Used to animate the transition of [AudioControl]
 /// when changing a theme.
 final audioControlKey = GlobalKey(debugLabel: 'audio_control');
+
+/// The global key of [SettingsControl].
+///
+/// Used to animate the transition of [SettingsControl]
+/// when changing a theme.
+final settingsControlKey = GlobalKey(debugLabel: 'settings_control');
