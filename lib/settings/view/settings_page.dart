@@ -35,7 +35,7 @@ class SettingsPage extends StatelessWidget {
         body: SingleChildScrollView(
               child: Center(
         child: ConstrainedBox(
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 500,
                 ),
                 child: Column(

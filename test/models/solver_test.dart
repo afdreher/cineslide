@@ -159,8 +159,6 @@ void main() {
         12, 1, 15, 0, //
       ]);
 
-      print(test4x4Puzzle.getNumberOfCorrectTiles());
-
       final Solver solver = Solver(puzzle: test4x4Puzzle);
       List<Tile> solution = solver.solve();
 

@@ -17,7 +17,7 @@ class SettingsControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final IconData? icon = Icons.settings;
+    const IconData? icon = Icons.settings;
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final Color color = theme.nameColor;
 

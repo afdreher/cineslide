@@ -220,7 +220,7 @@ class _AppState extends State<App> {
         supportedLocales: AppLocalizations.supportedLocales,
         routes: <String, WidgetBuilder>{
           '/settings': (BuildContext context) =>
-              const SettingsPage(title: context.l10n.settingsTitle),
+              SettingsPage(title: context.l10n.settingsTitle),
         },
         home: const PuzzlePage(),
       ),
