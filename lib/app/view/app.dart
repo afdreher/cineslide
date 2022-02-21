@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:http/http.dart' as http;
 
 // Project imports:
@@ -206,23 +207,28 @@ class _AppState extends State<App> {
           ),
         ),
       ],
-      child: MaterialApp(
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-          colorScheme: ColorScheme.fromSwatch(
-            accentColor: const Color(0xFF13B9FF),
+      child: PlatformProvider(
+        settings: PlatformSettingsData(iosUsesMaterialWidgets: true),
+        builder: (context) => PlatformApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          routes: <String, WidgetBuilder>{
+            '/settings': (BuildContext context) =>
+                SettingsPage(title: context.l10n.settingsTitle),
+          },
+          material: (_, __) => MaterialAppData(
+            theme: ThemeData(
+              appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+              colorScheme: ColorScheme.fromSwatch(
+                accentColor: const Color(0xFF13B9FF),
+              ),
+            ),
           ),
+          home: const PuzzlePage(),
         ),
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        routes: <String, WidgetBuilder>{
-          '/settings': (BuildContext context) =>
-              SettingsPage(title: context.l10n.settingsTitle),
-        },
-        home: const PuzzlePage(),
       ),
     );
   }

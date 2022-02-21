@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 // Project imports:
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/theme/theme.dart';
+import 'package:cineslide/settings/settings.dart';
+import 'package:cineslide/l10n/l10n.dart';
 
 /// {@template settings_control}
 /// Displays the settings widget
@@ -24,7 +28,20 @@ class SettingsControl extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed('/settings'),
+        onTap: () {
+          if (isCupertino(context)) {
+            showCupertinoModalBottomSheet(
+              context: context,
+              expand: true,
+              builder: (context) => SingleChildScrollView(
+                controller: ModalScrollController.of(context),
+                child: SettingsPage(title: context.l10n.settingsTitle),
+              ),
+            );
+          } else {
+            Navigator.of(context).pushNamed('/settings');
+          }
+        },
         child: AnimatedSwitcher(
           duration: PuzzleThemeAnimationDuration.backgroundColorChange,
           child: ResponsiveLayoutBuilder(
