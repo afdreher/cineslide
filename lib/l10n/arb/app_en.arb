@@ -11,6 +11,16 @@
         "description": "Settings option to require move confirmation"
     },
 
+    "settingsShowTileNumbers": "Show tile numbers",
+    "@settingsShowTileNumbers": {
+        "description": "Settings option to show tile numbers"
+    },
+
+    "settingsShowHints": "Show hints",
+    "@settingsShowHints": {
+        "description": "Settings option to show move hints"
+    },
+
     "puzzleChangeTooltip": "Changing the theme will reset your score",
     "@puzzleChangeTooltip": {
         "description": "Shown as a tooltip for puzzle menu buttons"

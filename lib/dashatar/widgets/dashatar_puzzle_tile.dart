@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:ui';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -17,6 +18,10 @@ import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/theme/themes/themes.dart';
+import 'package:cineslide/typography/text_styles.dart';
+import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/settings/settings.dart';
+import 'package:cineslide/corner_triangle/corner_triangle.dart';
 
 abstract class _TileSize {
   static double small = 75;
@@ -151,25 +156,116 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
             child: ScaleTransition(
               key: Key('dashatar_puzzle_tile_scale_${widget.tile.value}'),
               scale: _scale,
-              child: IconButton(
-                padding: EdgeInsets.zero,
+              child: PuzzleTileButton(
+                tile: widget.tile,
+                theme: theme,
                 onPressed: canPress
                     ? () {
                         context.read<PuzzleBloc>().add(TileTapped(widget.tile));
                         unawaited(_audioPlayer?.replay());
                       }
                     : null,
-                icon: Image.asset(
+                child: Image.asset(
                   theme.dashAssetForTile(widget.tile),
-                  semanticLabel: context.l10n.puzzleTileLabelText(
-                    widget.tile.value.toString(),
-                    widget.tile.currentPosition.x.toString(),
-                    widget.tile.currentPosition.y.toString(),
-                  ),
                 ),
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class PuzzleTileButton extends StatelessWidget {
+  const PuzzleTileButton(
+      {Key? key,
+      required this.tile,
+      required this.theme,
+      this.onPressed,
+      this.child})
+      : super(key: key);
+
+  final Tile tile;
+
+  final VoidCallback? onPressed;
+
+  final PuzzleTheme theme;
+
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget? theChild = child;
+
+    print('Building PuzzleTileButton with tile #${tile.value}');
+
+    return Semantics(
+      button: true,
+      label: context.l10n.puzzleTileLabelText(
+        tile.value.toString(),
+        tile.currentPosition.x.toString(),
+        tile.currentPosition.y.toString(),
+      ),
+      child: OutlinedButton(
+        clipBehavior: Clip.antiAlias,
+        style: TextButton.styleFrom(
+          primary: PuzzleColors.white,
+          textStyle: PuzzleTextStyle.bodySmall,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(12),
+            ),
+          ),
+          padding: EdgeInsets.zero,
+          alignment: Alignment.topLeft,
+        ),
+        onPressed: this.onPressed,
+        child: Stack(
+          children: <Widget>[
+            if (theChild != null) theChild,
+            FractionallySizedBox(
+              heightFactor: 0.9,
+              widthFactor: 0.9,
+              child: BlocBuilder<SettingsBloc, SettingsState>(
+                builder: (context, state) {
+                  if (!context.read<SettingsBloc>().state.showTileNumbers) {
+                    return Container();
+                  }
+
+                  return Stack(
+                    children: [
+                      ClipPath(
+                        clipBehavior: Clip.antiAlias,
+                        clipper: CornerTriangleClipper(
+                          corner: Corner.topLeft,
+                        ),
+                        child: ImageFiltered(
+                          imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: theChild,
+                        ),
+                      ),
+                      FractionallySizedBox(
+                        widthFactor: 1.0,
+                      heightFactor: 1.0,
+                      child: CornerTriangle(
+                        corner: Corner.topLeft,
+                        color: theme.titleColor.withOpacity(0.25),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10, top: 5),
+                          child: Text(
+                            tile.value.toString(),
+                            style: TextStyle(color: theme.titleColor),
+                          ),
+                        ),
+                      ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

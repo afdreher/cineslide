@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,8 @@ import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
 import 'package:cineslide/typography/typography.dart';
+import 'package:cineslide/corner_triangle/corner_triangle.dart';
+import 'package:cineslide/settings/settings.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -347,47 +351,70 @@ class SimplePuzzleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return TextButton(
-      style: TextButton.styleFrom(
-        primary: PuzzleColors.white,
-        textStyle: PuzzleTextStyle.headline2.copyWith(
-          fontSize: tileFontSize,
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12),
-          ),
-        ),
-      ).copyWith(
-        foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) {
-            if (tile.value == state.lastTappedTile?.value) {
-              if (tile.isInCorrectPosition) {
-                return theme.correctPressedColor;
-              } else {
-                return theme.pressedColor;
-              }
-            } else if (states.contains(MaterialState.hovered)) {
-              return theme.hoverColor;
-            } else if (tile.isInCorrectPosition) {
-              return theme.correctColor;
-            } else {
-              return theme.defaultColor;
-            }
-          },
-        ),
-      ),
-      onPressed: (state.puzzleStatus == PuzzleStatus.incomplete || state.puzzleStatus == PuzzleStatus.pending)
-          ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
-          : null,
-      child: Text(
+    return Semantics(
+      button: true,
+      label: context.l10n.puzzleTileLabelText(
         tile.value.toString(),
-        semanticsLabel: context.l10n.puzzleTileLabelText(
-          tile.value.toString(),
-          tile.currentPosition.x.toString(),
-          tile.currentPosition.y.toString(),
-        ),
+        tile.currentPosition.x.toString(),
+        tile.currentPosition.y.toString(),
+      ),
+      child: OutlinedButton(
+          clipBehavior: Clip.antiAlias,
+          style: TextButton.styleFrom(
+            primary: PuzzleColors.white,
+            textStyle: PuzzleTextStyle.bodySmall,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(12),
+              ),
+            ),
+            padding: EdgeInsets.zero,
+            alignment: Alignment.topLeft,
+          ).copyWith(
+            foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
+            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+              (states) {
+                if (tile.value == state.lastTappedTile?.value) {
+                  if (tile.isInCorrectPosition) {
+                    return theme.correctPressedColor;
+                  } else {
+                    return theme.pressedColor;
+                  }
+                } else if (states.contains(MaterialState.hovered)) {
+                  return theme.hoverColor;
+                } else if (tile.isInCorrectPosition) {
+                  return theme.correctColor;
+                } else {
+                  return theme.defaultColor;
+                }
+              },
+            ),
+          ),
+          onPressed: (state.puzzleStatus == PuzzleStatus.incomplete ||
+                  state.puzzleStatus == PuzzleStatus.pending)
+              ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
+              : null,
+          child: FractionallySizedBox(
+            heightFactor: 0.9,
+            widthFactor: 0.9,
+            child: BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
+                return context.read<SettingsBloc>().state.showTileNumbers ?
+
+                CornerTriangle(
+              corner: Corner.topLeft,
+              color: Colors.blue,
+              child: Padding(
+                padding: EdgeInsets.only(left: 10, top: 5),
+                child: Text(
+                  tile.value.toString(),
+                ),
+              ),
+            ) : Container();
+              },
+            ),
+
+          ),
       ),
     );
   }

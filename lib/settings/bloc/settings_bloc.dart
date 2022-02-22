@@ -8,11 +8,29 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc() : super(const SettingsState(confirmMoves: false)) {
+  SettingsBloc()
+      : super(const SettingsState(
+          confirmMoves: false,
+          showTileNumbers: false,
+          showHints: false,
+        )) {
     on<ConfirmMovesChanged>(_onConfirmMovesChanged);
+    on<ShowTileNumbersChanged>(_onShowTileNumbersChanged);
+    on<ShowHintsChanged>(_onShowHintsChanged);
   }
 
-  void _onConfirmMovesChanged(ConfirmMovesChanged event, Emitter<SettingsState> emit) {
+  void _onConfirmMovesChanged(
+      ConfirmMovesChanged event, Emitter<SettingsState> emit) {
     emit(state.copyWith(confirmMoves: event.confirmMoves));
+  }
+
+  void _onShowTileNumbersChanged(
+      ShowTileNumbersChanged event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(showTileNumbers: event.showNumbers));
+  }
+
+  void _onShowHintsChanged(
+      ShowHintsChanged event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(showHints: event.showHints));
   }
 }
