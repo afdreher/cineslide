@@ -325,7 +325,7 @@ class PuzzleTileButton extends StatelessWidget {
                     children: [
                       ClipPath(
                         clipBehavior: Clip.antiAlias,
-                        clipper: CornerTriangleClipper(
+                        clipper: const CornerTriangleClipper(
                           corner: Corner.topLeft,
                         ),
                         child: ImageFiltered(

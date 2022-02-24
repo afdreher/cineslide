@@ -6,7 +6,7 @@ import 'package:cineslide/corner_triangle/widgets/corner_triangle_path.dart';
 import 'package:cineslide/corner_triangle/widgets/enums.dart';
 
 class CornerTrianglePainter extends CustomPainter {
-  CornerTrianglePainter({
+   const CornerTrianglePainter({
     required this.corner,
     this.color,
     this.border,

@@ -4,9 +4,8 @@ import 'package:cineslide/corner_triangle/widgets/corner_triangle_clipper.dart';
 import 'package:cineslide/corner_triangle/widgets/corner_triangle_painter.dart';
 import 'package:cineslide/corner_triangle/widgets/enums.dart';
 
-
 class CornerTriangle extends StatelessWidget {
-  CornerTriangle({
+   CornerTriangle({
     Key? key,
     required this.corner,
     this.color,
@@ -14,8 +13,8 @@ class CornerTriangle extends StatelessWidget {
     this.shadows,
     this.clipBehavior = Clip.none,
     this.child,
-  }) : clipper = CornerTriangleClipper(
-          corner: corner), super(key: key);
+  })  : clipper = CornerTriangleClipper(corner: corner),
+        super(key: key);
 
   /// The corner in which to draw the triangle
   final Corner corner;
@@ -25,22 +24,22 @@ class CornerTriangle extends StatelessWidget {
   final List<BoxShadow>? shadows;
 
   final Clip clipBehavior;
- final CornerTriangleClipper clipper;
+  final CornerTriangleClipper clipper;
 
   final Widget? child;
 
- @override
+  @override
   Widget build(BuildContext context) {
-   Widget? clippedChild;
-   if (child != null && clipBehavior != Clip.none) {
-     clippedChild = ClipPath(
-       clipper: clipper,
-       clipBehavior: clipBehavior,
-       child: child,
-     );
-   } else {
-     clippedChild = child;
-   }
+    Widget? clippedChild;
+    if (child != null && clipBehavior != Clip.none) {
+      clippedChild = ClipPath(
+        clipper: clipper,
+        clipBehavior: clipBehavior,
+        child: child,
+      );
+    } else {
+      clippedChild = child;
+    }
 
     return CustomPaint(
       painter: CornerTrianglePainter(
