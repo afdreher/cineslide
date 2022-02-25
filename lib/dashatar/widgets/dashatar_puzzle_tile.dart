@@ -68,8 +68,6 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
   late AnimationController _controller;
   late Animation<double> _scale;
 
-  /// [Animation] to desaturate the tile color
-  late Animation<double> _decolorize;
 
   @override
   void initState() {
@@ -81,13 +79,6 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
     );
 
     _scale = Tween<double>(begin: 1, end: 0.94).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0, 1, curve: Curves.easeInOut),
-      ),
-    );
-
-    _decolorize = Tween<double>(begin: 0.0, end: -0.95).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0, 1, curve: Curves.easeInOut),
@@ -276,10 +267,9 @@ class PuzzleTileButton extends StatelessWidget {
       theChild = TweenAnimationBuilder(
         key: childKey,
         child: theChild,
-        tween: isCorrect
-            ? _forwardTween
-            : _reverseTween,
+        tween: isCorrect ? _forwardTween : _reverseTween,
         duration: duration,
+        curve:  isCorrect ? Curves.easeIn : Curves.ease,
         builder: (_, double value, Widget? myChild) {
           return ChangeColors(
             saturation: value,
