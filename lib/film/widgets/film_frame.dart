@@ -6,19 +6,20 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:cineslide/film/film.dart';
+import 'package:cineslide/film/widgets/perfs.dart';
 
-class Size {
-  const Size({required this.height, required this.width});
+class _Size {
+  const _Size({required this.height, required this.width});
 
   final double height;
   final double width;
 }
 
-class Measurements {
-  const Measurements({required this.frame, required this.picture});
+class _Measurements {
+  const _Measurements({required this.frame, required this.picture});
 
-  final Size frame;
-  final Size picture;
+  final _Size frame;
+  final _Size picture;
 }
 
 class FilmFrame extends StatelessWidget {
@@ -83,7 +84,7 @@ class FilmFrame extends StatelessWidget {
     });
   }
 
-  Measurements computeMeasurements(
+  _Measurements computeMeasurements(
       BoxConstraints constraints, EdgeInsets insets) {
     // Rounding makes the step more consistent
     double picture = min(constraints.maxWidth - insets.horizontal,
@@ -94,9 +95,9 @@ class FilmFrame extends StatelessWidget {
     double height = (pictureHeight + insets.vertical).roundToDouble();
     double width = (picture + insets.horizontal).roundToDouble();
 
-    return Measurements(
-        frame: Size(height: height, width: width),
-        picture: Size(height: pictureHeight, width: picture));
+    return _Measurements(
+        frame: _Size(height: height, width: width),
+        picture: _Size(height: pictureHeight, width: picture));
   }
 
   Widget _horizontalFilm(BuildContext context, BoxConstraints constraints) {
@@ -109,7 +110,7 @@ class FilmFrame extends StatelessWidget {
     EdgeInsets pictureInset = EdgeInsets.symmetric(
         horizontal: 8.0, vertical: 2.0 * perfPadding + fontSize + perfHeight);
 
-    final Measurements measurements =
+    final _Measurements measurements =
         computeMeasurements(constraints, pictureInset);
 
     Widget theChild = child ??
@@ -192,7 +193,7 @@ class FilmFrame extends StatelessWidget {
     const EdgeInsets pictureInset =
         EdgeInsets.symmetric(horizontal: 46.0, vertical: 8.0);
 
-    final Measurements measurements =
+    final _Measurements measurements =
         computeMeasurements(constraints, pictureInset);
 
     Widget theChild = child ??

@@ -1,8 +1,4 @@
-export 'animated_film_frame.dart';
-export 'film_colors.dart';
-export 'film_frame.dart';
-export 'film_frame_button.dart';
-export 'film_strip.dart';
-export 'perfs.dart';
+export 'colors.dart';
+export 'widgets/widgets.dart';
 
 enum FilmDirection { vertical, horizontal }
