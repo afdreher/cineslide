@@ -4,8 +4,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:cineslide/dashatar/dashatar.dart';
-import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
 
 void main() {
@@ -23,17 +21,17 @@ void main() {
       });
     });
 
-    group('ThemeUpdated', () {
-      test('supports value comparisons', () {
-        expect(
-          ThemeUpdated(theme: SimpleTheme()),
-          equals(ThemeUpdated(theme: SimpleTheme())),
-        );
-        expect(
-          ThemeUpdated(theme: GreenDashatarTheme()),
-          isNot(ThemeUpdated(theme: SimpleTheme())),
-        );
-      });
-    });
+    // group('ThemeUpdated', () {
+    //   test('supports value comparisons', () {
+    //     expect(
+    //       ThemeUpdated(theme: SimpleTheme()),
+    //       equals(ThemeUpdated(theme: SimpleTheme())),
+    //     );
+    //     expect(
+    //       ThemeUpdated(theme: GreenDashatarTheme()),
+    //       isNot(ThemeUpdated(theme: SimpleTheme())),
+    //     );
+    //   });
+    // });
   });
 }

@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/cinematic/cinematic.dart';
-import 'package:cineslide/dashatar/dashatar.dart';
 import 'package:cineslide/film/film.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/layout/layout.dart';
@@ -89,12 +88,6 @@ class PuzzleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => DashatarPuzzleBloc(
-            secondsToBegin: 3,
-            ticker: const Ticker(),
-          ),
-        ),
         BlocProvider(
           create: (_) => CinematicPuzzleBloc(
             secondsToBegin: 3,

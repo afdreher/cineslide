@@ -12,17 +12,14 @@ import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
-import 'package:cineslide/dashatar/dashatar.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
-import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
   group('PuzzleKeyboardHandler', () {
     late ThemeBloc themeBloc;
-    late DashatarPuzzleBloc dashatarPuzzleBloc;
     late PuzzleBloc puzzleBloc;
     late Puzzle puzzle;
     late AudioPlayer audioPlayer;
@@ -36,17 +33,17 @@ void main() {
 
     setUp(() {
       themeBloc = MockThemeBloc();
-      when(() => themeBloc.state).thenReturn(
-        ThemeState(
-          themes: [SimpleTheme(), GreenDashatarTheme()],
-          theme: SimpleTheme(),
-        ),
-      );
+      // when(() => themeBloc.state).thenReturn(
+      //   ThemeState(
+      //     themes: [SimpleTheme(), GreenDashatarTheme()],
+      //     theme: SimpleTheme(),
+      //   ),
+      // );
 
-      dashatarPuzzleBloc = MockDashatarPuzzleBloc();
-      when(() => dashatarPuzzleBloc.state).thenReturn(
-        DashatarPuzzleState(secondsToBegin: 3),
-      );
+      // dashatarPuzzleBloc = MockDashatarPuzzleBloc();
+      // when(() => dashatarPuzzleBloc.state).thenReturn(
+      //   DashatarPuzzleState(secondsToBegin: 3),
+      // );
 
       puzzleBloc = MockPuzzleBloc();
       final puzzleState = MockPuzzleState();
@@ -80,7 +77,6 @@ void main() {
           audioPlayer: () => audioPlayer,
         ),
         themeBloc: themeBloc,
-        dashatarPuzzleBloc: dashatarPuzzleBloc,
         puzzleBloc: puzzleBloc,
         audioControlBloc: audioControlBloc,
       );
@@ -114,7 +110,6 @@ void main() {
           audioPlayer: () => audioPlayer,
         ),
         themeBloc: themeBloc,
-        dashatarPuzzleBloc: dashatarPuzzleBloc,
         puzzleBloc: puzzleBloc,
         audioControlBloc: audioControlBloc,
       );
@@ -148,7 +143,6 @@ void main() {
           audioPlayer: () => audioPlayer,
         ),
         themeBloc: themeBloc,
-        dashatarPuzzleBloc: dashatarPuzzleBloc,
         puzzleBloc: puzzleBloc,
         audioControlBloc: audioControlBloc,
       );
@@ -182,7 +176,6 @@ void main() {
           audioPlayer: () => audioPlayer,
         ),
         themeBloc: themeBloc,
-        dashatarPuzzleBloc: dashatarPuzzleBloc,
         puzzleBloc: puzzleBloc,
         audioControlBloc: audioControlBloc,
       );
@@ -202,33 +195,33 @@ void main() {
       verify(audioPlayer.play).called(1);
     });
 
-    testWidgets(
-        'does not add TileTapped '
-        'when arrow is pressed and '
-        'Dashatar puzzle is not started', (tester) async {
-      when(() => themeBloc.state).thenReturn(
-        ThemeState(
-          themes: [SimpleTheme(), GreenDashatarTheme()],
-          theme: GreenDashatarTheme(),
-        ),
-      );
-
-      await tester.pumpApp(
-        PuzzleKeyboardHandler(child: SizedBox()),
-        themeBloc: themeBloc,
-        dashatarPuzzleBloc: dashatarPuzzleBloc,
-        puzzleBloc: puzzleBloc,
-        audioControlBloc: audioControlBloc,
-      );
-
-      await simulateKeyDownEvent(
-        LogicalKeyboardKey.arrowLeft,
-        physicalKey: PhysicalKeyboardKey.arrowLeft,
-      );
-
-      verifyNever(() => puzzle.getTileRelativeToWhitespaceTile(Offset(1, 0)));
-      verifyNever(() => puzzleBloc.add(TileTapped(tile)));
-    });
+    // testWidgets(
+    //     'does not add TileTapped '
+    //     'when arrow is pressed and '
+    //     'Dashatar puzzle is not started', (tester) async {
+    //   when(() => themeBloc.state).thenReturn(
+    //     ThemeState(
+    //       themes: [SimpleTheme(), GreenDashatarTheme()],
+    //       theme: GreenDashatarTheme(),
+    //     ),
+    //   );
+    //
+    //   await tester.pumpApp(
+    //     PuzzleKeyboardHandler(child: SizedBox()),
+    //     themeBloc: themeBloc,
+    //     dashatarPuzzleBloc: dashatarPuzzleBloc,
+    //     puzzleBloc: puzzleBloc,
+    //     audioControlBloc: audioControlBloc,
+    //   );
+    //
+    //   await simulateKeyDownEvent(
+    //     LogicalKeyboardKey.arrowLeft,
+    //     physicalKey: PhysicalKeyboardKey.arrowLeft,
+    //   );
+    //
+    //   verifyNever(() => puzzle.getTileRelativeToWhitespaceTile(Offset(1, 0)));
+    //   verifyNever(() => puzzleBloc.add(TileTapped(tile)));
+    // });
 
     testWidgets('renders child', (tester) async {
       const key = Key('__child__');
@@ -238,7 +231,6 @@ void main() {
           child: SizedBox(key: key),
         ),
         themeBloc: themeBloc,
-        dashatarPuzzleBloc: dashatarPuzzleBloc,
         puzzleBloc: puzzleBloc,
         audioControlBloc: audioControlBloc,
       );
@@ -252,7 +244,6 @@ void main() {
           child: SizedBox(),
         ),
         themeBloc: themeBloc,
-        dashatarPuzzleBloc: dashatarPuzzleBloc,
         puzzleBloc: puzzleBloc,
         audioControlBloc: audioControlBloc,
       );

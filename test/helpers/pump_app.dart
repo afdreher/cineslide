@@ -15,7 +15,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
-import 'package:cineslide/dashatar/dashatar.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/theme/theme.dart';
@@ -26,8 +25,6 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     ThemeBloc? themeBloc,
-    DashatarThemeBloc? dashatarThemeBloc,
-    DashatarPuzzleBloc? dashatarPuzzleBloc,
     PuzzleBloc? puzzleBloc,
     TimerBloc? timerBloc,
     AudioControlBloc? audioControlBloc,
@@ -37,12 +34,6 @@ extension PumpApp on WidgetTester {
         providers: [
           BlocProvider.value(
             value: themeBloc ?? MockThemeBloc(),
-          ),
-          BlocProvider.value(
-            value: dashatarThemeBloc ?? MockDashatarThemeBloc(),
-          ),
-          BlocProvider.value(
-            value: dashatarPuzzleBloc ?? MockDashatarPuzzleBloc(),
           ),
           BlocProvider.value(
             value: puzzleBloc ?? MockPuzzleBloc(),

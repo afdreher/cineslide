@@ -2,10 +2,10 @@
 
 // Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:equatable/equatable.dart';
 
 // Project imports:
-import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
 
 part 'theme_event.dart';

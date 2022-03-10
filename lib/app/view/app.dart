@@ -26,7 +26,6 @@ import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/menu/menu.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/settings/settings.dart';
-import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
 
 class App extends StatefulWidget {
@@ -193,7 +192,6 @@ class _AppState extends State<App> {
         BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
-              const SimpleTheme(),
               const MuybridgeBuffaloTheme(),
             ],
           ),

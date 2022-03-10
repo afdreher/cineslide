@@ -7,7 +7,6 @@ import 'package:url_launcher_platform_interface/url_launcher_platform_interface.
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
-import 'package:cineslide/dashatar/dashatar.dart';
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
@@ -17,20 +16,8 @@ import 'package:cineslide/timer/timer.dart';
 
 class MockPuzzleTheme extends Mock implements PuzzleTheme {}
 
-class MockDashatarTheme extends Mock implements DashatarTheme {}
-
 class MockThemeBloc extends MockBloc<ThemeEvent, ThemeState>
     implements ThemeBloc {}
-
-class MockDashatarThemeBloc
-    extends MockBloc<DashatarThemeEvent, DashatarThemeState>
-    implements DashatarThemeBloc {}
-
-class MockDashatarPuzzleBloc
-    extends MockBloc<DashatarPuzzleEvent, DashatarPuzzleState>
-    implements DashatarPuzzleBloc {}
-
-class MockDashatarPuzzleState extends Mock implements DashatarPuzzleState {}
 
 class MockPuzzleBloc extends MockBloc<PuzzleEvent, PuzzleState>
     implements PuzzleBloc {}
