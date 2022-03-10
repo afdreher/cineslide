@@ -1,23 +1,31 @@
 // Flutter imports:
+import 'package:cineslide/tile_image_provider/tile_image_provider.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
-import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/film/film.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/settings/settings.dart';
-import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
 import 'package:cineslide/timer/timer.dart';
 import 'package:cineslide/typography/typography.dart';
+
+// const Map<String, int> boardSizes = {
+//   'small': 312,
+//   'medium': 424,
+//   'large': 472,
+// };
 
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
@@ -31,6 +39,54 @@ class PuzzlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Extract the arguments from the current ModalRoute
+    // settings and cast them as ScreenArguments.
+    final PuzzleArguments args =
+        ModalRoute.of(context)!.settings.arguments as PuzzleArguments;
+    final PuzzleTheme theme = args.theme;
+    final int count = args.squareCount;
+
+    // Find out which theme we need
+    context.read<ThemeBloc>().add(ThemeUpdated(theme: args.theme));
+
+    if (theme is CinematicTheme) {
+      return FutureBuilder<TileImageProvider?>(
+        future: TileImageProvider.fromImage(
+                provider: AssetImage(theme.themeAsset), rowCount: count)
+            .then((provider) => provider.generateAllTiles()),
+        builder:
+            (BuildContext context, AsyncSnapshot<TileImageProvider?> snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            return Provider<TileImageProvider>(
+              create: (_) => snapshot.data as TileImageProvider,
+              child: const PuzzleScreen(),
+            );
+          }
+          return const LoadingScreen();
+        },
+      );
+    } else {
+      return const PuzzleScreen();
+    }
+  }
+}
+
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class PuzzleScreen extends StatelessWidget {
+  const PuzzleScreen({Key? key, this.squareCount = 4}) : super(key: key);
+
+  final int squareCount;
+
+  @override
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -39,7 +95,12 @@ class PuzzlePage extends StatelessWidget {
             ticker: const Ticker(),
           ),
         ),
-
+        BlocProvider(
+          create: (_) => CinematicPuzzleBloc(
+            secondsToBegin: 3,
+            ticker: const Ticker(),
+          ),
+        ),
         BlocProvider(
           create: (_) => TimerBloc(
             ticker: const Ticker(),
@@ -50,112 +111,17 @@ class PuzzlePage extends StatelessWidget {
         ),
       ],
       child: BlocProvider(
-        create: (context) => PuzzleBloc(4, settings: context.read<SettingsBloc>())
-          ..add(
-            PuzzleInitialized(
-              /// Shuffle only if the current theme is Simple.
-              shufflePuzzle:
-                  context.read<ThemeBloc>().state.theme is SimpleTheme,
-            ),
-          ),
+        create: (context) =>
+            PuzzleBloc(squareCount, settings: context.read<SettingsBloc>())
+              ..add(
+                const PuzzleInitialized(
+                  /// Shuffle only if the current theme is Simple.
+                  shufflePuzzle:
+                      false, // context.read<ThemeBloc>().state.theme is SimpleTheme,
+                ),
+              ),
         child: const PuzzleView(),
       ),
-    );
-  }
-}
-
-/// {@template puzzle_view}
-/// Displays the content for the [PuzzlePage].
-/// {@endtemplate}
-class PuzzleView extends StatelessWidget {
-  /// {@macro puzzle_view}
-  const PuzzleView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final PuzzleTheme theme =
-        context.select((ThemeBloc bloc) => bloc.state.theme);
-
-    return Scaffold(
-      floatingActionButton: BlocBuilder<PuzzleBloc, PuzzleState>(
-        builder: (BuildContext context, PuzzleState state) {
-          final bool isVisible = context.read<PuzzleBloc>().state.isPending;
-          const duration = Duration(milliseconds: 150);
-          return AnimatedSlide(
-            duration: duration,
-            offset: isVisible ? Offset.zero : const Offset(0, 2),
-            child: AnimatedOpacity(
-              duration: duration,
-              opacity: isVisible ? 1 : 0.25,
-              child: FloatingActionButton(
-                backgroundColor: theme.buttonColor,
-                tooltip: context.l10n.puzzleCommit,
-                child: const Icon(Icons.check, color: PuzzleColors.white),
-                onPressed: () =>
-                    context.read<PuzzleBloc>().add(const TileConfirmed()),
-              ),
-            ),
-          );
-        },
-      ),
-      body: AnimatedContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        decoration: BoxDecoration(color: theme.backgroundColor),
-        child: BlocListener<DashatarThemeBloc, DashatarThemeState>(
-          listener: (context, state) {
-            final dashatarTheme = context.read<DashatarThemeBloc>().state.theme;
-            context.read<ThemeBloc>().add(ThemeUpdated(theme: dashatarTheme));
-          },
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => TimerBloc(
-                  ticker: const Ticker(),
-                ),
-              ),
-            ],
-            child: const _Puzzle(
-              key: Key('puzzle_view_puzzle'),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Puzzle extends StatelessWidget {
-  const _Puzzle({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final state = context.select((PuzzleBloc bloc) => bloc.state);
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Stack(
-          children: [
-            if (theme is SimpleTheme)
-              theme.layoutDelegate.backgroundBuilder(state),
-            SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
-                child: Column(
-                  children: const [
-                    PuzzleHeader(),
-                    PuzzleSections(),
-                  ],
-                ),
-              ),
-            ),
-            if (theme is! SimpleTheme)
-              theme.layoutDelegate.backgroundBuilder(state),
-          ],
-        );
-      },
     );
   }
 }
@@ -170,52 +136,103 @@ class PuzzleHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 96,
-      child: ResponsiveLayoutBuilder(
-        small: (context, child) => Stack(
-          children: [
-            const Align(
-              child: PuzzleLogo(),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 34),
-                child: AudioControl(key: audioControlKey),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 34),
+    // return SizedBox(
+    //   height: 96,
+    //   child: ResponsiveLayoutBuilder(
+    //     small: (context, child) => Stack(
+    //       children: [
+    //         const Align(
+    //           child: PuzzleLogo(),
+    //         ),
+    //         Align(
+    //           alignment: Alignment.centerRight,
+    //           child: Padding(
+    //             padding: const EdgeInsets.only(right: 34),
+    //             child: AudioControl(key: audioControlKey),
+    //           ),
+    //         ),
+    //         Align(
+    //           alignment: Alignment.centerLeft,
+    //           child: Padding(
+    //             padding: const EdgeInsets.only(left: 34),
+    //             child: SettingsControl(key: settingsControlKey),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //     medium: (context, child) => Padding(
+    //       padding: const EdgeInsets.symmetric(
+    //         horizontal: 50,
+    //       ),
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: const [
+    //           PuzzleLogo(),
+    //           PuzzleMenu(),
+    //         ],
+    //       ),
+    //     ),
+    //     large: (context, child) => Padding(
+    //       padding: const EdgeInsets.symmetric(
+    //         horizontal: 50,
+    //       ),
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: const [
+    //           PuzzleLogo(),
+    //           PuzzleMenu(),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
+
+    return SafeArea(
+      child: SizedBox(
+        height: 200,
+        child: ResponsiveLayoutBuilder(
+          small: (context, constraints, child) => FilmStrip.horizontal(
+            aspect: 0.667,
+            startingNumber: 2,
+            frameText: (int frame) => frame % 2 == 0 ? 'CINESLIDE' : '',
+            perfCount: 5,
+            perfHeight: 15,
+            fontSize: 8,
+            children: [
+              Center(
                 child: SettingsControl(key: settingsControlKey),
               ),
+              const Center(
+                child: PuzzleLogo(),
+              ),
+              Center(
+                child: AudioControl(key: audioControlKey),
+              ),
+            ],
+          ),
+          medium: (context, __, child) => Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 50,
             ),
-          ],
-        ),
-        medium: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                PuzzleLogo(),
+                PuzzleMenu(),
+              ],
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
-            ],
-          ),
-        ),
-        large: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
-            ],
+          large: (context, __, child) => Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 50,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                PuzzleLogo(),
+                PuzzleMenu(),
+              ],
+            ),
           ),
         ),
       ),
@@ -255,30 +272,30 @@ class PuzzleSections extends StatelessWidget {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     return ResponsiveLayoutBuilder(
-      small: (context, child) => Column(
+      small: (context, __, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state),
+          theme.layoutDelegate.startSectionBuilder(context, state),
           const PuzzleMenu(),
           const PuzzleBoard(),
-          theme.layoutDelegate.endSectionBuilder(state),
+          theme.layoutDelegate.endSectionBuilder(context, state),
         ],
       ),
-      medium: (context, child) => Column(
+      medium: (context, __, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state),
+          theme.layoutDelegate.startSectionBuilder(context, state),
           const PuzzleBoard(),
-          theme.layoutDelegate.endSectionBuilder(state),
+          theme.layoutDelegate.endSectionBuilder(context, state),
         ],
       ),
-      large: (context, child) => Row(
+      large: (context, __, child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: theme.layoutDelegate.startSectionBuilder(state),
+            child: theme.layoutDelegate.startSectionBuilder(context, state),
           ),
           const PuzzleBoard(),
           Expanded(
-            child: theme.layoutDelegate.endSectionBuilder(state),
+            child: theme.layoutDelegate.endSectionBuilder(context, state),
           ),
         ],
       ),
@@ -310,6 +327,7 @@ class PuzzleBoard extends StatelessWidget {
           }
         },
         child: theme.layoutDelegate.boardBuilder(
+          context,
           size,
           puzzle.tiles
               .map(
@@ -340,8 +358,9 @@ class _PuzzleTile extends StatelessWidget {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     return tile.isWhitespace
-        ? theme.layoutDelegate.whitespaceTileBuilder()
-        : theme.layoutDelegate.tileBuilder(tile, state);
+        ? theme.layoutDelegate
+            .whitespaceTileBuilder(context, tile: tile, state: state)
+        : theme.layoutDelegate.tileBuilder(context, tile, state);
   }
 }
 
@@ -355,22 +374,13 @@ class PuzzleMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themes = context.select((ThemeBloc bloc) => bloc.state.themes);
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ...List.generate(
-          themes.length,
-          (index) => PuzzleMenuItem(
-            theme: themes[index],
-            themeIndex: index,
-          ),
-        ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const SizedBox(),
-          medium: (_, child) => child!,
-          large: (_, child) => child!,
+          small: (_, __, child) => const SizedBox(),
+          medium: (_, __, child) => child!,
+          large: (_, __, child) => child!,
           child: (currentSize) {
             return Row(
               children: [
@@ -413,7 +423,7 @@ class PuzzleMenuItem extends StatelessWidget {
     final isCurrentTheme = theme == currentTheme;
 
     return ResponsiveLayoutBuilder(
-      small: (_, child) => Column(
+      small: (_, __, child) => Column(
         children: [
           Container(
             width: 100,
@@ -432,8 +442,8 @@ class PuzzleMenuItem extends StatelessWidget {
           ),
         ],
       ),
-      medium: (_, child) => child!,
-      large: (_, child) => child!,
+      medium: (_, __, child) => child!,
+      large: (_, __, child) => child!,
       child: (currentSize) {
         final leftPadding =
             themeIndex > 0 && currentSize != ResponsiveLayoutSize.small
@@ -466,16 +476,20 @@ class PuzzleMenuItem extends StatelessWidget {
                 context.read<TimerBloc>().add(const TimerReset());
 
                 // Stop the Dashatar countdown if it has been started.
-                context.read<DashatarPuzzleBloc>().add(
-                      const DashatarCountdownStopped(),
+                // context.read<DashatarPuzzleBloc>().add(
+                //       const DashatarCountdownStopped(),
+                //     );
+
+                context.read<CinematicPuzzleBloc>().add(
+                      const CinematicCountdownStopped(),
                     );
 
                 // Initialize the puzzle board for the newly selected theme.
-                context.read<PuzzleBloc>().add(
-                      PuzzleInitialized(
-                        shufflePuzzle: theme is SimpleTheme,
-                      ),
-                    );
+                // context.read<PuzzleBloc>().add(
+                //       PuzzleInitialized(
+                //         shufflePuzzle: theme is SimpleTheme,
+                //       ),
+                //     );
               },
               child: AnimatedDefaultTextStyle(
                 duration: PuzzleThemeAnimationDuration.textStyle,

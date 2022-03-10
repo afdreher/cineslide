@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:math';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import 'package:cineslide/corner_triangle/widgets/corner_triangle_path.dart';
 import 'package:cineslide/corner_triangle/widgets/enums.dart';
 

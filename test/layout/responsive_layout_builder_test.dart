@@ -21,9 +21,9 @@ void main() {
 
       await tester.pumpApp(
         ResponsiveLayoutBuilder(
-          small: (_, __) => const SizedBox(key: smallKey),
-          medium: (_, __) => const SizedBox(key: mediumKey),
-          large: (_, __) => const SizedBox(key: largeKey),
+          small: (_, __, ___) => const SizedBox(key: smallKey),
+          medium: (_, __, ___) => const SizedBox(key: mediumKey),
+          large: (_, __, ___) => const SizedBox(key: largeKey),
         ),
       );
 
@@ -42,9 +42,9 @@ void main() {
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, __) => const SizedBox(key: smallKey),
-            medium: (_, __) => const SizedBox(key: mediumKey),
-            large: (_, __) => const SizedBox(key: largeKey),
+            small: (_, __, ___) => const SizedBox(key: smallKey),
+            medium: (_, __, ___) => const SizedBox(key: mediumKey),
+            large: (_, __, ___) => const SizedBox(key: largeKey),
           ),
         );
 
@@ -63,9 +63,9 @@ void main() {
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, child) => SizedBox(key: smallKey, child: child),
-            medium: (_, child) => SizedBox(key: mediumKey, child: child),
-            large: (_, child) => SizedBox(key: largeKey, child: child),
+            small: (_, __, child) => SizedBox(key: smallKey, child: child),
+            medium: (_, __, child) => SizedBox(key: mediumKey, child: child),
+            large: (_, __, child) => SizedBox(key: largeKey, child: child),
             child: (_) => const SizedBox(key: childKey),
           ),
         );
@@ -82,9 +82,9 @@ void main() {
         ResponsiveLayoutSize? layoutSize;
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, child) => child!,
-            medium: (_, child) => child!,
-            large: (_, child) => child!,
+            small: (_, __, child) => child!,
+            medium: (_, __, child) => child!,
+            large: (_, __, child) => child!,
             child: (currentLayoutSize) {
               layoutSize = currentLayoutSize;
               return const SizedBox();
@@ -109,9 +109,9 @@ void main() {
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, __) => const SizedBox(key: smallKey),
-            medium: (_, __) => const SizedBox(key: mediumKey),
-            large: (_, __) => const SizedBox(key: largeKey),
+            small: (_, __, ___) => const SizedBox(key: smallKey),
+            medium: (_, __, ___) => const SizedBox(key: mediumKey),
+            large: (_, __, ___) => const SizedBox(key: largeKey),
           ),
         );
 
@@ -130,9 +130,9 @@ void main() {
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, child) => SizedBox(key: smallKey, child: child),
-            medium: (_, child) => SizedBox(key: mediumKey, child: child),
-            large: (_, child) => SizedBox(key: largeKey, child: child),
+            small: (_, __, child) => SizedBox(key: smallKey, child: child),
+            medium: (_, __, child) => SizedBox(key: mediumKey, child: child),
+            large: (_, __, child) => SizedBox(key: largeKey, child: child),
             child: (_) => const SizedBox(key: childKey),
           ),
         );
@@ -149,9 +149,9 @@ void main() {
         ResponsiveLayoutSize? layoutSize;
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, child) => child!,
-            medium: (_, child) => child!,
-            large: (_, child) => child!,
+            small: (_, __, child) => child!,
+            medium: (_, __, child) => child!,
+            large: (_, __, child) => child!,
             child: (currentLayoutSize) {
               layoutSize = currentLayoutSize;
               return const SizedBox();
@@ -176,9 +176,9 @@ void main() {
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, __) => const SizedBox(key: smallKey),
-            medium: (_, __) => const SizedBox(key: mediumKey),
-            large: (_, __) => const SizedBox(key: largeKey),
+            small: (_, __, ___) => const SizedBox(key: smallKey),
+            medium: (_, __, ___) => const SizedBox(key: mediumKey),
+            large: (_, __, ___) => const SizedBox(key: largeKey),
           ),
         );
 
@@ -197,9 +197,9 @@ void main() {
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, child) => SizedBox(key: smallKey, child: child),
-            medium: (_, child) => SizedBox(key: mediumKey, child: child),
-            large: (_, child) => SizedBox(key: largeKey, child: child),
+            small: (_, __, child) => SizedBox(key: smallKey, child: child),
+            medium: (_, __, child) => SizedBox(key: mediumKey, child: child),
+            large: (_, __, child) => SizedBox(key: largeKey, child: child),
             child: (_) => const SizedBox(key: childKey),
           ),
         );
@@ -218,9 +218,9 @@ void main() {
         ResponsiveLayoutSize? layoutSize;
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
-            small: (_, child) => child!,
-            medium: (_, child) => child!,
-            large: (_, child) => child!,
+            small: (_, __, child) => child!,
+            medium: (_, __, child) => child!,
+            large: (_, __, child) => child!,
             child: (currentLayoutSize) {
               layoutSize = currentLayoutSize;
               return const SizedBox();

@@ -32,9 +32,9 @@ class ResponsiveGap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayoutBuilder(
-      small: (_, __) => Gap(small),
-      medium: (_, __) => Gap(medium),
-      large: (_, __) => Gap(large),
+      small: (_, __, ___) => Gap(small),
+      medium: (_, __, ___) => Gap(medium),
+      large: (_, __, ___) => Gap(large),
     );
   }
 }

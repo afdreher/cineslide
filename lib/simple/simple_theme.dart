@@ -21,6 +21,12 @@ class SimpleTheme extends PuzzleTheme {
   bool get hasTimer => false;
 
   @override
+  String? get backgroundAsset => null;
+
+  @override
+  bool get blurBackground => false;
+
+  @override
   Color get nameColor => PuzzleColors.grey1;
 
   @override

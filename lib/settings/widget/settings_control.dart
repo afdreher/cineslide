@@ -7,10 +7,10 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 // Project imports:
-import 'package:cineslide/layout/layout.dart';
-import 'package:cineslide/theme/theme.dart';
-import 'package:cineslide/settings/settings.dart';
 import 'package:cineslide/l10n/l10n.dart';
+import 'package:cineslide/layout/layout.dart';
+import 'package:cineslide/settings/settings.dart';
+import 'package:cineslide/theme/theme.dart';
 
 /// {@template settings_control}
 /// Displays the settings widget
@@ -46,19 +46,19 @@ class SettingsControl extends StatelessWidget {
           duration: PuzzleThemeAnimationDuration.backgroundColorChange,
           child: ResponsiveLayoutBuilder(
             key: const Key('settings_control_builder'),
-            small: (_, __) => Icon(
+            small: (_, __, ___) => Icon(
               icon,
               key: const Key('settings_control_small'),
               size: 24,
               color: color,
             ),
-            medium: (_, __) => Icon(
+            medium: (_, __, ___) => Icon(
               icon,
               key: const Key('settings_control_medium'),
               size: 33,
               color: color,
             ),
-            large: (_, __) => Icon(
+            large: (_, __, ___) => Icon(
               icon,
               key: const Key('settings_control_large'),
               size: 33,

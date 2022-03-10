@@ -47,6 +47,12 @@ abstract class DashatarTheme extends PuzzleTheme {
   Color get correctColor => PuzzleColors.lime50;
 
   @override
+  String? get backgroundAsset => null;
+
+  @override
+  bool get blurBackground => false;
+
+  @override
   bool get isLogoColored => false;
 
   @override

@@ -1,7 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
-import 'package:cineslide/corner_triangle/widgets/enums.dart';
+// Project imports:
 import 'package:cineslide/corner_triangle/widgets/corner_triangle_path.dart';
+import 'package:cineslide/corner_triangle/widgets/enums.dart';
 
 class CornerTriangleClipper extends CustomClipper<Path> {
   const CornerTriangleClipper({required this.corner}) : super();

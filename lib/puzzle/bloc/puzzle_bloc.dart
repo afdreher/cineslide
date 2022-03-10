@@ -188,15 +188,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     // final solver = Solver(puzzle: state.puzzle);
     // List<Tile> moves = solver.solve();
 
-    // Play solution...  Emit a tile every n seconds.
-    int delay = 0;
-    for (int i in [1, 2, 4, 5, 8, 9, 0]) {
-      Future<void>.delayed(Duration(seconds: delay), () {
-        print('$delay: swapping tile: $i');
-        //_onTileTapped(TileTapped event, Emitter<PuzzleState> emit)
-      });
-      delay++;
-    }
+    // // Play solution...  Emit a tile every n seconds.
+    // int delay = 0;
+    // for (int i in [1, 2, 4, 5, 8, 9, 0]) {
+    //   Future<void>.delayed(Duration(seconds: delay), () {
+    //     print('$delay: swapping tile: $i');
+    //     //_onTileTapped(TileTapped event, Emitter<PuzzleState> emit)
+    //   });
+    //   delay++;
+    // }
   }
 
   /// Build a randomized, solvable puzzle of the given size.

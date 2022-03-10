@@ -11,7 +11,7 @@ import 'package:just_audio/just_audio.dart';
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
-import 'package:cineslide/dashatar/dashatar.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
@@ -66,9 +66,9 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
 
     // The user may move tiles only when the puzzle is started.
     // There's no need to check the Simple theme as it is started by default.
-    final canMoveTiles = !(theme is DashatarTheme &&
-        context.read<DashatarPuzzleBloc>().state.status !=
-            DashatarPuzzleStatus.started);
+    final canMoveTiles = !(theme is CinematicTheme &&
+        context.read<CinematicPuzzleBloc>().state.status !=
+            CinematicPuzzleStatus.started);
 
     if (event is RawKeyDownEvent && canMoveTiles) {
       final puzzle = context.read<PuzzleBloc>().state.puzzle;

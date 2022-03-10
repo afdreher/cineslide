@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:cineslide/models/models.dart';
 
 enum SlideDirection { north, south, east, west }

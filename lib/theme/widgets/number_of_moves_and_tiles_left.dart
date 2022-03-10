@@ -40,9 +40,9 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
     final textColor = color ?? theme.defaultColor;
 
     return ResponsiveLayoutBuilder(
-      small: (context, child) => Center(child: child),
-      medium: (context, child) => Center(child: child),
-      large: (context, child) => child!,
+      small: (context, __, child) => Center(child: child),
+      medium: (context, __, child) => Center(child: child),
+      large: (context, __, child) => child!,
       child: (currentSize) {
         final mainAxisAlignment = currentSize == ResponsiveLayoutSize.large
             ? MainAxisAlignment.start

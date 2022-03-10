@@ -12,18 +12,18 @@ import 'package:themed/themed.dart';
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
+import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/corner_triangle/corner_triangle.dart';
 import 'package:cineslide/dashatar/dashatar.dart';
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
-import 'package:cineslide/theme/themes/themes.dart';
-import 'package:cineslide/typography/text_styles.dart';
-import 'package:cineslide/colors/colors.dart';
 import 'package:cineslide/settings/settings.dart';
-import 'package:cineslide/corner_triangle/corner_triangle.dart';
+import 'package:cineslide/theme/themes/themes.dart';
 import 'package:cineslide/typography/outlined_text.dart';
+import 'package:cineslide/typography/text_styles.dart';
 
 abstract class _TileSize {
   static double small = 75;
@@ -180,17 +180,17 @@ class AnimatedTile extends StatelessWidget {
       duration: movementDuration,
       curve: Curves.easeInOut,
       child: ResponsiveLayoutBuilder(
-        small: (_, child) => SizedBox.square(
+        small: (_, __, child) => SizedBox.square(
           key: Key('dashatar_puzzle_tile_small_${tile.value}'),
           dimension: _TileSize.small,
           child: child,
         ),
-        medium: (_, child) => SizedBox.square(
+        medium: (_, __, child) => SizedBox.square(
           key: Key('dashatar_puzzle_tile_medium_${tile.value}'),
           dimension: _TileSize.medium,
           child: child,
         ),
-        large: (_, child) => SizedBox.square(
+        large: (_, __, child) => SizedBox.square(
           key: Key('dashatar_puzzle_tile_large_${tile.value}'),
           dimension: _TileSize.large,
           child: child,
@@ -278,6 +278,7 @@ class PuzzleTileButton extends StatelessWidget {
         },
       );
     }
+    
 
     return Semantics(
       button: true,

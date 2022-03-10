@@ -6,6 +6,8 @@ import 'package:cineslide/dashatar/dashatar.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
+import 'package:cineslide/tile_image_provider/image_sequence.dart';
+import 'package:cineslide/tile_image_provider/image_sequence_factory.dart';
 
 /// {@template dashatar_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -16,11 +18,11 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   const DashatarPuzzleLayoutDelegate();
 
   @override
-  Widget startSectionBuilder(PuzzleState state) {
+  Widget startSectionBuilder(BuildContext context, PuzzleState state) {
     return ResponsiveLayoutBuilder(
-      small: (_, child) => child!,
-      medium: (_, child) => child!,
-      large: (_, child) => Padding(
+      small: (_, __, child) => child!,
+      medium: (_, __, child) => child!,
+      large: (_, __, child) => Padding(
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,
       ),
@@ -29,7 +31,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget endSectionBuilder(PuzzleState state) {
+  Widget endSectionBuilder(BuildContext context, PuzzleState state) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -38,18 +40,18 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 32,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const DashatarPuzzleActionButton(),
-          medium: (_, child) => const DashatarPuzzleActionButton(),
-          large: (_, __) => const SizedBox(),
+          small: (_, __, child) => const DashatarPuzzleActionButton(),
+          medium: (_, __, child) => const DashatarPuzzleActionButton(),
+          large: (_, __, ___) => const SizedBox(),
         ),
         const ResponsiveGap(
           small: 32,
           medium: 54,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const DashatarThemePicker(),
-          medium: (_, child) => const DashatarThemePicker(),
-          large: (_, child) => const SizedBox(),
+          small: (_, __, child) => const DashatarThemePicker(),
+          medium: (_, __, child) => const DashatarThemePicker(),
+          large: (_, __, child) => const SizedBox(),
         ),
         const ResponsiveGap(
           small: 32,
@@ -64,20 +66,20 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget backgroundBuilder(PuzzleState state) {
+  Widget backgroundBuilder(BuildContext context, PuzzleState state) {
     return Positioned(
       bottom: 74,
       right: 50,
       child: ResponsiveLayoutBuilder(
-        small: (_, child) => const SizedBox(),
-        medium: (_, child) => const SizedBox(),
-        large: (_, child) => const DashatarThemePicker(),
+        small: (_, __, child) => const SizedBox(),
+        medium: (_, __, child) => const SizedBox(),
+        large: (_, __, child) => const DashatarThemePicker(),
       ),
     );
   }
 
   @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
+  Widget boardBuilder(BuildContext context, int size, List<Widget> tiles) {
     return Stack(
       children: [
         Positioned(
@@ -85,9 +87,9 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           left: 0,
           right: 0,
           child: ResponsiveLayoutBuilder(
-            small: (_, child) => const SizedBox(),
-            medium: (_, child) => const SizedBox(),
-            large: (_, child) => const DashatarTimer(),
+            small: (_, __, child) => const SizedBox(),
+            medium: (_, __, child) => const SizedBox(),
+            large: (_, __, child) => const DashatarTimer(),
           ),
         ),
         Column(
@@ -108,7 +110,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget tileBuilder(Tile tile, PuzzleState state) {
+  Widget tileBuilder(BuildContext context, Tile tile, PuzzleState state) {
     return DashatarPuzzleTile(
       tile: tile,
       state: state,
@@ -116,10 +118,67 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget whitespaceTileBuilder() {
-    return const SizedBox();
+  Widget whitespaceTileBuilder(BuildContext context, {Tile? tile, PuzzleState? state}) {
+    final ImageSequenceFactory imageFactory = ImageSequenceFactory.instance;
+
+
+    return SizedBox(
+      height: 100,
+        width: 100,
+        child: FutureBuilder<ImageSequence>(
+            future: imageFactory.getSequenceFromGif(
+                const AssetImage('assets/scenes/muybridge_buffalo.gif')),
+            builder:
+                (BuildContext context, AsyncSnapshot<ImageSequence> snapshot) {
+              if (snapshot.hasData) {
+                final ImageSequence sequence = snapshot.data as ImageSequence;
+                return AnimatedImageSequence(sequence: sequence,);
+              } else {
+                return Container(
+                  color: Colors.red,
+                );
+              }
+            }));
   }
 
   @override
   List<Object?> get props => [];
+}
+
+class AnimatedImageSequence extends StatefulWidget {
+  const AnimatedImageSequence({Key? key, required this.sequence})
+      : super(key: key);
+
+  final ImageSequence sequence;
+
+  @override
+  _AnimatedImageSequenceState createState() => _AnimatedImageSequenceState();
+}
+
+class _AnimatedImageSequenceState extends State<AnimatedImageSequence>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation _animation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animation = Tween<double>(begin: 0.0, end: widget.sequence.frames.length - 1).animate(_controller);
+    _controller.repeat();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (BuildContext context, _) {
+        Image? f =  widget.sequence.frame((_animation.value).floor());
+        if (f != null) {
+          return f;
+        }
+        return Container();
+      },
+    );
+  }
 }

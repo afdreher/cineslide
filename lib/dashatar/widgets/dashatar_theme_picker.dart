@@ -63,9 +63,9 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
     return AudioControlListener(
       audioPlayer: _audioPlayer,
       child: ResponsiveLayoutBuilder(
-        small: (_, child) => child!,
-        medium: (_, child) => child!,
-        large: (_, child) => child!,
+        small: (_, __, child) => child!,
+        medium: (_, __, child) => child!,
+        large: (_, __, child) => child!,
         child: (currentSize) {
           final isSmallSize = currentSize == ResponsiveLayoutSize.small;
           final activeSize = isSmallSize

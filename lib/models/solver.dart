@@ -4,7 +4,6 @@ import 'dart:ui';
 // Project imports:
 import 'package:cineslide/models/models.dart';
 
-
 class Solver {
   /// {@macro solver}
   Solver({required this.puzzle});

@@ -71,8 +71,10 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.startSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.startSectionBuilder(context, state),
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -96,8 +98,10 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.startSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.startSectionBuilder(context, state),
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -121,8 +125,10 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.startSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.startSectionBuilder(context, state),
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -149,8 +155,10 @@ void main() {
           tester.setLargeDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+            Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
+            ),
             ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
@@ -168,8 +176,10 @@ void main() {
           tester.setLargeDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+            Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
+            ),
             ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
@@ -188,9 +198,11 @@ void main() {
           tester.setMediumDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+           Builder(
+            builder: (BuildContext context) =>  SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
             ),
+           ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
             puzzleBloc: puzzleBloc,
@@ -206,8 +218,10 @@ void main() {
           tester.setMediumDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+            Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
+            ),
             ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
@@ -224,9 +238,11 @@ void main() {
           tester.setMediumDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+           Builder(
+            builder: (BuildContext context) =>  SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
             ),
+           ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
             puzzleBloc: puzzleBloc,
@@ -244,8 +260,10 @@ void main() {
           tester.setSmallDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+            Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
+            ),
             ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
@@ -262,8 +280,10 @@ void main() {
           tester.setSmallDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+            Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
+            ),
             ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
@@ -280,8 +300,10 @@ void main() {
           tester.setSmallDisplaySize();
 
           await tester.pumpApp(
-            SingleChildScrollView(
-              child: layoutDelegate.endSectionBuilder(state),
+            Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
+            ),
             ),
             dashatarPuzzleBloc: dashatarPuzzleBloc,
             dashatarThemeBloc: dashatarThemeBloc,
@@ -303,10 +325,12 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          Stack(
+          Builder(
+            builder: (BuildContext context) => Stack(
             children: [
-              layoutDelegate.backgroundBuilder(state),
+              layoutDelegate.backgroundBuilder(context, state),
             ],
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -325,10 +349,12 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          Stack(
+          Builder(
+            builder: (BuildContext context) => Stack(
             children: [
-              layoutDelegate.backgroundBuilder(state),
+              layoutDelegate.backgroundBuilder(context, state),
             ],
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -348,10 +374,12 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          Stack(
+          Builder(
+            builder: (BuildContext context) => Stack(
             children: [
-              layoutDelegate.backgroundBuilder(state),
+              layoutDelegate.backgroundBuilder(context, state),
             ],
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -377,8 +405,10 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, tiles),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.boardBuilder(context, 4, tiles),
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -403,8 +433,10 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, tiles),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.boardBuilder(context, 4, tiles),
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -429,8 +461,10 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, tiles),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.boardBuilder(context, 4, tiles),
+          ),
           ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
@@ -459,9 +493,11 @@ void main() {
         );
 
         await tester.pumpApp(
-          Material(
-            child: layoutDelegate.tileBuilder(tile, state),
+         Builder(
+            builder: (BuildContext context) =>  Material(
+            child: layoutDelegate.tileBuilder(context, tile, state),
           ),
+         ),
           dashatarPuzzleBloc: dashatarPuzzleBloc,
           dashatarThemeBloc: dashatarThemeBloc,
           puzzleBloc: puzzleBloc,
@@ -485,7 +521,9 @@ void main() {
     group('whitespaceTileBuilder', () {
       testWidgets('renders SizedBox', (tester) async {
         await tester.pumpApp(
-          layoutDelegate.whitespaceTileBuilder(),
+          Builder(
+            builder: (BuildContext context) => layoutDelegate.whitespaceTileBuilder(context),
+          ),
         );
 
         expect(

@@ -14,8 +14,18 @@ part 'theme_state.dart';
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc({required List<PuzzleTheme> initialThemes})
       : super(ThemeState(themes: initialThemes)) {
+    on<ThemeSelected>(_onThemeSelected);
     on<ThemeChanged>(_onThemeChanged);
     on<ThemeUpdated>(_onThemeUpdated);
+  }
+
+  void _onThemeSelected(ThemeSelected event, Emitter<ThemeState> emit) {
+    final themeIndex =
+        state.themes.indexWhere((theme) => theme.name == event.name);
+
+    if (themeIndex != -1) {
+      emit(state.copyWith(theme: state.themes[themeIndex]));
+    }
   }
 
   void _onThemeChanged(ThemeChanged event, Emitter<ThemeState> emit) {

@@ -30,6 +30,13 @@ abstract class PuzzleTheme extends Equatable {
   /// The background color of this theme.
   Color get backgroundColor;
 
+  /// The background image of this theme.  If null, then the background color is
+  /// used instead.
+  String? get backgroundAsset;
+
+  /// Whether or not to blur the [backgroundAsset]
+  bool get blurBackground;
+
   /// The default color of this theme.
   ///
   /// Applied to the text color of the score and

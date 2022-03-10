@@ -20,13 +20,14 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:http/http.dart' as http;
 
 // Project imports:
+import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/l10n/l10n.dart';
+import 'package:cineslide/menu/menu.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
+import 'package:cineslide/settings/settings.dart';
 import 'package:cineslide/simple/simple.dart';
 import 'package:cineslide/theme/theme.dart';
-import 'package:cineslide/dashatar/dashatar.dart';
-import 'package:cineslide/settings/settings.dart';
 
 class App extends StatefulWidget {
   const App({Key? key, ValueGetter<PlatformHelper>? platformHelperFactory})
@@ -190,19 +191,10 @@ class _AppState extends State<App> {
           create: (context) => SettingsBloc(),
         ),
         BlocProvider(
-          create: (_) => DashatarThemeBloc(
-            themes: const [
-              BlueDashatarTheme(),
-              GreenDashatarTheme(),
-              YellowDashatarTheme()
-            ],
-          ),
-        ),
-        BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
               const SimpleTheme(),
-              context.read<DashatarThemeBloc>().state.theme,
+              const MuybridgeBuffaloTheme(),
             ],
           ),
         ),
@@ -218,6 +210,7 @@ class _AppState extends State<App> {
           routes: <String, WidgetBuilder>{
             '/settings': (BuildContext context) =>
                 SettingsPage(title: context.l10n.settingsTitle),
+            'puzzle': (BuildContext context) => const PuzzlePage(),
           },
           material: (_, __) => MaterialAppData(
             theme: ThemeData(
@@ -227,7 +220,7 @@ class _AppState extends State<App> {
               ),
             ),
           ),
-          home: const PuzzlePage(),
+          home: const VerticalMenuPage(),
         ),
       ),
     );

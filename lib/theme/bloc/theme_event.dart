@@ -6,7 +6,19 @@ abstract class ThemeEvent extends Equatable {
   const ThemeEvent();
 }
 
-/// The currently selected theme has changed.
+/// The currently selected theme has changed by name
+class ThemeSelected extends ThemeEvent {
+  const ThemeSelected({required this.name});
+
+  /// The index of the newly selected theme from [ThemeState.themes].
+  final String  name;
+
+  @override
+  List<Object> get props => [name];
+}
+
+
+/// The currently selected theme has changed by index.
 class ThemeChanged extends ThemeEvent {
   const ThemeChanged({required this.themeIndex});
 

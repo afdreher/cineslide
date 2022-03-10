@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 // Project imports:
@@ -17,7 +18,7 @@ enum ResponsiveLayoutSize {
 }
 
 /// Signature for the individual builders (`small`, `medium`, `large`).
-typedef ResponsiveLayoutWidgetBuilder = Widget Function(BuildContext, Widget?);
+typedef ResponsiveLayoutWidgetBuilder = Widget Function(BuildContext, Constraints, Widget?);
 
 /// {@template responsive_layout_builder}
 /// A wrapper around [LayoutBuilder] which exposes builders for
@@ -54,16 +55,16 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
         final screenWidth = MediaQuery.of(context).size.width;
 
         if (screenWidth <= PuzzleBreakpoints.small) {
-          return small(context, child?.call(ResponsiveLayoutSize.small));
+          return small(context, constraints, child?.call(ResponsiveLayoutSize.small));
         }
         if (screenWidth <= PuzzleBreakpoints.medium) {
-          return medium(context, child?.call(ResponsiveLayoutSize.medium));
+          return medium(context, constraints, child?.call(ResponsiveLayoutSize.medium));
         }
         if (screenWidth <= PuzzleBreakpoints.large) {
-          return large(context, child?.call(ResponsiveLayoutSize.large));
+          return large(context, constraints, child?.call(ResponsiveLayoutSize.large));
         }
 
-        return large(context, child?.call(ResponsiveLayoutSize.large));
+        return large(context, constraints, child?.call(ResponsiveLayoutSize.large));
       },
     );
   }

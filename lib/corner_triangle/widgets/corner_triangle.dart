@@ -1,5 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import 'package:cineslide/corner_triangle/widgets/corner_triangle_clipper.dart';
 import 'package:cineslide/corner_triangle/widgets/corner_triangle_painter.dart';
 import 'package:cineslide/corner_triangle/widgets/enums.dart';

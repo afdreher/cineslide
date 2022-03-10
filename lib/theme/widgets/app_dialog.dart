@@ -22,15 +22,15 @@ class AppDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayoutBuilder(
-      small: (_, __) => Material(
+      small: (_, __, ___) => Material(
         child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: child,
         ),
       ),
-      medium: (_, child) => child!,
-      large: (_, child) => child!,
+      medium: (_, __, child) => child!,
+      large: (_, __, child) => child!,
       child: (currentSize) {
         final dialogWidth =
             currentSize == ResponsiveLayoutSize.large ? 740.0 : 700.0;

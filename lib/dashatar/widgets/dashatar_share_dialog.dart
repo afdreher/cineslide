@@ -76,9 +76,9 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
         key: const Key('dashatar_share_dialog_click_audio_player'),
         audioPlayer: _clickAudioPlayer,
         child: ResponsiveLayoutBuilder(
-          small: (_, child) => child!,
-          medium: (_, child) => child!,
-          large: (_, child) => child!,
+          small: (_, __, child) => child!,
+          medium: (_, __, child) => child!,
+          large: (_, __, child) => child!,
           child: (currentSize) {
             final padding = currentSize == ResponsiveLayoutSize.large
                 ? const EdgeInsets.fromLTRB(68, 82, 68, 73)

@@ -37,15 +37,15 @@ class AppFlutterLogo extends StatelessWidget {
             )
           : ResponsiveLayoutBuilder(
               key: Key(assetName),
-              small: (_, __) => Image.asset(
+              small: (_, __, ___) => Image.asset(
                 assetName,
                 height: 24,
               ),
-              medium: (_, __) => Image.asset(
+              medium: (_, __, ___) => Image.asset(
                 assetName,
                 height: 29,
               ),
-              large: (_, __) => Image.asset(
+              large: (_, __, ___) => Image.asset(
                 assetName,
                 height: 32,
               ),

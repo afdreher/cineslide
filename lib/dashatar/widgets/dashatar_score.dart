@@ -32,9 +32,9 @@ class DashatarScore extends StatelessWidget {
     final l10n = context.l10n;
 
     return ResponsiveLayoutBuilder(
-      small: (_, child) => child!,
-      medium: (_, child) => child!,
-      large: (_, child) => child!,
+      small: (_, __, child) => child!,
+      medium: (_, __, child) => child!,
+      large: (_, __, child) => child!,
       child: (currentSize) {
         final height =
             currentSize == ResponsiveLayoutSize.small ? 374.0 : 355.0;

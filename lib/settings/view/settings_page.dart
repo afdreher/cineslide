@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+// Project imports:
 import 'package:cineslide/l10n/l10n.dart';
-import 'package:cineslide/theme/theme.dart';
 import 'package:cineslide/settings/settings.dart';
+import 'package:cineslide/theme/theme.dart';
 
 /// {@template settings_page}
 /// Displays the content for the [SettingsPage].

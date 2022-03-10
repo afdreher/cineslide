@@ -59,8 +59,10 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.startSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.startSectionBuilder(context, state),
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -79,8 +81,10 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.startSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.startSectionBuilder(context, state),
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -99,8 +103,10 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.startSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.startSectionBuilder(context, state),
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -121,8 +127,10 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.endSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.endSectionBuilder(context, state),
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -137,9 +145,11 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.endSectionBuilder(state),
+            Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.endSectionBuilder(context, state),
           ),
+            ),
           themeBloc: themeBloc,
         );
 
@@ -152,10 +162,12 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.endSectionBuilder(state),
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: layoutDelegate.endSectionBuilder(context, state),
+            ),
           ),
-          themeBloc: themeBloc,
+            themeBloc: themeBloc,
         );
 
         expect(find.byType(SimplePuzzleShuffleButton), findsOneWidget);
@@ -169,10 +181,12 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          Stack(
+          Builder(
+            builder: (BuildContext context) => Stack(
             children: [
-              layoutDelegate.backgroundBuilder(state),
+              layoutDelegate.backgroundBuilder(context, state),
             ],
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -189,10 +203,12 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          Stack(
+          Builder(
+            builder: (BuildContext context) => Stack(
             children: [
-              layoutDelegate.backgroundBuilder(state),
+              layoutDelegate.backgroundBuilder(context, state),
             ],
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -209,10 +225,12 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          Stack(
+          Builder(
+            builder: (BuildContext context) => Stack(
             children: [
-              layoutDelegate.backgroundBuilder(state),
+              layoutDelegate.backgroundBuilder(context, state),
             ],
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -231,10 +249,12 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.boardBuilder(context, 4, [
               const SizedBox(),
             ]),
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -251,10 +271,12 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
+          Builder(
+            builder: (BuildContext context) => SingleChildScrollView(
+            child: layoutDelegate.boardBuilder(context, 4, [
               const SizedBox(),
             ]),
+          ),
           ),
           themeBloc: themeBloc,
         );
@@ -271,11 +293,13 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
+         Builder(
+            builder: (BuildContext context) =>  SingleChildScrollView(
+            child: layoutDelegate.boardBuilder(context, 4, [
               const SizedBox(),
             ]),
           ),
+         ),
           themeBloc: themeBloc,
         );
 
@@ -302,7 +326,8 @@ void main() {
         tester.setLargeDisplaySize();
 
         await tester.pumpApp(
-          layoutDelegate.tileBuilder(tile, state),
+          Builder(
+            builder: (BuildContext context) => layoutDelegate.tileBuilder(context, tile, state),),
           themeBloc: themeBloc,
         );
 
@@ -318,7 +343,9 @@ void main() {
         tester.setMediumDisplaySize();
 
         await tester.pumpApp(
-          layoutDelegate.tileBuilder(tile, state),
+          Builder(
+            builder: (BuildContext context) => layoutDelegate.tileBuilder(context, tile, state),
+          ),
           themeBloc: themeBloc,
         );
 
@@ -334,7 +361,8 @@ void main() {
         tester.setSmallDisplaySize();
 
         await tester.pumpApp(
-          layoutDelegate.tileBuilder(tile, state),
+          Builder(
+            builder: (BuildContext context) => layoutDelegate.tileBuilder(context, tile, state),),
           themeBloc: themeBloc,
         );
 
@@ -348,7 +376,8 @@ void main() {
     group('whitespaceTileBuilder', () {
       testWidgets('renders SizedBox', (tester) async {
         await tester.pumpApp(
-          layoutDelegate.whitespaceTileBuilder(),
+           Builder(
+            builder: (BuildContext context) => layoutDelegate.whitespaceTileBuilder(context),),
           themeBloc: themeBloc,
         );
 

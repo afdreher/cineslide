@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   archive: ^3.2.1
-  bloc: ^8.0.2
+  bloc: ^8.0.3
   cupertino_icons: ^1.0.4
   equatable: ^2.0.3
   fake_async: ^1.2.0
@@ -21,15 +21,17 @@ dependencies:
   flutter_platform_widgets: ^1.20.0
   gap: ^2.0.0
   google_fonts: ^2.2.0
-  image: ^3.1.1
+  image: ^3.1.3
   intl: ^0.17.0
   just_audio: ^0.9.18
-  lottie: ^1.2.2
   modal_bottom_sheet: ^2.0.0
   photofilters: ^3.0.1
+  rive: ^0.8.1
+  carousel_slider: ^4.0.0
   themed: ^3.0.2
   universal_platform: ^1.0.0+1
   url_launcher: ^6.0.18
+  visibility_detector: ^0.2.2
 
 dev_dependencies:
   bloc_test: ^9.0.1
@@ -53,6 +55,9 @@ flutter:
     - assets/images/dashatar/green/
     - assets/images/dashatar/blue/
     - assets/images/dashatar/yellow/
+    - assets/images/muybridge/
+    - assets/scenes/
+    - assets/rive/
   fonts:
     - family: GoogleSans
       fonts:

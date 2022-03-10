@@ -77,9 +77,9 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
           }
         },
         child: ResponsiveLayoutBuilder(
-          small: (_, __) => const SizedBox(),
-          medium: (_, __) => const SizedBox(),
-          large: (_, __) =>
+          small: (_, __, ___) => const SizedBox(),
+          medium: (_, __, ___) => const SizedBox(),
+          large: (_, __, ___) =>
               BlocBuilder<DashatarPuzzleBloc, DashatarPuzzleState>(
             builder: (context, state) {
               if (!state.isCountdownRunning || state.secondsToBegin > 3) {

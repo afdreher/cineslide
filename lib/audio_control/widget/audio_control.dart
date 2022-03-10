@@ -24,6 +24,8 @@ class AudioControl extends StatelessWidget {
     final audioAsset =
         audioMuted ? theme.audioControlOffAsset : theme.audioControlOnAsset;
 
+    //final IconData data = audioMuted ? Icons.volume_up : Icons.volume_off;
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
@@ -32,19 +34,19 @@ class AudioControl extends StatelessWidget {
           duration: PuzzleThemeAnimationDuration.backgroundColorChange,
           child: ResponsiveLayoutBuilder(
             key: Key(audioAsset),
-            small: (_, __) => Image.asset(
+            small: (_, __, ___) => Image.asset(
               audioAsset,
               key: const Key('audio_control_small'),
               width: 24,
               height: 24,
             ),
-            medium: (_, __) => Image.asset(
+            medium: (_, __, ___) => Image.asset(
               audioAsset,
               key: const Key('audio_control_medium'),
               width: 33,
               height: 33,
             ),
-            large: (_, __) => Image.asset(
+            large: (_, __, ___) => Image.asset(
               audioAsset,
               key: const Key('audio_control_large'),
               width: 33,

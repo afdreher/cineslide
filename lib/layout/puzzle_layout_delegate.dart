@@ -23,7 +23,7 @@ abstract class PuzzleLayoutDelegate extends Equatable {
   /// on a desktop.
   /// - the top side of the puzzle UI (above the puzzle board)
   /// on a tablet/mobile.
-  Widget startSectionBuilder(PuzzleState state);
+  Widget startSectionBuilder(BuildContext context, PuzzleState state);
 
   /// A widget builder for the end section of the puzzle based on
   /// the puzzle [state].
@@ -33,11 +33,11 @@ abstract class PuzzleLayoutDelegate extends Equatable {
   /// on a desktop.
   /// - the bottom side of the puzzle UI (below the puzzle board)
   /// on a tablet/mobile.
-  Widget endSectionBuilder(PuzzleState state);
+  Widget endSectionBuilder(BuildContext context, PuzzleState state);
 
   /// A widget builder for the background of the puzzle based on
   /// the puzzle [state].
-  Widget backgroundBuilder(PuzzleState state);
+  Widget backgroundBuilder(BuildContext context, PuzzleState state);
 
   /// A widget builder for the puzzle board.
   ///
@@ -46,15 +46,15 @@ abstract class PuzzleLayoutDelegate extends Equatable {
   ///
   /// The board should display the list of [tiles],
   /// each built with [tileBuilder].
-  Widget boardBuilder(int size, List<Widget> tiles);
+  Widget boardBuilder(BuildContext context, int size, List<Widget> tiles);
 
   /// A widget builder for the puzzle tile associated
   /// with [tile] and based on the puzzle [state].
   ///
   /// To complete the puzzle, all tiles must be arranged
   /// in order by their [Tile.value].
-  Widget tileBuilder(Tile tile, PuzzleState state);
+  Widget tileBuilder(BuildContext context, Tile tile, PuzzleState state);
 
   /// A widget builder for the whitespace puzzle tile.
-  Widget whitespaceTileBuilder();
+  Widget whitespaceTileBuilder(BuildContext context, {Tile? tile, PuzzleState? state});
 }
