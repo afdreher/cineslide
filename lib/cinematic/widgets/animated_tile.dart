@@ -164,17 +164,17 @@ class _ResponsiveTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveLayoutBuilder(
       small: (_, __, child) => SizedBox.square(
-        key: Key('responsive_cinematic_puzzle_tile_image_small_${value}'),
+        key: Key('responsive_cinematic_puzzle_tile_image_small_$value'),
         dimension: _TileSize.small,
         child: child,
       ),
       medium: (_, __, child) => SizedBox.square(
-        key: Key('responsive_cinematic_puzzle_tile_image_medium_${value}'),
+        key: Key('responsive_cinematic_puzzle_tile_image_medium_$value'),
         dimension: _TileSize.medium,
         child: child,
       ),
       large: (_, __, child) => SizedBox.square(
-        key: Key('responsive_cinematic_puzzle_tile_image_large_${value}'),
+        key: Key('responsive_cinematic_puzzle_tile_image_large_$value'),
         dimension: _TileSize.large,
         child: child,
       ),
