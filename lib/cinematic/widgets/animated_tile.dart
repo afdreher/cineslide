@@ -35,6 +35,8 @@ class AnimatedTile extends StatelessWidget {
     required this.scaleController,
     required this.scale,
     required this.isCorrect,
+    this.isComplete = false,
+    this.hasStarted = false,
     required this.cinemaAnimation,
     required AudioPlayer? audioPlayer,
   })  : _audioPlayer = audioPlayer,
@@ -54,6 +56,8 @@ class AnimatedTile extends StatelessWidget {
   final Animation<double>? cinemaAnimation;
 
   final bool isCorrect;
+  final bool isComplete;
+  final bool hasStarted;
 
   final AudioPlayer? _audioPlayer;
 
@@ -103,7 +107,6 @@ class AnimatedTile extends StatelessWidget {
             child: CinematicPuzzleTileButton(
               key: Key('cinematic_puzzle_tile_${tile.value}_button'),
               tile: tile,
-              tileImageProvider: tileImageProvider,
               theme: theme,
               duration: movementDuration,
               isCorrect: isCorrect,
@@ -123,49 +126,64 @@ class AnimatedTile extends StatelessWidget {
 
   Widget _animationWidget(BuildContext context) {
     final Animation<double>? animation = cinemaAnimation;
-    Image? img;
-    if (isCorrect && animation != null) {
-      img = tileImageProvider.relativeImageFor(
-              tile: tile.value, relativeFrame: animation.value);
-    } else {
-      img = tileImageProvider.imageFor(tile: tile.value, frame: 0);
-    }
 
-    if (img == null) {
+    final Key key = Key('animated_cinematic_puzzle_tile_${tile.value}');
+
+    if (hasStarted && tile.isWhitespace && !isComplete) {
       return Container();
     }
 
-    final tiled = ResponsiveLayoutBuilder(
-          small: (_, __, child) => SizedBox.square(
-            key: Key('cinematic_puzzle_tile_image_small_${tile.value}'),
-            dimension: _TileSize.small,
-            child: child,
-          ),
-          medium: (_, __, child) => SizedBox.square(
-            key: Key('cinematic_puzzle_tile_image_medium_${tile.value}'),
-            dimension: _TileSize.medium,
-            child: child,
-          ),
-          large: (_, __, child) => SizedBox.square(
-            key: Key('cinematic_puzzle_tile_image_large_${tile.value}'),
-            dimension: _TileSize.large,
-            child: child,
-          ),
-          child: (_) => FittedBox(
-            child: img,
-            fit: BoxFit.fill,
-          ),
-        );
-
-    if (animation == null) {
-      return tiled;
+    if (!hasStarted || animation == null || !isCorrect) {
+      return _ResponsiveTile(
+          key: key,
+          value: tile.value,
+          image: tileImageProvider.imageFor(tile: tile.value, frame: 0));
     }
 
     return AnimatedBuilder(
       animation: animation,
       builder: (BuildContext context, Widget? child) {
-        return tiled;
+        return _ResponsiveTile(
+            key: key,
+            value: tile.value,
+            image: tileImageProvider.relativeImageFor(
+                tile: tile.value, relativeFrame: animation.value));
       },
+    );
+  }
+}
+
+class _ResponsiveTile extends StatelessWidget {
+  const _ResponsiveTile({Key? key, required this.value, this.image})
+      : super(key: key);
+
+  final int value;
+  final Image? image;
+
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveLayoutBuilder(
+      small: (_, __, child) => SizedBox.square(
+        key: Key('responsive_cinematic_puzzle_tile_image_small_${value}'),
+        dimension: _TileSize.small,
+        child: child,
+      ),
+      medium: (_, __, child) => SizedBox.square(
+        key: Key('responsive_cinematic_puzzle_tile_image_medium_${value}'),
+        dimension: _TileSize.medium,
+        child: child,
+      ),
+      large: (_, __, child) => SizedBox.square(
+        key: Key('responsive_cinematic_puzzle_tile_image_large_${value}'),
+        dimension: _TileSize.large,
+        child: child,
+      ),
+      child: (_) => image == null
+          ? Container()
+          : FittedBox(
+              child: image,
+              fit: BoxFit.fill,
+            ),
     );
   }
 }

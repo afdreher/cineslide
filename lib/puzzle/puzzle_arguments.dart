@@ -1,7 +1,7 @@
-import 'package:cineslide/theme/theme.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 
 class PuzzleArguments {
-  final PuzzleTheme theme;
+  final CinematicTheme theme;
   final int squareCount;
 
   PuzzleArguments({required this.theme, required this.squareCount});

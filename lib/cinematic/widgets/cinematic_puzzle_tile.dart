@@ -30,6 +30,7 @@ class CinematicPuzzleTile extends StatefulWidget {
     required this.tile,
     required this.state,
     required this.tileImageProvider,
+    this.cinemaAnimation,
     AudioPlayerFactory? audioPlayer,
   })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
         super(key: key);
@@ -39,6 +40,7 @@ class CinematicPuzzleTile extends StatefulWidget {
 
   /// The tile image provider
   final TileImageProvider tileImageProvider;
+  final Animation<double>? cinemaAnimation;
 
   /// The state of the puzzle.
   final PuzzleState state;
@@ -102,12 +104,11 @@ class CinematicPuzzleTileState extends State<CinematicPuzzleTile>
     final status =
         context.select((CinematicPuzzleBloc bloc) => bloc.state.status);
     final hasStarted = status == CinematicPuzzleStatus.started;
-    final puzzleIncomplete =
-        context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
-            PuzzleStatus.incomplete;
-    final puzzlePending =
-        context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
-            PuzzleStatus.pending;
+
+    final puzzleStatus = context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus);
+    final puzzleIncomplete = puzzleStatus == PuzzleStatus.incomplete;
+    final puzzlePending = puzzleStatus == PuzzleStatus.pending;
+    final isComplete = puzzleStatus == PuzzleStatus.complete;
 
     final movementDuration = status == CinematicPuzzleStatus.loading
         ? const Duration(milliseconds: 800)
@@ -116,10 +117,6 @@ class CinematicPuzzleTileState extends State<CinematicPuzzleTile>
     final canPress = hasStarted && (puzzleIncomplete || puzzlePending);
 
     final isCorrect = widget.tile.isInCorrectPosition;
-
-    print('Building tile: ${widget.tile.value}');
-
-    final Animation<double>? cinemaAnimation = context.select((CinematicPuzzleBloc bloc) => bloc.state.animation);
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
@@ -133,7 +130,9 @@ class CinematicPuzzleTileState extends State<CinematicPuzzleTile>
           scaleController: _scaleController,
           scale: _scaleAnimation,
           isCorrect: isCorrect,
-          cinemaAnimation: cinemaAnimation,
+          isComplete: isComplete,
+          hasStarted: hasStarted,
+          cinemaAnimation: widget.cinemaAnimation,
           audioPlayer: _audioPlayer),
     );
   }

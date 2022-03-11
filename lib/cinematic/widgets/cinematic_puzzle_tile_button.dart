@@ -22,7 +22,6 @@ class CinematicPuzzleTileButton extends StatelessWidget {
   CinematicPuzzleTileButton(
       {Key? key,
       required this.tile,
-      required this.tileImageProvider,
       required this.theme,
       this.isCorrect = false,
       this.onPressed,
@@ -32,7 +31,6 @@ class CinematicPuzzleTileButton extends StatelessWidget {
         super(key: key);
 
   final Tile tile;
-  final TileImageProvider tileImageProvider;
 
   final PuzzleTheme theme;
 
@@ -59,10 +57,13 @@ class CinematicPuzzleTileButton extends StatelessWidget {
         tween: isCorrect ? _forwardTween : _reverseTween,
         duration: duration,
         curve: isCorrect ? Curves.easeIn : Curves.ease,
-        builder: (_, double value, Widget? myChild) {
+        builder: (_, double value, Widget? child) {
+          if (child == null) {
+            return Container();
+          }
           return ChangeColors(
             saturation: value,
-            child: myChild!,
+            child: child,
           );
         },
       );
@@ -75,7 +76,7 @@ class CinematicPuzzleTileButton extends StatelessWidget {
         tile.currentPosition.x.toString(),
         tile.currentPosition.y.toString(),
       ),
-      child: OutlinedButton(
+      child: OutlinedButton(  // TODO: Animate shrinkage
         clipBehavior: Clip.antiAlias,
         style: TextButton.styleFrom(
           primary: PuzzleColors.white,
@@ -97,47 +98,71 @@ class CinematicPuzzleTileButton extends StatelessWidget {
               widthFactor: 0.9,
               child: BlocBuilder<SettingsBloc, SettingsState>(
                 builder: (context, state) {
-                  if (!context.read<SettingsBloc>().state.showTileNumbers) {
+                  if (!context.read<SettingsBloc>().state.showTileNumbers || tile.isWhitespace) {
                     return Container();
                   }
-                  return Stack(
-                    children: [
-                      ClipPath(
-                        clipBehavior: Clip.antiAlias,
-                        clipper: const CornerTriangleClipper(
-                          corner: Corner.topLeft,
-                        ),
-                        child: ImageFiltered(
-                          imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                          child: theChild,
-                        ),
-                      ),
-                      FractionallySizedBox(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: CornerTriangle(
-                          clipBehavior: Clip.antiAlias,
-                          corner: Corner.topLeft,
-                          color: theme.titleColor.withOpacity(0.25),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 5),
-                            child: OutlinedText(
-                              tile.value.toString(),
-                              style: TextStyle(color: theme.titleColor),
-                              strokeColor: theme.backgroundColor,
-                              strokeWidth: 2,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
+                  return _BlurredCornerTriangle(
+                      theChild: theChild, theme: theme, tile: tile, opacity: 0.1,);
                 },
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Create a blurry triangle in the upper left corner
+class _BlurredCornerTriangle extends StatelessWidget {
+  const _BlurredCornerTriangle({
+    Key? key,
+    required this.theChild,
+    required this.theme,
+    required this.tile,
+    this.sigma = 5.0,
+    this.opacity = 0.25,
+  }) : super(key: key);
+
+  final Widget? theChild;
+  final PuzzleTheme theme;
+  final Tile tile;
+  final double sigma;
+  final double opacity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        ClipPath(
+          clipBehavior: Clip.antiAlias,
+          clipper: const CornerTriangleClipper(
+            corner: Corner.topLeft,
+          ),
+          child: ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+            child: theChild,
+          ),
+        ),
+        FractionallySizedBox(
+          widthFactor: 1.0,
+          heightFactor: 1.0,
+          child: CornerTriangle(
+            clipBehavior: Clip.antiAlias,
+            corner: Corner.topLeft,
+            color: theme.titleColor.withOpacity(opacity),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, top: 5),
+              child: OutlinedText(
+                tile.value.toString(),
+                style: TextStyle(color: theme.titleColor),
+                strokeColor: theme.backgroundColor,
+                strokeWidth: 2,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
