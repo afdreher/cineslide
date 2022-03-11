@@ -6,21 +6,8 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:cineslide/film/film.dart';
-import 'package:cineslide/film/widgets/perfs.dart';
-
-class _Size {
-  const _Size({required this.height, required this.width});
-
-  final double height;
-  final double width;
-}
-
-class _Measurements {
-  const _Measurements({required this.frame, required this.picture});
-
-  final _Size frame;
-  final _Size picture;
-}
+import 'package:cineslide/film/frame/measurements.dart';
+import 'package:cineslide/film/frame/frame_painter.dart';
 
 class FilmFrame extends StatelessWidget {
   const FilmFrame({
@@ -84,7 +71,7 @@ class FilmFrame extends StatelessWidget {
     });
   }
 
-  _Measurements computeMeasurements(
+  Measurements computeMeasurements(
       BoxConstraints constraints, EdgeInsets insets) {
     // Rounding makes the step more consistent
     double picture = min(constraints.maxWidth - insets.horizontal,
@@ -95,14 +82,11 @@ class FilmFrame extends StatelessWidget {
     double height = (pictureHeight + insets.vertical).roundToDouble();
     double width = (picture + insets.horizontal).roundToDouble();
 
-    return _Measurements(
-        frame: _Size(height: height, width: width),
-        picture: _Size(height: pictureHeight, width: picture));
+    return Measurements(
+        frame: Size(width, height), picture: Size(picture, pictureHeight));
   }
 
   Widget _horizontalFilm(BuildContext context, BoxConstraints constraints) {
-    final Perfs strip = _perfStrip();
-
     //      [FONT]  [S] [TXT] [6]
     // 46 = 1 + 14 + 5 + 20 + 6
     // Font size is 14.  Top padding is 1, for 15, 5 is the spacing top; 6 is the spacing bottom
@@ -110,7 +94,7 @@ class FilmFrame extends StatelessWidget {
     EdgeInsets pictureInset = EdgeInsets.symmetric(
         horizontal: 8.0, vertical: 2.0 * perfPadding + fontSize + perfHeight);
 
-    final _Measurements measurements =
+    final Measurements measurements =
         computeMeasurements(constraints, pictureInset);
 
     Widget theChild = child ??
@@ -129,20 +113,32 @@ class FilmFrame extends StatelessWidget {
       width: measurements.frame.width,
       child: Stack(
         children: <Widget>[
-          Container(
-            color: unexposedFilmColor,
-            child: Padding(
-              padding: pictureInset,
-              child: SizedBox(
-                height: measurements.picture.height,
-                width: measurements.picture.width,
-                child: Stack(children: [
-                  Container(
-                    color: exposedFilmColor,
-                  ),
-                  theChild
-                ]),
-              ),
+          CustomPaint(
+            size: Size(measurements.frame.width, measurements.frame.height),
+            painter: FramePainter(
+              measurements: measurements,
+              pictureInset: pictureInset,
+              perfInset: textWidth,
+              perfCount: perfCount,
+              perfPadding: perfPadding,
+              perfHeight: perfHeight,
+              perfRatio: perfRatio,
+              perfRadius: const Radius.circular(5.0),
+              direction: direction,
+              color: unexposedFilmColor,
+            ),
+          ),
+          Padding(
+            padding: pictureInset,
+            child: SizedBox(
+              height: measurements.picture.height,
+              width: measurements.picture.width,
+              child: Stack(children: [
+                Container(
+                  color: exposedFilmColor,
+                ),
+                theChild
+              ]),
             ),
           ),
           if (text != null)
@@ -153,28 +149,6 @@ class FilmFrame extends StatelessWidget {
                 child: _devpostText(),
               ),
             ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: perfPadding + fontSize, bottom: perfPadding),
-              child: SizedBox(
-                height: perfHeight,
-                child: strip,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: perfPadding, bottom: perfPadding + fontSize),
-              child: SizedBox(
-                height: perfHeight,
-                child: strip,
-              ),
-            ),
-          ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
@@ -188,12 +162,10 @@ class FilmFrame extends StatelessWidget {
   }
 
   Widget _verticalFilm(BuildContext context, BoxConstraints constraints) {
-    final Perfs strip = _perfStrip();
-
     const EdgeInsets pictureInset =
         EdgeInsets.symmetric(horizontal: 46.0, vertical: 8.0);
 
-    final _Measurements measurements =
+    final Measurements measurements =
         computeMeasurements(constraints, pictureInset);
 
     Widget theChild = child ??
@@ -212,20 +184,32 @@ class FilmFrame extends StatelessWidget {
       width: measurements.frame.width,
       child: Stack(
         children: <Widget>[
-          Container(
-            color: unexposedFilmColor,
-            child: Padding(
-              padding: pictureInset,
-              child: SizedBox(
-                height: measurements.picture.height,
-                width: measurements.picture.width,
-                child: Stack(children: [
-                  Container(
-                    color: exposedFilmColor,
-                  ),
-                  theChild
-                ]),
-              ),
+          CustomPaint(
+            size: Size(measurements.frame.width, measurements.frame.height),
+            painter: FramePainter(
+              measurements: measurements,
+              pictureInset: pictureInset,
+              perfInset: textWidth,
+              perfCount: perfCount,
+              perfPadding: perfPadding,
+              perfHeight: perfHeight,
+              perfRatio: perfRatio,
+              perfRadius: const Radius.circular(5.0),
+              direction: direction,
+              color: unexposedFilmColor,
+            ),
+          ),
+          Padding(
+            padding: pictureInset,
+            child: SizedBox(
+              height: measurements.picture.height,
+              width: measurements.picture.width,
+              child: Stack(children: [
+                Container(
+                  color: exposedFilmColor,
+                ),
+                theChild
+              ]),
             ),
           ),
           if (text != null)
@@ -239,25 +223,6 @@ class FilmFrame extends StatelessWidget {
                 ),
               ),
             ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: size, right: 6),
-              child: SizedBox(
-                  width: size, height: measurements.frame.height, child: strip),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: EdgeInsets.only(left: 6, right: size),
-              child: SizedBox(
-                width: size,
-                height: measurements.frame.height,
-                child: strip,
-              ),
-            ),
-          ),
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
@@ -295,14 +260,6 @@ class FilmFrame extends StatelessWidget {
         fontWeight: FontWeight.w600,
         color: textColor,
       ),
-    );
-  }
-
-  Perfs _perfStrip() {
-    return Perfs(
-      count: perfCount,
-      ratio: perfRatio,
-      direction: direction,
     );
   }
 }
