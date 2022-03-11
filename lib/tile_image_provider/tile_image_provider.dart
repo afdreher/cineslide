@@ -93,9 +93,8 @@ class TileImageProvider {
         // Get the tile which is from
         imglib.Image tile = imglib.copyCrop(
             img, columnCuts[c], rowCuts[r], columnCutWidth, rowCutHeight);
-        Image tileImage = Image.memory(imglib.encodePng(tile) as Uint8List);
-
-        _cachedTiles[start + c] = tileImage;
+        Image tileImage = Image.memory(imglib.encodePng(tile) as Uint8List, gaplessPlayback: true,);
+        _cachedTiles[_getKey(tile: start + c, frame: frame)] = tileImage;
       }
       start += columnCount;
     }
@@ -103,7 +102,7 @@ class TileImageProvider {
 
   Image? relativeImageFor({required int tile, required double relativeFrame}) {
     // Relative frame computes the frame # interpolating [0, 1]
-    int frame = (relativeFrame * frameCount).round();
+    int frame = (relativeFrame * (frameCount - 1)).round();
     return imageFor(tile: tile, frame: frame);
   }
 
