@@ -69,7 +69,7 @@ class SettingsPage extends StatelessWidget {
                   child: Divider(),
                 ),
                 _ShowNumbersTile(activeColor: theme.buttonColor,),
-                _ShowHintTile(activeColor: theme.buttonColor,),
+                //_ShowHintTile(activeColor: theme.buttonColor,),
               ],
             ),
           ),
