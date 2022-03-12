@@ -2,7 +2,6 @@
 import 'dart:ui';
 
 // Flutter imports:
-import 'package:cineslide/tile_image_provider/tile_image_provider.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:

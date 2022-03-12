@@ -71,6 +71,9 @@ abstract class CinematicTheme extends PuzzleTheme {
   /// This asset is shown in the success state of the Cinematic puzzle.
   String get successThemeAsset;
 
+  /// Add a color to the blur window
+  Color? get successBurnColor => null;
+
   /// The path to the audio asset of this theme.
   String get audioAsset;
 

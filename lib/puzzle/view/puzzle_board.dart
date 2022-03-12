@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/layout/layout.dart';
-import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/theme/theme.dart';
 import 'package:cineslide/tile_image_provider/tile_image_provider.dart';

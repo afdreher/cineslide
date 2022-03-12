@@ -9,12 +9,13 @@ import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:cineslide/colors/colors.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
   group('PuzzleButton', () {
-    late PuzzleTheme theme;
+    late CinematicTheme theme;
     late ThemeBloc themeBloc;
 
     setUp(() {
@@ -71,7 +72,7 @@ void main() {
     });
 
     group('backgroundColor', () {
-      testWidgets('defaults to PuzzleTheme.buttonColor', (tester) async {
+      testWidgets('defaults to CinematicTheme.buttonColor', (tester) async {
         const themeBackgroundColor = Colors.orange;
         when(() => theme.buttonColor).thenReturn(themeBackgroundColor);
 

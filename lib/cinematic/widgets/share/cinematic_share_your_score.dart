@@ -60,7 +60,7 @@ class CinematicShareYourScore extends StatelessWidget {
                 : MainAxisAlignment.center;
 
         return Column(
-          key: const Key('dashatar_share_your_score'),
+          key: const Key('cinematic_share_your_score'),
           crossAxisAlignment: titleAndMessageCrossAxisAlignment,
           children: [
             SlideTransition(
@@ -72,7 +72,7 @@ class CinematicShareYourScore extends StatelessWidget {
                   children: [
                     Text(
                       l10n.dashatarSuccessShareYourScoreTitle,
-                      key: const Key('dashatar_share_your_score_title'),
+                      key: const Key('cinematic_share_your_score_title'),
                       textAlign: textAlign,
                       style: titleTextStyle.copyWith(
                         color: PuzzleColors.black,
@@ -83,7 +83,7 @@ class CinematicShareYourScore extends StatelessWidget {
                       width: messageWidth,
                       child: Text(
                         l10n.dashatarSuccessShareYourScoreMessage,
-                        key: const Key('dashatar_share_your_score_message'),
+                        key: const Key('cinematic_share_your_score_message'),
                         textAlign: textAlign,
                         style: messageTextStyle.copyWith(
                           color: PuzzleColors.grey1,

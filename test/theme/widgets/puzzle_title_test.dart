@@ -10,11 +10,12 @@ import 'package:mocktail/mocktail.dart';
 // Project imports:
 import 'package:cineslide/theme/theme.dart';
 import '../../helpers/helpers.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 
 void main() {
   group('PuzzleTitle', () {
     late ThemeBloc themeBloc;
-    late PuzzleTheme theme;
+    late CinematicTheme theme;
 
     setUp(() {
       themeBloc = MockThemeBloc();
@@ -87,7 +88,7 @@ void main() {
 
     testWidgets(
         'renders text '
-        'using PuzzleTheme.titleColor as text color '
+        'using CinematicTheme.titleColor as text color '
         'if not provided', (tester) async {
       const titleColor = Colors.green;
       when(() => theme.titleColor).thenReturn(titleColor);

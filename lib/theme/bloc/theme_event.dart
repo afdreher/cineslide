@@ -39,7 +39,7 @@ class ThemeUpdated extends ThemeEvent {
   const ThemeUpdated({required this.theme});
 
   /// The theme from [ThemeState.themes] that should be replaced.
-  final PuzzleTheme theme;
+  final CinematicTheme theme;
 
   @override
   List<Object> get props => [theme];

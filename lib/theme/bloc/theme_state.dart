@@ -9,17 +9,17 @@ class ThemeState extends Equatable {
   });
 
   /// The list of all available themes.
-  final List<PuzzleTheme> themes;
+  final List<CinematicTheme> themes;
 
   /// Currently selected theme.
-  final PuzzleTheme theme;
+  final CinematicTheme theme;
 
   @override
   List<Object> get props => [themes, theme];
 
   ThemeState copyWith({
-    List<PuzzleTheme>? themes,
-    PuzzleTheme? theme,
+    List<CinematicTheme>? themes,
+    CinematicTheme? theme,
   }) {
     return ThemeState(
       themes: themes ?? this.themes,

@@ -182,7 +182,7 @@ class _CinematicCountdownSecondsToBeginState
           child: Text(
             widget.secondsToBegin.toString(),
             style: PuzzleTextStyle.countdownTime.copyWith(
-              color: theme is CinematicTheme ? theme.countdownColor : Colors.white,
+              color: theme.countdownColor,
             ),
           ),
         ),

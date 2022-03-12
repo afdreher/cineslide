@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 // Flutter imports:
 import 'package:cineslide/tile_image_provider/tile_image_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,15 +13,12 @@ import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/film/film.dart';
 import 'package:cineslide/layout/layout.dart';
+import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/settings/settings.dart';
 import 'package:cineslide/theme/theme.dart';
 import 'package:cineslide/timer/timer.dart';
-
-import 'puzzle_board.dart';
-import 'puzzle_menu.dart';
-
 
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
@@ -44,20 +43,20 @@ class PuzzlePage extends StatelessWidget {
     context.read<ThemeBloc>().add(ThemeUpdated(theme: args.theme));
 
     return FutureBuilder<TileImageProvider?>(
-        future: TileImageProvider.fromImage(
-                provider: AssetImage(theme.themeAsset), rowCount: count)
-            .then((provider) => provider.generateAllTiles()),
-        builder:
-            (BuildContext context, AsyncSnapshot<TileImageProvider?> snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            return Provider<TileImageProvider>(
-              create: (_) => snapshot.data as TileImageProvider,
-              child: const PuzzleScreen(),
-            );
-          }
-          return const LoadingScreen();
-        },
-      );
+      future: TileImageProvider.fromImage(
+              provider: AssetImage(theme.themeAsset), rowCount: count)
+          .then((provider) => provider.generateAllTiles()),
+      builder:
+          (BuildContext context, AsyncSnapshot<TileImageProvider?> snapshot) {
+        if (snapshot.hasData && snapshot.data != null) {
+          return Provider<TileImageProvider>(
+            create: (_) => snapshot.data as TileImageProvider,
+            child: const PuzzleScreen(),
+          );
+        }
+        return const LoadingScreen();
+      },
+    );
   }
 }
 
@@ -120,29 +119,55 @@ class PuzzleHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+
     return SafeArea(
       child: SizedBox(
         height: 200,
         child: ResponsiveLayoutBuilder(
           // I'm not sure I like the film strip, but I'll keep it for now
-          small: (context, constraints, child) => FilmStrip.horizontal(
-            aspect: 0.667,
-            startingNumber: 2,
-            frameText: (int frame) => frame % 2 == 0 ? 'CINESLIDE' : '',
-            perfCount: 5,
-            perfHeight: 15,
-            fontSize: 8,
-            children: [
-              Center(
-                child: SettingsControl(key: settingsControlKey),
+          small: (context, constraints, child) => Transform.rotate(
+            angle: math.pi / 80,
+            child: OverflowBox(
+              maxWidth: 500, // TODO: replace with something useful
+              child: FilmStrip.horizontal(
+                aspect: 0.7,
+                startingNumber: 2,
+                frameText: (int frame) => frame % 2 == 0 ? 'CINESLIDE' : '',
+                perfCount: 5,
+                perfHeight: 15,
+                fontSize: 8,
+                children: [
+                  Center(
+                    child: SettingsControl(key: settingsControlKey),
+                  ),
+                  Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        const PuzzleLogo(),
+                        Divider(
+                          indent: 16,
+                          endIndent: 16,
+                          color: theme.titleColor,
+                        ),
+                        Text(
+                          context.l10n.puzzleChallengeTitle,
+                          style: TextStyle(
+                            color: theme.titleColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Center(
+                    child: AudioControl(key: audioControlKey),
+                  ),
+                ],
               ),
-              const Center(
-                child: PuzzleLogo(),
-              ),
-              Center(
-                child: AudioControl(key: audioControlKey),
-              ),
-            ],
+            ),
           ),
 
           medium: (context, __, child) => Padding(
@@ -206,7 +231,8 @@ class PuzzleSections extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
-    final TileImageProvider tileImageProvider = Provider.of<TileImageProvider>(context);
+    final TileImageProvider tileImageProvider =
+        Provider.of<TileImageProvider>(context);
 
     final board = PuzzleBoard(tileImageProvider: tileImageProvider);
 

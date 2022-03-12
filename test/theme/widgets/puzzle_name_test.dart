@@ -9,12 +9,13 @@ import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:cineslide/theme/theme.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
   group('PuzzleName', () {
     late ThemeBloc themeBloc;
-    late PuzzleTheme theme;
+    late CinematicTheme theme;
 
     const themeName = 'Name';
 
@@ -88,7 +89,7 @@ void main() {
 
     testWidgets(
         'renders text '
-        'using PuzzleTheme.nameColor as text color '
+        'using CinematicTheme.nameColor as text color '
         'if not provided', (tester) async {
       tester.setLargeDisplaySize();
 

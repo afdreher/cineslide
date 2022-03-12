@@ -141,7 +141,7 @@ class _CinematicShareDialogState extends State<CinematicShareDialog>
                   right: closeIconOffset.dx,
                   top: closeIconOffset.dy,
                   child: IconButton(
-                    key: const Key('dashatar_share_dialog_close_button'),
+                    key: const Key('cinematic_share_dialog_close_button'),
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
@@ -154,7 +154,7 @@ class _CinematicShareDialogState extends State<CinematicShareDialog>
                     ),
                     onPressed: () {
                       unawaited(_clickAudioPlayer.play());
-                      Navigator.of(context).pop();
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                   ),
                 ),

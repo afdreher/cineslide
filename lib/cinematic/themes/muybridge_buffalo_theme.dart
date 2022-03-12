@@ -45,7 +45,10 @@ class MuybridgeBuffaloTheme extends CinematicTheme {
   String get themeAsset => 'assets/scenes/muybridge_buffalo.gif';
 
   @override
-  String get successThemeAsset => 'assets/images/dashatar/success/blue.png';
+  String get successThemeAsset => 'assets/scenes/muybridge_buffalo.gif';
+
+  @override
+  Color? get successBurnColor => PuzzleColors.blue50;
 
   @override
   String get audioControlOffAsset =>

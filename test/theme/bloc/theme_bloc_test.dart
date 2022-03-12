@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 // Project imports:
 import 'package:cineslide/theme/theme.dart';
 import '../../helpers/helpers.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 
 void main() {
   group('ThemeBloc', () {
@@ -19,8 +20,8 @@ void main() {
     });
 
     group('ThemeChanged', () {
-      late PuzzleTheme theme;
-      late List<PuzzleTheme> themes;
+      late CinematicTheme theme;
+      late List<CinematicTheme> themes;
 
       blocTest<ThemeBloc, ThemeState>(
         'emits new theme',
@@ -37,7 +38,7 @@ void main() {
     });
 
     // group('ThemeUpdated', () {
-    //   late List<PuzzleTheme> themes;
+    //   late List<CinematicTheme> themes;
     //
     //   blocTest<ThemeBloc, ThemeState>(
     //     'replaces the theme identified by name '

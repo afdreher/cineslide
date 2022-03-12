@@ -12,9 +12,10 @@ import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/theme/theme.dart';
+import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/timer/timer.dart';
 
-class MockPuzzleTheme extends Mock implements PuzzleTheme {}
+class MockPuzzleTheme extends Mock implements CinematicTheme {}
 
 class MockThemeBloc extends MockBloc<ThemeEvent, ThemeState>
     implements ThemeBloc {}
