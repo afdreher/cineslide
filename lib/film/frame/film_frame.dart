@@ -189,7 +189,7 @@ class FilmFrame extends StatelessWidget {
             painter: FramePainter(
               measurements: measurements,
               pictureInset: pictureInset,
-              perfInset: textWidth,
+              perfInset: textWidth + 6,
               perfCount: perfCount,
               perfPadding: perfPadding,
               perfHeight: perfHeight,
@@ -243,6 +243,7 @@ class FilmFrame extends StatelessWidget {
       return Text(
         text!,
         style: TextStyle(
+          fontFamily: 'SourceCodePro',
           fontSize: fontSize,
           fontWeight: FontWeight.w600,
           color: textColor,
@@ -256,6 +257,7 @@ class FilmFrame extends StatelessWidget {
     return Text(
       '▷ ${number}A',
       style: TextStyle(
+        fontFamily: 'SourceCodePro',
         fontSize: fontSize,
         fontWeight: FontWeight.w600,
         color: textColor,

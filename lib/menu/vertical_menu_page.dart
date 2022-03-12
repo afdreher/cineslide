@@ -10,6 +10,7 @@ import 'package:cineslide/film/film.dart';
 import 'package:cineslide/menu/menu.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/typography/typography.dart';
+import 'package:cineslide/layout/layout.dart';
 
 //TODO: Wrap this in responsive to make it work on Chrome, iPad, etc. but that
 // can be a later thing.
@@ -23,9 +24,7 @@ class VerticalMenuPage extends StatelessWidget {
     const String yellow = 'assets/images/dashatar/gallery/yellow.png';
     const String green = 'assets/images/dashatar/gallery/green.png';
 
-    return PlatformScaffold(
-      body: SingleChildScrollView(
-          child: FilmStrip.vertical(
+    final menu = FilmStrip.vertical(
         startingNumber: 22,
         aspect: 1.0,
         frameText: (_) => 'FLUTTER DEVPOST',
@@ -67,7 +66,28 @@ class VerticalMenuPage extends StatelessWidget {
             onPressed: () {},
           ),
         ],
-      )),
+      );
+
+    return PlatformScaffold(
+       body: SingleChildScrollView(
+      child: ResponsiveLayoutBuilder(
+      small: (context, __, child) => menu,
+      medium: (context, __, child) => Center(
+           child: SizedBox(
+           width: PuzzleBreakpoints.small,
+         child: menu,
+       ),
+       ),
+      large: (context, __, child) => Center(
+           child: SizedBox(
+           width: PuzzleBreakpoints.small,
+         child: menu,
+       ),
+       ),
+    ),
+       ),
+
     );
+
   }
 }
