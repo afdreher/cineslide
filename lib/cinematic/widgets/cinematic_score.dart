@@ -76,7 +76,7 @@ class CinematicScore extends StatelessWidget {
           key: const Key('cinematic_score'),
           borderRadius: BorderRadius.circular(22),
           child: Container(
-            width: double.infinity,
+            width: height,
             height: height,
             color: theme.backgroundColor,
             child: Stack(
