@@ -70,10 +70,10 @@ class _CinematicShareDialogState extends State<CinematicShareDialog>
   @override
   Widget build(BuildContext context) {
     return AudioControlListener(
-      key: const Key('dashatar_share_dialog_success_audio_player'),
+      key: const Key('cinematic_share_dialog_success_audio_player'),
       audioPlayer: _successAudioPlayer,
       child: AudioControlListener(
-        key: const Key('dashatar_share_dialog_click_audio_player'),
+        key: const Key('cinematic_share_dialog_click_audio_player'),
         audioPlayer: _clickAudioPlayer,
         child: ResponsiveLayoutBuilder(
           small: (_, __, child) => child!,
@@ -97,7 +97,7 @@ class _CinematicShareDialogState extends State<CinematicShareDialog>
                 : CrossAxisAlignment.center;
 
             return Stack(
-              key: const Key('dashatar_share_dialog'),
+              key: const Key('cinematic_share_dialog'),
               children: [
                 SingleChildScrollView(
                   child: LayoutBuilder(

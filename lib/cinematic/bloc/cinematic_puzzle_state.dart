@@ -18,7 +18,6 @@ class CinematicPuzzleState extends Equatable {
   const CinematicPuzzleState({
     required this.secondsToBegin,
     this.isCountdownRunning = false,
-    this.animation,
   });
 
   /// Whether the countdown of this puzzle is currently running.
@@ -26,8 +25,6 @@ class CinematicPuzzleState extends Equatable {
 
   /// The number of seconds before the puzzle is started.
   final int secondsToBegin;
-
-  final Animation<double>? animation;
 
   /// The status of the current puzzle.
   CinematicPuzzleStatus get status => isCountdownRunning && secondsToBegin > 0
@@ -42,12 +39,10 @@ class CinematicPuzzleState extends Equatable {
   CinematicPuzzleState copyWith({
     bool? isCountdownRunning,
     int? secondsToBegin,
-    Animation<double>? animation,
   }) {
     return CinematicPuzzleState(
       isCountdownRunning: isCountdownRunning ?? this.isCountdownRunning,
       secondsToBegin: secondsToBegin ?? this.secondsToBegin,
-      animation: animation ?? this.animation,
     );
   }
 }

@@ -77,6 +77,9 @@ abstract class CinematicTheme extends PuzzleTheme {
   /// The path to the audio asset of this theme.
   String get audioAsset;
 
+  // Frames per second, if different from default
+  int? get fps => null;
+
   @override
   List<Object?> get props => [
         name,

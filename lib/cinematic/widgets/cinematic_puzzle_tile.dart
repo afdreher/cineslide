@@ -50,9 +50,9 @@ class CinematicPuzzleTile extends StatefulWidget {
   @override
   State<CinematicPuzzleTile> createState() => CinematicPuzzleTileState();
 
-  void animationUpdated() {
-    print('Animate');
-  }
+  // void animationUpdated() {
+  //   //print('Animate');
+  // }
 }
 
 /// The state of [CinematicPuzzleTile].
@@ -114,7 +114,7 @@ class CinematicPuzzleTileState extends State<CinematicPuzzleTile>
         ? const Duration(milliseconds: 800)
         : const Duration(milliseconds: 370);
 
-    final canPress = hasStarted && (puzzleIncomplete || puzzlePending);
+    final canPress = hasStarted && (puzzleIncomplete || puzzlePending) && !widget.tile.isWhitespace;
 
     final isCorrect = widget.tile.isInCorrectPosition;
 

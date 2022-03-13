@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 
 // Project imports:
 import 'package:cineslide/models/models.dart';
-import 'package:flutter/material.dart';
 
 part 'cinematic_puzzle_event.dart';
 part 'cinematic_puzzle_state.dart';
@@ -21,14 +20,12 @@ class CinematicPuzzleBloc
   CinematicPuzzleBloc({
     required this.secondsToBegin,
     required Ticker ticker,
-    this.animation,
   })  : _ticker = ticker,
         super(CinematicPuzzleState(secondsToBegin: secondsToBegin)) {
     on<CinematicCountdownStarted>(_onCountdownStarted);
     on<CinematicCountdownTicked>(_onCountdownTicked);
     on<CinematicCountdownStopped>(_onCountdownStopped);
     on<CinematicCountdownReset>(_onCountdownReset);
-    on<CinematicAnimationChanged>(_onAnimationChanged);
   }
 
   /// The number of seconds before the puzzle is started.
@@ -37,8 +34,6 @@ class CinematicPuzzleBloc
   final Ticker _ticker;
 
   StreamSubscription<int>? _tickerSubscription;
-
-  final Animation<double>? animation;
 
   @override
   Future<void> close() {
@@ -99,18 +94,6 @@ class CinematicPuzzleBloc
       state.copyWith(
         isCountdownRunning: true,
         secondsToBegin: event.secondsToBegin ?? secondsToBegin,
-      ),
-    );
-  }
-
-  void _onAnimationChanged(
-    CinematicAnimationChanged event,
-    Emitter<CinematicPuzzleState> emit,
-  ) {
-    _startTicker();
-    emit(
-      state.copyWith(
-        animation: animation,
       ),
     );
   }

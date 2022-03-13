@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/film/film.dart';
 import 'package:cineslide/layout/layout.dart';
@@ -40,11 +39,13 @@ class PuzzlePage extends StatelessWidget {
     final int count = args.squareCount;
 
     // Find out which theme we need
-    context.read<ThemeBloc>().add(ThemeUpdated(theme: args.theme));
+    context.read<ThemeBloc>().add(ThemeSelected(name: args.theme.name));
 
     return FutureBuilder<TileImageProvider?>(
       future: TileImageProvider.fromImage(
-              provider: AssetImage(theme.themeAsset), rowCount: count)
+              provider: AssetImage(theme.themeAsset),
+              rowCount: count,
+              framesPerSecond: theme.fps)
           .then((provider) => provider.generateAllTiles()),
       builder:
           (BuildContext context, AsyncSnapshot<TileImageProvider?> snapshot) {
@@ -65,7 +66,12 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    print('Building loading page');
+    return Scaffold(
+      body: Container(
+        color: Colors.orange,
+      ),
+    );
   }
 }
 
@@ -88,9 +94,6 @@ class PuzzleScreen extends StatelessWidget {
           create: (_) => TimerBloc(
             ticker: const Ticker(),
           ),
-        ),
-        BlocProvider(
-          create: (_) => AudioControlBloc(),
         ),
       ],
       child: BlocProvider(
@@ -122,24 +125,31 @@ class PuzzleHeader extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return SafeArea(
-      child: SizedBox(
-        height: 200,
-        child: ResponsiveLayoutBuilder(
-          // I'm not sure I like the film strip, but I'll keep it for now
-          small: (context, constraints, child) => Transform.rotate(
+      child: ResponsiveLayoutBuilder(
+        // I'm not sure I like the film strip, but I'll keep it for now
+        small: (context, constraints, child) => SizedBox(
+          height: 200,
+          child: Transform.rotate(
             angle: math.pi / 80,
             child: OverflowBox(
-              maxWidth: 500, // TODO: replace with something useful
+              maxWidth: constraints.maxWidth * 1.2,
               child: FilmStrip.horizontal(
                 aspect: 0.7,
                 startingNumber: 2,
-                frameText: (int frame) => frame % 2 == 0 ? 'CINESLIDE' : '',
+                frameText: (int frame) => frame % 2 == 0
+                    ? context.l10n.applicationName.toUpperCase()
+                    : '',
                 perfCount: 5,
                 perfHeight: 15,
                 fontSize: 8,
                 children: [
                   Center(
-                    child: SettingsControl(key: settingsControlKey),
+                    child: BackButton(
+                      color: theme.titleColor,
+                      onPressed: () {
+                        Navigator.of(context).popUntil((route) => route.isFirst);
+                      },
+                    ),
                   ),
                   Center(
                     child: Column(
@@ -163,36 +173,35 @@ class PuzzleHeader extends StatelessWidget {
                     ),
                   ),
                   Center(
-                    child: AudioControl(key: audioControlKey),
+                    child: SettingsControl(key: settingsControlKey),
                   ),
                 ],
               ),
             ),
           ),
-
-          medium: (context, __, child) => Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 50,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                PuzzleLogo(),
-                PuzzleMenu(),
-              ],
-            ),
+        ),
+        medium: (context, __, child) => Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 50,
           ),
-          large: (context, __, child) => Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 50,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                PuzzleLogo(),
-                PuzzleMenu(),
-              ],
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              PuzzleLogo(),
+              PuzzleMenu(),
+            ],
+          ),
+        ),
+        large: (context, __, child) => Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 50,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              PuzzleLogo(),
+              PuzzleMenu(),
+            ],
           ),
         ),
       ),

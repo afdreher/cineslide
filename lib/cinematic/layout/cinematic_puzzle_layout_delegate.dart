@@ -7,7 +7,6 @@ import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 
-
 /// {@template cinematic_puzzle_layout_delegate}
 /// {@endtemplate}
 class CinematicPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
@@ -19,11 +18,10 @@ class CinematicPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
     return ResponsiveLayoutBuilder(
       small: (_, __, child) => child!,
       medium: (_, __, child) => child!,
-      large: (_, __, child) =>
-          Padding(
-            padding: const EdgeInsets.only(left: 50, right: 32),
-            child: child,
-          ),
+      large: (_, __, child) => Padding(
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
       child: (_) => CinematicStartSection(state: state),
     );
   }
@@ -38,7 +36,7 @@ class CinematicPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 32,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, __, child) => const CinematicPuzzleActionButton(),
+          small: (_, constraints, child) => const CinematicPuzzleActionButton(),
           medium: (_, __, child) => const CinematicPuzzleActionButton(),
           large: (_, __, ___) => const SizedBox(),
         ),
@@ -78,7 +76,8 @@ class CinematicPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget whitespaceTileBuilder(BuildContext context, {Tile? tile, PuzzleState? state}) {
+  Widget whitespaceTileBuilder(BuildContext context,
+      {Tile? tile, PuzzleState? state}) {
     return Container();
   }
 
@@ -156,4 +155,3 @@ class CinematicPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   @override
   List<Object?> get props => [];
 }
-

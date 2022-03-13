@@ -10,6 +10,7 @@ class ImageButton extends StatelessWidget {
     required this.asset,
     BoxFit? fit,
     required this.isGif,
+    this.framesPerSecond,
     required this.onPressed,
     this.onLongPress,
     this.onHover,
@@ -39,6 +40,7 @@ class ImageButton extends StatelessWidget {
   const ImageButton.gif({
     Key? key,
     required String asset,
+    int? framesPerSecond,
     BoxFit? fit,
     required VoidCallback? onPressed,
     VoidCallback? onLongPress,
@@ -49,6 +51,7 @@ class ImageButton extends StatelessWidget {
           asset: asset,
           fit: fit,
           isGif: true,
+          framesPerSecond: framesPerSecond,
           onPressed: onPressed,
           onLongPress: onLongPress,
           onHover: onHover,
@@ -56,6 +59,7 @@ class ImageButton extends StatelessWidget {
         );
 
   final bool isGif;
+  final int? framesPerSecond;
   final String asset;
   final BoxFit fit;
 
@@ -70,10 +74,10 @@ class ImageButton extends StatelessWidget {
     Widget? child;
 
     if (isGif) {
-      final baseImgae = AssetImage(asset);
+      final baseImage = AssetImage(asset);
       child = FutureBuilder<Image?>(
           future: ImageSequenceFactory.instance
-              .getSequenceFromGif(baseImgae)
+              .getSequenceFromGif(baseImage, framesPerSecond: framesPerSecond)
               .then((value) => value.cover),
           builder: (BuildContext context, AsyncSnapshot<Image?> snapshot) {
             if (snapshot.hasData && snapshot.data != null) {

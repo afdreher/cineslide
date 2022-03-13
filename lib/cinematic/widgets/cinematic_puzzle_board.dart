@@ -2,13 +2,13 @@
 import 'dart:async';
 
 // Flutter imports:
+import 'package:cineslide/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/layout/layout.dart';
@@ -91,7 +91,7 @@ class _CinematicPuzzleBoardState extends State<CinematicPuzzleBoard>
                       value: context.read<TimerBloc>(),
                     ),
                     BlocProvider.value(
-                      value: context.read<AudioControlBloc>(),
+                      value: context.read<SettingsBloc>(),
                     ),
                   ],
                   child: const CinematicShareDialog(),

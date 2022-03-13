@@ -9,19 +9,30 @@ import 'package:cineslide/l10n/l10n.dart';
 /// {@template green_cinematic_theme}
 /// The green cinematic puzzle theme.
 /// {@endtemplate}
-class GreenCinematicTheme extends CinematicTheme {
+class ShuraevSmokeTheme extends CinematicTheme {
   /// {@macro green_cinematic_theme}
-  const GreenCinematicTheme() : super();
+  const ShuraevSmokeTheme() : super();
+
+  static const String assetName = 'assets/scenes/shuraev_smoke.gif';
+
+  @override
+  String get name => 'ShuraevSmoke';
 
   @override
   String semanticsLabel(BuildContext context) =>
-      context.l10n.dashatarGreenDashLabelText;
+      context.l10n.shuraevSmokeLabelText;
+
+  @override
+  String? get attribution => 'Yaroslav Shuraev';
+
+  @override
+  String? get url => 'https://www.pexels.com/video/a-smoke-coming-out-from-the-chimney-4434294/';
 
   @override
   Color get backgroundColor => PuzzleColors.greenPrimary;
 
   @override
-  String? get backgroundAsset => null;
+  String? get backgroundAsset => assetName;
 
   @override
   bool get blurBackground => false;
@@ -39,15 +50,21 @@ class GreenCinematicTheme extends CinematicTheme {
   Color get countdownColor => PuzzleColors.green50;
 
   @override
-  String get themeAsset => 'assets/images/dashatar/gallery/green.png';
+  String get themeAsset => assetName;
 
   @override
-  String get successThemeAsset => 'assets/images/dashatar/success/green.png';
+  String get successThemeAsset => assetName;
+
+  @override
+  Color? get successBurnColor => PuzzleColors.green50;
 
   @override
   String get audioControlOffAsset =>
-      'assets/images/audio_control/green_dashatar_off.png';
+      'assets/images/audio_control/white_off.png';
 
   @override
-  String get audioAsset => 'assets/audio/skateboard.mp3';
+  String get audioAsset => 'assets/audio/dumbbell.mp3';
+
+  @override
+  int get fps => 10;
 }

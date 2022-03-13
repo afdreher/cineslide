@@ -13,18 +13,26 @@ class MuybridgeBuffaloTheme extends CinematicTheme {
   /// {@macro blue_cinematic_theme}
   const MuybridgeBuffaloTheme() : super();
 
+    static const String assetName = 'assets/scenes/muybridge_buffalo.gif';
+
   @override
   String get name => 'MuybridgeBuffalo';
 
   @override
   String semanticsLabel(BuildContext context) =>
-      context.l10n.dashatarBlueDashLabelText;
+      context.l10n.muybridgeBuffaloThemeLabelText;
 
   @override
   Color get backgroundColor => PuzzleColors.bluePrimary;
 
   @override
-  String? get backgroundAsset => 'assets/scenes/muybridge_buffalo.gif';
+  String? get attribution => 'Eadweard Muybridge, 1887';
+
+  @override
+  String? get url => 'https://en.wikipedia.org/wiki/File:Muybridge_Buffalo_galloping.gif';
+
+  @override
+  String? get backgroundAsset => assetName;
 
   @override
   bool get blurBackground => true;
@@ -42,17 +50,16 @@ class MuybridgeBuffaloTheme extends CinematicTheme {
   Color get countdownColor => PuzzleColors.blue50;
 
   @override
-  String get themeAsset => 'assets/scenes/muybridge_buffalo.gif';
+  String get themeAsset => assetName;
 
   @override
-  String get successThemeAsset => 'assets/scenes/muybridge_buffalo.gif';
+  String get successThemeAsset => assetName;
 
   @override
   Color? get successBurnColor => PuzzleColors.blue50;
 
   @override
-  String get audioControlOffAsset =>
-      'assets/images/audio_control/blue_dashatar_off.png';
+  String get audioControlOffAsset => 'assets/images/audio_control/white_off.png';
 
   @override
   String get audioAsset => 'assets/audio/dumbbell.mp3';

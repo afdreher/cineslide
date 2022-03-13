@@ -15,7 +15,6 @@ import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
-import 'package:cineslide/theme/theme.dart';
 
 /// {@template puzzle_keyboard_handler}
 /// A widget that listens to the keyboard events and moves puzzle tiles
@@ -62,7 +61,7 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
   }
 
   void _handleKeyEvent(RawKeyEvent event) {
-    final theme = context.read<ThemeBloc>().state.theme;
+    //final theme = context.read<ThemeBloc>().state.theme;
 
     // The user may move tiles only when the puzzle is started.
     // There's no need to check the Simple theme as it is started by default.

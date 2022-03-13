@@ -23,13 +23,9 @@ class CinematicScore extends StatelessWidget {
   /// {@macro cinematic_score}
   const CinematicScore({Key? key}) : super(key: key);
 
-  static const _smallImageOffset = Offset(140, 140);
-  static const _mediumImageOffset = Offset(215, -47);
-  static const _largeImageOffset = Offset(215, -47);
-
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final theme = context.read<ThemeBloc>().state.theme;
     final state = context.watch<PuzzleBloc>().state;
     final l10n = context.l10n;
 
@@ -40,15 +36,6 @@ class CinematicScore extends StatelessWidget {
       child: (currentSize) {
         final height =
             currentSize == ResponsiveLayoutSize.small ? 374.0 : 355.0;
-
-        final imageOffset = currentSize == ResponsiveLayoutSize.large
-            ? _largeImageOffset
-            : (currentSize == ResponsiveLayoutSize.medium
-                ? _mediumImageOffset
-                : _smallImageOffset);
-
-        final imageHeight =
-            currentSize == ResponsiveLayoutSize.small ? 374.0 : 437.0;
 
         final completedTextWidth =
             currentSize == ResponsiveLayoutSize.small ? 160.0 : double.infinity;
@@ -83,8 +70,8 @@ class CinematicScore extends StatelessWidget {
               children: [
                 BlurredSuccessBackground(
                   sigma: 15.0,
-                  topOffset: height * 0.8,
-                  bottomOffset: height * 0.5,
+                  topOffset: height * 0.7,
+                  bottomOffset: height * 0.45,
                   child: Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(

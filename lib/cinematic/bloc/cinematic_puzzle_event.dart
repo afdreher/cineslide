@@ -31,14 +31,3 @@ class CinematicCountdownReset extends CinematicPuzzleEvent {
   @override
   List<Object?> get props => [secondsToBegin];
 }
-
-class CinematicAnimationChanged extends CinematicPuzzleEvent {
-  const CinematicAnimationChanged({this.animation});
-
-  /// The animation.  I just need a way to pass this object, not listen to it.
-  final Animation<double>? animation;
-
-  @override
-  List<Object?> get props => [animation];
-}
-

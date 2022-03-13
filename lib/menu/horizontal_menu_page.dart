@@ -84,9 +84,9 @@ class HorizontalMenuPage extends StatelessWidget {
                       viewportFraction: 0.8,
                       autoPlay: false,
                       enlargeCenterPage: false,
-                      onPageChanged: (_, __) {
-                        print('Changing!');
-                      },
+                      // onPageChanged: (_, __) {
+                      //   print('Changing!');
+                      // },
                       scrollDirection: Axis.horizontal,
                     ),
                   ),

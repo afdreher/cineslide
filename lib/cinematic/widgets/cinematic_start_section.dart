@@ -14,7 +14,7 @@ import 'package:cineslide/theme/theme.dart';
 /// Displays the start section of the puzzle based on [state].
 /// {@endtemplate}
 class CinematicStartSection extends StatelessWidget {
-  /// {@macro dashatar_start_section}
+  /// {@macro cinematic_start_section}
   const CinematicStartSection({
     Key? key,
     required this.state,
@@ -45,9 +45,9 @@ class CinematicStartSection extends StatelessWidget {
         //   title: context.l10n.puzzleChallengeTitle,
         // ),
         // const ResponsiveGap(
-        //   small: 12,
-        //   medium: 16,
-        //   large: 32,
+        //   small: 4,
+        //   medium: 8,
+        //   large: 12,
         // ),
         NumberOfMovesAndTilesLeft(
           key: numberOfMovesAndTilesLeftKey,
@@ -56,11 +56,11 @@ class CinematicStartSection extends StatelessWidget {
               ? state.numberOfTilesLeft
               : state.puzzle.tiles.length - 1,
         ),
-        const ResponsiveGap(
-          small: 8,
-          medium: 18,
-          large: 32,
-        ),
+        // const ResponsiveGap(
+        //   small: 8,
+        //   medium: 18,
+        //   large: 32,
+        // ),
         ResponsiveLayoutBuilder(
           small: (_, __, ___) => const SizedBox(),
           medium: (_, __, ___) => const SizedBox(),
