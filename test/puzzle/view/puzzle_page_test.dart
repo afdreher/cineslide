@@ -11,7 +11,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
@@ -94,26 +93,25 @@ void main() {
       );
     });
 
-    testWidgets(
-        'provides AudioControlBloc '
-        'with initial state', (tester) async {
-      await tester.pumpApp(PuzzlePage());
-
-      final BuildContext puzzleViewContext =
-          tester.element(find.byType(PuzzleView));
-
-      expect(
-        puzzleViewContext.read<AudioControlBloc>().state,
-        equals(AudioControlState()),
-      );
-    });
+    // testWidgets(
+    //     'provides AudioControlBloc '
+    //     'with initial state', (tester) async {
+    //   await tester.pumpApp(PuzzlePage());
+    //
+    //   final BuildContext puzzleViewContext =
+    //       tester.element(find.byType(PuzzleView));
+    //
+    //   expect(
+    //     puzzleViewContext.read<AudioControlBloc>().state,
+    //     equals(AudioControlState()),
+    //   );
+    // });
   });
 
   group('PuzzleView', () {
     late ThemeBloc themeBloc;
     late CinematicTheme theme;
     late PuzzleLayoutDelegate layoutDelegate;
-    late AudioControlBloc audioControlBloc;
 
     setUp(() {
       theme = MockPuzzleTheme();
@@ -151,9 +149,9 @@ void main() {
       when(() => theme.audioControlOffAsset)
           .thenReturn('assets/images/audio_control/simple_off.png');
       when(() => themeBloc.state).thenReturn(themeState);
-
-      audioControlBloc = MockAudioControlBloc();
-      when(() => audioControlBloc.state).thenReturn(AudioControlState());
+      //
+      // audioControlBloc = MockAudioControlBloc();
+      // when(() => audioControlBloc.state).thenReturn(AudioControlState());
     });
 
     setUpAll(() {
@@ -171,7 +169,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(
@@ -195,7 +193,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(find.byKey(Key('puzzle_view_puzzle')), findsOneWidget);
@@ -209,7 +207,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(find.byKey(Key('puzzle_view_puzzle')), findsOneWidget);
@@ -223,7 +221,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(find.byKey(Key('puzzle_view_puzzle')), findsOneWidget);
@@ -233,7 +231,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(find.byType(PuzzleHeader), findsOneWidget);
@@ -243,7 +241,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(find.byType(PuzzleSections), findsOneWidget);
@@ -255,7 +253,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       verify(() => layoutDelegate.backgroundBuilder).called(1);
@@ -267,7 +265,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await tester.pumpAndSettle();
@@ -287,7 +285,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await tester.pumpAndSettle();
@@ -307,7 +305,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await tester.pumpAndSettle();
@@ -334,7 +332,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await tester.pumpAndSettle();
@@ -350,7 +348,7 @@ void main() {
         await tester.pumpApp(
           PuzzleHeader(),
           themeBloc: themeBloc,
-          audioControlBloc: audioControlBloc,
+          // audioControlBloc: audioControlBloc,
         );
 
         expect(find.byType(PuzzleLogo), findsOneWidget);
@@ -365,7 +363,7 @@ void main() {
         await tester.pumpApp(
           PuzzleHeader(),
           themeBloc: themeBloc,
-          audioControlBloc: audioControlBloc,
+          // audioControlBloc: audioControlBloc,
         );
 
         expect(find.byType(PuzzleLogo), findsOneWidget);
@@ -380,12 +378,12 @@ void main() {
         await tester.pumpApp(
           PuzzleHeader(),
           themeBloc: themeBloc,
-          audioControlBloc: audioControlBloc,
+          // audioControlBloc: audioControlBloc,
         );
 
         expect(find.byType(PuzzleLogo), findsOneWidget);
         expect(find.byType(PuzzleMenu), findsNothing);
-        expect(find.byType(AudioControl), findsOneWidget);
+        // expect(find.byType(AudioControl), findsOneWidget);
       });
     });
 
@@ -418,7 +416,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           verify(() => layoutDelegate.startSectionBuilder(any(), any())).called(1);
@@ -433,7 +431,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           verify(() => layoutDelegate.endSectionBuilder(any(), any())).called(1);
@@ -446,7 +444,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           expect(find.byType(PuzzleBoard), findsOneWidget);
@@ -463,7 +461,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           verify(() => layoutDelegate.startSectionBuilder(any(), any())).called(1);
@@ -478,7 +476,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           verify(() => layoutDelegate.endSectionBuilder(any(), any())).called(1);
@@ -491,7 +489,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           expect(find.byType(PuzzleBoard), findsOneWidget);
@@ -508,7 +506,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           verify(() => layoutDelegate.startSectionBuilder(any(), any())).called(1);
@@ -523,7 +521,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           verify(() => layoutDelegate.endSectionBuilder(any(), any())).called(1);
@@ -536,7 +534,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           expect(find.byType(PuzzleMenu), findsOneWidget);
@@ -549,7 +547,7 @@ void main() {
             PuzzleSections(),
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
-            audioControlBloc: audioControlBloc,
+            // audioControlBloc: audioControlBloc,
           );
 
           expect(find.byType(PuzzleBoard), findsOneWidget);
@@ -634,30 +632,30 @@ void main() {
     //       );
     //     }
     //   });
+    //
+    //   testWidgets('renders AudioControl on a large display', (tester) async {
+    //     tester.setLargeDisplaySize();
+    //
+    //     await tester.pumpApp(
+    //       PuzzleMenu(),
+    //       themeBloc: themeBloc,
+    //       audioControlBloc: audioControlBloc,
+    //     );
+    //
+    //     expect(find.byType(AudioControl), findsOneWidget);
+    //   });
 
-      testWidgets('renders AudioControl on a large display', (tester) async {
-        tester.setLargeDisplaySize();
-
-        await tester.pumpApp(
-          PuzzleMenu(),
-          themeBloc: themeBloc,
-          audioControlBloc: audioControlBloc,
-        );
-
-        expect(find.byType(AudioControl), findsOneWidget);
-      });
-
-      testWidgets('renders AudioControl on a medium display', (tester) async {
-        tester.setMediumDisplaySize();
-
-        await tester.pumpApp(
-          PuzzleMenu(),
-          themeBloc: themeBloc,
-          audioControlBloc: audioControlBloc,
-        );
-
-        expect(find.byType(AudioControl), findsOneWidget);
-      });
+      // testWidgets('renders AudioControl on a medium display', (tester) async {
+      //   tester.setMediumDisplaySize();
+      //
+      //   await tester.pumpApp(
+      //     PuzzleMenu(),
+      //     themeBloc: themeBloc,
+      //     audioControlBloc: audioControlBloc,
+      //   );
+      //
+      //   expect(find.byType(AudioControl), findsOneWidget);
+      // });
     });
 
     // group('PuzzleMenuItem', () {

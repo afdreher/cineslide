@@ -10,13 +10,19 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc()
       : super(const SettingsState(
+          soundOn: true,
           confirmMoves: false,
           showTileNumbers: false,
           showHints: false,
         )) {
+    on<SoundOnChanged>(_onSoundOnChanged);
     on<ConfirmMovesChanged>(_onConfirmMovesChanged);
     on<ShowTileNumbersChanged>(_onShowTileNumbersChanged);
     on<ShowHintsChanged>(_onShowHintsChanged);
+  }
+
+  void _onSoundOnChanged(SoundOnChanged event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(soundOn: event.soundOn));
   }
 
   void _onConfirmMovesChanged(

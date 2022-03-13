@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
 // Project imports:
-import 'package:cineslide/audio_control/audio_control.dart';
+import 'package:cineslide/settings/bloc/settings_bloc.dart';
 
 /// {@template audio_control_listener}
 /// Listens to the current audio status and mutes/unmutes [audioPlayer] accordingly.
@@ -34,25 +34,25 @@ class AudioControlListener extends StatefulWidget {
 class _AudioControlListenerState extends State<AudioControlListener> {
   @override
   void didChangeDependencies() {
-    updateAudioPlayer(muted: context.read<AudioControlBloc>().state.muted);
+    updateAudioPlayer(isOn: context.read<SettingsBloc>().state.soundOn);
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant AudioControlListener oldWidget) {
     super.didUpdateWidget(oldWidget);
-    updateAudioPlayer(muted: context.read<AudioControlBloc>().state.muted);
+    updateAudioPlayer(isOn: context.read<SettingsBloc>().state.soundOn);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AudioControlBloc, AudioControlState>(
-      listener: (context, state) => updateAudioPlayer(muted: state.muted),
+    return BlocListener<SettingsBloc, SettingsState>(
+      listener: (context, state) => updateAudioPlayer(isOn: state.soundOn),
       child: widget.child,
     );
   }
 
-  void updateAudioPlayer({required bool muted}) {
-    widget.audioPlayer?.setVolume(muted ? 0.0 : 1.0);
+  void updateAudioPlayer({required bool isOn}) {
+    widget.audioPlayer?.setVolume(isOn ? 1.0 : 0.0);
   }
 }

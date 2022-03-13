@@ -6,7 +6,6 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 // Project imports:
-import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/helpers/helpers.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
@@ -47,7 +46,3 @@ class MockUrlLauncher extends Mock
 class MockAudioPlayer extends Mock implements AudioPlayer {}
 
 class MockPlatformHelper extends Mock implements PlatformHelper {}
-
-class MockAudioControlBloc
-    extends MockBloc<AudioControlEvent, AudioControlState>
-    implements AudioControlBloc {}

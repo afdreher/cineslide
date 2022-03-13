@@ -38,3 +38,14 @@ class ShowHintsChanged extends SettingsEvent {
   @override
   List<Object> get props => [showHints];
 }
+
+/// Show puzzle solution hints
+class SoundOnChanged extends SettingsEvent {
+  const SoundOnChanged({required this.soundOn});
+
+  /// Whether or not the next state should require confirmation
+  final bool soundOn;
+
+  @override
+  List<Object> get props => [soundOn];
+}

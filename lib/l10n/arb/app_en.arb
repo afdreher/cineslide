@@ -1,6 +1,11 @@
 {
     "@@locale": "en",
 
+    "applicationName": "Cineslide",
+    "@applicationName": {
+        "description": "Name of the application"
+    },
+
     "settingsTitle": "Settings",
     "@settingsTitle": {
         "description": "Title for the settings page"
@@ -20,6 +25,12 @@
     "@settingsShowHints": {
         "description": "Settings option to show move hints"
     },
+
+    "settingsSoundOn": "Sound on",
+    "@settingsSoundOn": {
+        "description": "Settings option to turn sound on"
+    },
+
 
     "puzzleChangeTooltip": "Changing the theme will reset your score",
     "@puzzleChangeTooltip": {
@@ -141,13 +152,13 @@
             }
         }
     },
-    "dashatarBlueDashLabelText": "Dumbbell Dash",
-    "@dashatarBlueDashLabelText": {
-        "description": "Semantic label for the blue Dash"
+    "muybridgeBuffaloThemeLabelText": "Eadweard Muybridge 'Buffalo; galloping'",
+    "@muybridgeBuffaloThemeLabelText": {
+        "description": "Semantic label for the Muybridge Buffalo"
     },
-    "dashatarGreenDashLabelText": "Skateboard Dash",
-    "@dashatarGreenDashLabelText": {
-        "description": "Semantic label for the green Dash"
+    "shuraevSmokeLabelText": "Yaroslav Shuraev 'A Smoke Coming Out from the Chimney'",
+    "@shuraevSmokeLabelText": {
+        "description": "Semantic label for the Shuraev Smoke"
     },
     "dashatarYellowDashLabelText": "Sandwich Dash",
     "@dashatarYellowDashLabelText": {

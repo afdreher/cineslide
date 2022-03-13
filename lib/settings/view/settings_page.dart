@@ -63,6 +63,13 @@ class SettingsPage extends StatelessWidget {
             child: Column(
               //mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                 _SoundOnTile(activeColor: theme.buttonColor,),
+                                const Padding(
+                  padding: EdgeInsets.only(left: 16,),
+                  child: Divider(),
+                ),
+
+
                 _ExtractMovesTile(activeColor: theme.buttonColor,),
                 const Padding(
                   padding: EdgeInsets.only(left: 16,),
@@ -131,22 +138,22 @@ class _ShowNumbersTile extends StatelessWidget {
   }
 }
 
-class _ShowHintTile extends StatelessWidget {
-  const _ShowHintTile({Key? key, this.activeColor}) : super(key: key);
+class _SoundOnTile extends StatelessWidget {
+  const _SoundOnTile({Key? key, this.activeColor}) : super(key: key);
 
   final Color? activeColor;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(context.l10n.settingsShowHints),
+      title: Text(context.l10n.settingsSoundOn),
       trailing: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return PlatformSwitch(
             onChanged: (bool nextValue) => context
                 .read<SettingsBloc>()
-                .add(ShowHintsChanged(showHints: nextValue)),
-            value: state.showHints,
+                .add(SoundOnChanged(soundOn: nextValue)),
+            value: state.soundOn,
             material: (_, __) => MaterialSwitchData(
               activeColor: activeColor,
             ),
@@ -156,3 +163,29 @@ class _ShowHintTile extends StatelessWidget {
     );
   }
 }
+
+// class _ShowHintTile extends StatelessWidget {
+//   const _ShowHintTile({Key? key, this.activeColor}) : super(key: key);
+//
+//   final Color? activeColor;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTile(
+//       title: Text(context.l10n.settingsShowHints),
+//       trailing: BlocBuilder<SettingsBloc, SettingsState>(
+//         builder: (context, state) {
+//           return PlatformSwitch(
+//             onChanged: (bool nextValue) => context
+//                 .read<SettingsBloc>()
+//                 .add(ShowHintsChanged(showHints: nextValue)),
+//             value: state.showHints,
+//             material: (_, __) => MaterialSwitchData(
+//               activeColor: activeColor,
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }

@@ -14,7 +14,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/theme/theme.dart';
@@ -27,7 +26,6 @@ extension PumpApp on WidgetTester {
     ThemeBloc? themeBloc,
     PuzzleBloc? puzzleBloc,
     TimerBloc? timerBloc,
-    AudioControlBloc? audioControlBloc,
   }) {
     return pumpWidget(
       MultiBlocProvider(
@@ -40,9 +38,6 @@ extension PumpApp on WidgetTester {
           ),
           BlocProvider.value(
             value: timerBloc ?? MockTimerBloc(),
-          ),
-          BlocProvider.value(
-            value: audioControlBloc ?? MockAudioControlBloc(),
           ),
         ],
         child: MaterialApp(

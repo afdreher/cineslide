@@ -23,7 +23,7 @@ void main() {
     late PuzzleBloc puzzleBloc;
     late Puzzle puzzle;
     late AudioPlayer audioPlayer;
-    late AudioControlBloc audioControlBloc;
+    // late AudioControlBloc audioControlBloc;
 
     const tile = Tile(
       value: 1,
@@ -59,8 +59,8 @@ void main() {
       when(audioPlayer.stop).thenAnswer((_) async {});
       when(audioPlayer.dispose).thenAnswer((_) async {});
 
-      audioControlBloc = MockAudioControlBloc();
-      when(() => audioControlBloc.state).thenReturn(AudioControlState());
+      // audioControlBloc = MockAudioControlBloc();
+      // when(() => audioControlBloc.state).thenReturn(AudioControlState());
     });
 
     testWidgets(
@@ -78,7 +78,7 @@ void main() {
         ),
         themeBloc: themeBloc,
         puzzleBloc: puzzleBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await simulateKeyDownEvent(
@@ -111,7 +111,7 @@ void main() {
         ),
         themeBloc: themeBloc,
         puzzleBloc: puzzleBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await simulateKeyDownEvent(
@@ -144,7 +144,7 @@ void main() {
         ),
         themeBloc: themeBloc,
         puzzleBloc: puzzleBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await simulateKeyDownEvent(
@@ -177,7 +177,7 @@ void main() {
         ),
         themeBloc: themeBloc,
         puzzleBloc: puzzleBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       await simulateKeyDownEvent(
@@ -232,7 +232,7 @@ void main() {
         ),
         themeBloc: themeBloc,
         puzzleBloc: puzzleBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(find.byKey(key), findsOneWidget);
@@ -245,7 +245,7 @@ void main() {
         ),
         themeBloc: themeBloc,
         puzzleBloc: puzzleBloc,
-        audioControlBloc: audioControlBloc,
+        // audioControlBloc: audioControlBloc,
       );
 
       expect(find.byType(AudioControlListener), findsOneWidget);

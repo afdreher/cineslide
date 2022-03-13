@@ -1,13 +1,13 @@
 // Flutter imports:
 import 'dart:async';
 
+import 'package:cineslide/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import 'package:cineslide/audio_control/audio_control.dart';
 import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
@@ -15,7 +15,7 @@ import 'package:cineslide/theme/theme.dart';
 import 'package:cineslide/tile_image_provider/tile_image_provider.dart';
 import 'package:cineslide/timer/timer.dart';
 
-import '../../helpers/modal_helper.dart';
+import 'package:cineslide/helpers/modal_helper.dart';
 
 
 abstract class _BoardSize {
@@ -130,7 +130,7 @@ class CinematicBoardBuilder extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          top: 24,
+          top: 0, //24,
           left: 0,
           right: 0,
           child: ResponsiveLayoutBuilder(
@@ -142,8 +142,8 @@ class CinematicBoardBuilder extends StatelessWidget {
         Column(
           children: [
             const ResponsiveGap(
-              small: 21,
-              medium: 34,
+              small: 8,
+              medium: 24,
               large: 96,
             ),
             CinematicPuzzleBoard(
@@ -198,7 +198,7 @@ class _CinematicPuzzleBoard extends State<CinematicPuzzleBoard> {
                     value: context.read<TimerBloc>(),
                   ),
                   BlocProvider.value(
-                    value: context.read<AudioControlBloc>(),
+                    value: context.read<SettingsBloc>(),
                   ),
                 ],
                 child: const CinematicShareDialog(),
