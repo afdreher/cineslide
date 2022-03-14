@@ -56,11 +56,11 @@ class CinematicStartSection extends StatelessWidget {
               ? state.numberOfTilesLeft
               : state.puzzle.tiles.length - 1,
         ),
-        // const ResponsiveGap(
-        //   small: 8,
-        //   medium: 18,
-        //   large: 32,
-        // ),
+        const ResponsiveGap(
+          small: 8,
+          medium: 18,
+          large: 32,
+        ),
         ResponsiveLayoutBuilder(
           small: (_, __, ___) => const SizedBox(),
           medium: (_, __, ___) => const SizedBox(),

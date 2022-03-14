@@ -29,13 +29,13 @@ class VerticalMenuPage extends StatelessWidget {
           builder: (BuildContext context) {
             return Center(
               child: SizedBox(
-                width: 200,
+                width: 220,
                 child: FilmStrip.vertical(
                   key: const Key('menu_puzzle_difficulty_selection'),
                   startingNumber: 9,
                   frameText: (int i) {
                     if (i == 9) {
-                      return 'DIFFICULTY';
+                      return context.l10n.frameDifficultyText.toUpperCase();
                     }
                     return '';
                   },
@@ -73,7 +73,7 @@ class VerticalMenuPage extends StatelessWidget {
     final menu = FilmStrip.vertical(
       startingNumber: 22,
       aspect: 1.0,
-      frameText: (_) => 'FLUTTER DEVPOST',
+      frameText: (_) => context.l10n.frameCompetitionText.toUpperCase(),
       children: [
         SafeArea(
           child: TextButton(

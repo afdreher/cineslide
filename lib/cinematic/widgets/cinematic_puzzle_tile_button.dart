@@ -101,7 +101,7 @@ class CinematicPuzzleTileButton extends StatelessWidget {
                     return Container();
                   }
                   return _BlurredCornerTriangle(
-                      theChild: theChild, theme: theme, tile: tile, opacity: 0.1,);
+                      theChild: theChild, theme: theme, tile: tile, opacity: 0.2,);
                 },
               ),
             ),
@@ -149,7 +149,7 @@ class _BlurredCornerTriangle extends StatelessWidget {
           child: CornerTriangle(
             clipBehavior: Clip.antiAlias,
             corner: Corner.topLeft,
-            color: theme.titleColor.withOpacity(opacity),
+            color: theme.defaultColor.withOpacity(opacity),
             child: Padding(
               padding: const EdgeInsets.only(left: 10, top: 5),
               child: OutlinedText(

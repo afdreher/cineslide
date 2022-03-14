@@ -76,9 +76,7 @@ class ImageButton extends StatelessWidget {
     if (isGif) {
       final baseImage = AssetImage(asset);
       child = FutureBuilder<Image?>(
-          future: ImageSequenceFactory.instance
-              .getSequenceFromGif(baseImage, framesPerSecond: framesPerSecond)
-              .then((value) => value.cover),
+          future: _getImage(baseImage),
           builder: (BuildContext context, AsyncSnapshot<Image?> snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               final Image img = snapshot.data as Image;
@@ -108,5 +106,11 @@ class ImageButton extends StatelessWidget {
       onLongPress: onLongPress,
       child: child,
     );
+  }
+
+  Future<Image?> _getImage(ImageProvider baseImage) {
+    return ImageSequenceFactory.instance
+              .getSequenceFromGif(baseImage, framesPerSecond: framesPerSecond)
+              .then((value) => value.cover);
   }
 }

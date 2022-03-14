@@ -32,10 +32,10 @@ class PuzzlePage extends StatelessWidget {
   Future<TileImageProvider?> _generateTiles(
       int count, CinematicTheme theme) async {
     return TileImageProvider.fromImage(
-                provider: AssetImage(theme.themeAsset),
-                rowCount: count,
-                framesPerSecond: theme.fps)
-            .then((provider) => provider.generateAllTiles());
+            provider: AssetImage(theme.themeAsset),
+            rowCount: count,
+            framesPerSecond: theme.fps)
+        .then((provider) => provider.generateAllTiles());
   }
 
   @override
@@ -57,10 +57,14 @@ class PuzzlePage extends StatelessWidget {
         if (snapshot.hasData && snapshot.data != null) {
           return Provider<TileImageProvider>(
             create: (_) => snapshot.data as TileImageProvider,
-            child: PuzzleScreen(squareCount: count,),
+            child: PuzzleScreen(
+              squareCount: count,
+            ),
           );
         }
-        return LoadingScreen(theme: theme,);
+        return LoadingScreen(
+          theme: theme,
+        );
       },
     );
   }
@@ -73,10 +77,13 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Building loading page');
     return Scaffold(
       body: Center(
-        child: Text('Loading Game', style: TextStyle(color: theme?.buttonColor ?? Colors.black),),
+        child: Text(
+          context.l10n.puzzleLoadingGame,
+          style: TextStyle(
+              color: theme?.buttonColor ?? Colors.black, fontSize: 20),
+        ),
       ),
       backgroundColor: theme?.backgroundColor ?? Colors.white,
     );
@@ -189,27 +196,88 @@ class PuzzleHeader extends StatelessWidget {
             ),
           ),
         ),
-        medium: (context, __, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
-            ],
-          ),
-        ),
-        large: (context, __, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
+        medium: (context, constraints, child) => MediumLargeBanner(theme: theme),
+        large: (context, __, child) => MediumLargeBanner(theme: theme),
+      ),
+    );
+  }
+}
+
+class MediumLargeBanner extends StatelessWidget {
+  const MediumLargeBanner({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
+
+  final CinematicTheme theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200,
+      child: Transform.rotate(
+        angle: math.pi / 80,
+        child: OverflowBox(
+          alignment: Alignment.center,
+          maxWidth: 148 * 17.0, // 17 is the availabe frames
+          child: FilmStrip.horizontal(
+            aspect: 0.7,
+            mainAxisAlignment: MainAxisAlignment.center,
+            startingNumber: 2,
+            frameText: (int frame) => frame % 2 == 0
+                ? context.l10n.applicationName.toUpperCase()
+                : '',
+            perfCount: 5,
+            perfHeight: 15,
+            fontSize: 8,
+            children: [
+              Container(),
+              Container(),
+              Container(),
+              Container(),
+              Container(),
+              Container(),
+              Center(
+                child: BackButton(
+                  color: theme.titleColor,
+                  onPressed: () {
+                    Navigator.of(context)
+                        .popUntil((route) => route.isFirst);
+                  },
+                ),
+              ),
+              Container(),
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const PuzzleLogo(),
+                    Divider(
+                      indent: 16,
+                      endIndent: 16,
+                      color: theme.titleColor,
+                    ),
+                    Text(
+                      context.l10n.puzzleChallengeTitle,
+                      style: TextStyle(
+                        color: theme.titleColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(),
+              Center(
+                child: SettingsControl(key: settingsControlKey),
+              ),
+              Container(),
+              Container(),
+              Container(),
+              Container(),
+              Container(),
+              Container(),
             ],
           ),
         ),

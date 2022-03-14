@@ -70,8 +70,8 @@ class CinematicScore extends StatelessWidget {
               children: [
                 BlurredSuccessBackground(
                   sigma: 15.0,
-                  topOffset: height * 0.7,
-                  bottomOffset: height * 0.45,
+                  topOffset: height * 0.8,
+                  bottomOffset: height * 0.5,
                   child: Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(

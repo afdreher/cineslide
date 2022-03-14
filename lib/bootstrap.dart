@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:developer';
 
 // Flutter imports:
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 // Package imports:
@@ -37,6 +38,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode( SystemUiMode.immersive);
 
   await BlocOverrides.runZoned(
     () async => await runZonedGuarded(

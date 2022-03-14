@@ -18,6 +18,7 @@ class FilmStrip extends StatelessWidget {
     Key? key,
     required this.direction,
     this.children,
+    MainAxisAlignment? mainAxisAlignment,
     double? aspect,
     int? startingNumber,
     Color? exposedFilmColor,
@@ -27,7 +28,8 @@ class FilmStrip extends StatelessWidget {
     this.perfHeight,
     this.fontSize,
     this.frameText,
-  })  : aspect = aspect ?? 1.0,
+  })  : mainAxisAlignment = mainAxisAlignment ?? MainAxisAlignment.start,
+        aspect = aspect ?? 1.0,
         startingNumber = startingNumber ?? 22,
         exposedFilmColor = exposedFilmColor ?? FilmColors.exposedColor,
         unexposedFilmColor = unexposedFilmColor ?? FilmColors.unexposedColor,
@@ -38,6 +40,7 @@ class FilmStrip extends StatelessWidget {
   const FilmStrip.horizontal({
     Key? key,
     List<Widget>? children,
+    MainAxisAlignment? mainAxisAlignment,
     double? aspect,
     int? startingNumber,
     Color? exposedFilmColor,
@@ -51,6 +54,7 @@ class FilmStrip extends StatelessWidget {
           key: key,
           children: children,
           direction: FilmDirection.horizontal,
+          mainAxisAlignment: mainAxisAlignment,
           aspect: aspect,
           startingNumber: startingNumber,
           exposedFilmColor: exposedFilmColor,
@@ -66,6 +70,7 @@ class FilmStrip extends StatelessWidget {
   const FilmStrip.vertical({
     Key? key,
     List<Widget>? children,
+    MainAxisAlignment? mainAxisAlignment,
     double? aspect,
     int? startingNumber,
     Color? exposedFilmColor,
@@ -79,6 +84,7 @@ class FilmStrip extends StatelessWidget {
           key: key,
           children: children,
           direction: FilmDirection.vertical,
+          mainAxisAlignment: mainAxisAlignment,
           aspect: aspect,
           startingNumber: startingNumber,
           exposedFilmColor: exposedFilmColor,
@@ -92,6 +98,8 @@ class FilmStrip extends StatelessWidget {
 
   /// Direction for the film strip. This is either horizontal or vertical
   final FilmDirection direction;
+
+  final MainAxisAlignment mainAxisAlignment;
 
   /// List of children.  These should only be what goes inside the frame
   final List<Widget>? children;
@@ -143,11 +151,13 @@ class FilmStrip extends StatelessWidget {
 
     if (direction == FilmDirection.horizontal) {
       return Row(
+        mainAxisAlignment: mainAxisAlignment,
         mainAxisSize: MainAxisSize.min,
         children: frames,
       );
     } else {
       return Column(
+        mainAxisAlignment: mainAxisAlignment,
         mainAxisSize: MainAxisSize.min,
         children: frames,
       );

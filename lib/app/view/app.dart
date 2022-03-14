@@ -155,7 +155,11 @@ class _AppState extends State<App> {
               ),
             ),
           ),
-          home: const VerticalMenuPage(),
+          home: const DefaultTextStyle(
+            style: TextStyle(decoration: TextDecoration.none),
+            maxLines: 1,
+            child: VerticalMenuPage(),
+          ),
         ),
       ),
     );

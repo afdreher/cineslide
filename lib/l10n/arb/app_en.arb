@@ -31,6 +31,15 @@
         "description": "Settings option to turn sound on"
     },
 
+    "frameCompetitionText": "FLUTTER CHALLENGE",
+    "@frameCompetitionText": {
+        "description": "Challenge text (used on frame)"
+    },
+    "frameDifficultyText": "DIFFICULTY",
+    "@frameDifficultyText": {
+        "description": "Difficulty text (used on frame)"
+    },
+
     "puzzleDifficultyEasy": "Easy",
     "@puzzleDifficultyEasy": {
         "description": "Option for an easy puzzle"
@@ -42,6 +51,11 @@
     "puzzleDifficultyHard": "Hard",
     "@puzzleDifficultyHard": {
         "description": "Option for an hard puzzle"
+    },
+
+    "puzzleLoadingGame": "Loading Game",
+    "@puzzleLoadingGame": {
+        "description": "Text shown while the game loads and images processs"
     },
 
     "puzzleChangeTooltip": "Changing the theme will reset your score",

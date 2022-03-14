@@ -94,14 +94,7 @@ class _Puzzle extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: theme.url != null
-                ? TextButton(
-                    onPressed: () {
-                      _launchURL(theme.url);
-                    },
-                    child: txt,
-                  )
-                : txt,
+            child: txt,
           ),
         ),
       );
@@ -112,6 +105,7 @@ class _Puzzle extends StatelessWidget {
         return Stack(
           children: [
             theme.layoutDelegate.backgroundBuilder(context, state),
+            if (attribution != null) attribution,
             SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
@@ -125,9 +119,6 @@ class _Puzzle extends StatelessWidget {
                 ),
               ),
             ),
-            if (attribution != null) attribution,
-            // if (theme is! SimpleTheme)
-            //  theme.layoutDelegate.backgroundBuilder(state),
           ],
         );
       },
