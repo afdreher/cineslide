@@ -20,11 +20,47 @@ class VerticalMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String yellow = 'assets/images/dashatar/gallery/yellow.png';
-    const String green = 'assets/images/dashatar/gallery/green.png';
+    Future<void> _askAmount({required CinematicTheme theme}) async {
+      await showDialog<int>(
+          context: context,
+          builder: (BuildContext context) {
+            return SimpleDialog(
+              children: <Widget>[
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      '/puzzle',
+                      arguments: PuzzleArguments(theme: theme, squareCount: 3),
+                    );
+                  },
+                  child: const Text('Easy: 3'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      '/puzzle',
+                      arguments: PuzzleArguments(theme: theme, squareCount: 4),
+                    );
+                  },
+                  child: const Text('Normal: 4'),
+                ),
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      '/puzzle',
+                      arguments: PuzzleArguments(theme: theme, squareCount: 5),
+                    );
+                  },
+                  child: const Text('Hard: 5'),
+                ),
+              ],
+            );
+          });
+    }
 
     const buffalo = MuybridgeBuffaloTheme();
     const smoke = ShuraevSmokeTheme();
+    const sunset = DetraySunsetTheme();
 
     const titleFrameTextColor = Color.fromRGBO(243, 233, 213, 1.0);
 
@@ -67,30 +103,22 @@ class VerticalMenuPage extends StatelessWidget {
           asset: buffalo.themeAsset,
           framesPerSecond: buffalo.fps,
           onPressed: () {
-            Navigator.of(context).pushNamed(
-              '/puzzle',
-              arguments: PuzzleArguments(theme: buffalo, squareCount: 4),
-            );
+            _askAmount(theme: buffalo);
           },
         ),
         ImageButton.gif(
           asset: smoke.themeAsset,
           framesPerSecond: smoke.fps,
           onPressed: () {
-            // Find out which theme we need
-            Navigator.of(context).pushNamed(
-              '/puzzle',
-              arguments: PuzzleArguments(theme: smoke, squareCount: 4),
-            );
+            _askAmount(theme: smoke);
           },
         ),
-        ImageButton.asset(
-          asset: yellow,
-          onPressed: () {},
-        ),
-        ImageButton.asset(
-          asset: green,
-          onPressed: () {},
+        ImageButton.gif(
+          asset: sunset.themeAsset,
+          framesPerSecond: sunset.fps,
+          onPressed: () {
+            _askAmount(theme: sunset);
+          },
         ),
       ],
     );

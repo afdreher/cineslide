@@ -223,7 +223,7 @@ class _ResponsiveTile extends StatelessWidget {
           : FittedBox(
               child: image,
               fit: BoxFit.fill,
-            ),
+    ),
     );
   }
 }

@@ -29,6 +29,15 @@ class PuzzlePage extends StatelessWidget {
   /// {@macro puzzle_page}
   const PuzzlePage({Key? key}) : super(key: key);
 
+  Future<TileImageProvider?> _generateTiles(
+      int count, CinematicTheme theme) async {
+    return TileImageProvider.fromImage(
+                provider: AssetImage(theme.themeAsset),
+                rowCount: count,
+                framesPerSecond: theme.fps)
+            .then((provider) => provider.generateAllTiles());
+  }
+
   @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
@@ -42,35 +51,34 @@ class PuzzlePage extends StatelessWidget {
     context.read<ThemeBloc>().add(ThemeSelected(name: args.theme.name));
 
     return FutureBuilder<TileImageProvider?>(
-      future: TileImageProvider.fromImage(
-              provider: AssetImage(theme.themeAsset),
-              rowCount: count,
-              framesPerSecond: theme.fps)
-          .then((provider) => provider.generateAllTiles()),
+      future: _generateTiles(count, theme),
       builder:
           (BuildContext context, AsyncSnapshot<TileImageProvider?> snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
           return Provider<TileImageProvider>(
             create: (_) => snapshot.data as TileImageProvider,
-            child: const PuzzleScreen(),
+            child: PuzzleScreen(squareCount: count,),
           );
         }
-        return const LoadingScreen();
+        return LoadingScreen(theme: theme,);
       },
     );
   }
 }
 
 class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({Key? key}) : super(key: key);
+  const LoadingScreen({Key? key, this.theme}) : super(key: key);
+
+  final CinematicTheme? theme;
 
   @override
   Widget build(BuildContext context) {
     print('Building loading page');
     return Scaffold(
-      body: Container(
-        color: Colors.orange,
+      body: Center(
+        child: Text('Loading Game', style: TextStyle(color: theme?.buttonColor ?? Colors.black),),
       ),
+      backgroundColor: theme?.backgroundColor ?? Colors.white,
     );
   }
 }
@@ -147,7 +155,8 @@ class PuzzleHeader extends StatelessWidget {
                     child: BackButton(
                       color: theme.titleColor,
                       onPressed: () {
-                        Navigator.of(context).popUntil((route) => route.isFirst);
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
                       },
                     ),
                   ),
