@@ -31,6 +31,18 @@
         "description": "Settings option to turn sound on"
     },
 
+    "puzzleDifficultyEasy": "Easy",
+    "@puzzleDifficultyEasy": {
+        "description": "Option for an easy puzzle"
+    },
+    "puzzleDifficultyNormal": "Normal",
+    "@puzzleDifficultyNormal": {
+        "description": "Option for an normal puzzle"
+    },
+    "puzzleDifficultyHard": "Hard",
+    "@puzzleDifficultyHard": {
+        "description": "Option for an hard puzzle"
+    },
 
     "puzzleChangeTooltip": "Changing the theme will reset your score",
     "@puzzleChangeTooltip": {
