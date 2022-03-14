@@ -155,7 +155,7 @@ class _BlurredCornerTriangle extends StatelessWidget {
               child: OutlinedText(
                 tile.value.toString(),
                 style: TextStyle(color: theme.titleColor),
-                strokeColor: theme.backgroundColor,
+                strokeColor: theme.defaultColor,
                 strokeWidth: 2,
               ),
             ),

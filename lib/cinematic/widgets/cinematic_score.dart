@@ -175,7 +175,7 @@ class CinematicScore extends StatelessWidget {
   }
 }
 
-/// Create a blurry triangle in the upper left corner
+/// Create a blurry background for the winning screen
 class BlurredSuccessBackground extends StatelessWidget {
   const BlurredSuccessBackground({
     Key? key,

@@ -1,10 +1,13 @@
 // Flutter imports:
+
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
+import 'package:cineslide/cinematic/cinematic.dart';
 import 'package:cineslide/colors/colors.dart';
 import 'package:cineslide/l10n/l10n.dart';
 import 'package:cineslide/models/models.dart';
@@ -69,16 +72,45 @@ class PuzzleView extends StatelessWidget {
 class _Puzzle extends StatelessWidget {
   const _Puzzle({Key? key}) : super(key: key);
 
+  void _launchURL(url) async {
+    if (!await launch(url)) throw 'Could not launch $url';
+}
+
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final CinematicTheme theme =
+        context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+
+    Widget? attribution;
+    if (theme.attribution != null) {
+      Text txt = Text(
+        'Photo: ${theme.attribution!}',
+        style: TextStyle(color: theme.buttonColor),
+      );
+
+      attribution = Align(
+        alignment: Alignment.bottomLeft,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: theme.url != null
+                ? TextButton(
+                    onPressed: () {
+                      _launchURL(theme.url);
+                    },
+                    child: txt,
+                  )
+                : txt,
+          ),
+        ),
+      );
+    }
 
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
           children: [
-            // if (theme is SimpleTheme)
             theme.layoutDelegate.backgroundBuilder(context, state),
             SingleChildScrollView(
               child: ConstrainedBox(
@@ -93,6 +125,7 @@ class _Puzzle extends StatelessWidget {
                 ),
               ),
             ),
+            if (attribution != null) attribution,
             // if (theme is! SimpleTheme)
             //  theme.layoutDelegate.backgroundBuilder(state),
           ],

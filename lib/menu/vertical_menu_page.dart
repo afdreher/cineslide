@@ -61,6 +61,7 @@ class VerticalMenuPage extends StatelessWidget {
     const buffalo = MuybridgeBuffaloTheme();
     const smoke = ShuraevSmokeTheme();
     const sunset = DetraySunsetTheme();
+    const pancakes = ElliottPancakesTheme();
 
     const titleFrameTextColor = Color.fromRGBO(243, 233, 213, 1.0);
 
@@ -118,6 +119,13 @@ class VerticalMenuPage extends StatelessWidget {
           framesPerSecond: sunset.fps,
           onPressed: () {
             _askAmount(theme: sunset);
+          },
+        ),
+        ImageButton.gif(
+          asset: pancakes.themeAsset,
+          framesPerSecond: pancakes.fps,
+          onPressed: () {
+            _askAmount(theme: pancakes);
           },
         ),
       ],

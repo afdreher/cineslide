@@ -128,6 +128,8 @@ class _AppState extends State<App> {
             initialThemes: [
               const MuybridgeBuffaloTheme(),
               const ShuraevSmokeTheme(),
+              const DetraySunsetTheme(),
+              const ElliottPancakesTheme(),
             ],
           ),
         ),
