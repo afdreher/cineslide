@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as imglib;
 
@@ -67,10 +68,16 @@ class TileImageProvider {
   /// Compute all of the tiles, such as during a load sequence.  These could be
   /// a bit slow since it is using highly unoptimized code.
   Future<TileImageProvider> generateAllTiles() async {
-    for (int i = 0; i < sequence.frames.length; i++) {
-      _generateTiles(frame: i);
-    }
-    return this; // Allow for chaining
+    await _generateTiles(
+        frames: [for (var i = 0; i < sequence.frames.length; i += 1) i]);
+    return this;
+  }
+
+  Future<void> _generateTiles({required List<int> frames}) async {
+    Map<int, Image> processedImages = await compute(parsePhotos, frames);
+    processedImages.forEach((key, value) {
+      _cachedTiles[key] = value;
+    });
   }
 
   int _getKey({required int tile, required int frame}) {
@@ -78,26 +85,35 @@ class TileImageProvider {
     return frame * (tileCount + 1) + tile;
   }
 
-  void _generateTiles({required int frame}) {
-    // Get the image from the sequence
-    if (frame < 0 || frame >= frameCount) {
-      throw ArgumentError.value(frame, null,
-          'Frame $frame is out of bounds. Valid frames are 0..$frameCount');
-    }
-
-    final imglib.Image img = sequence.frames[frame];
-
-    int start = 1;
-    for (int r = 0; r < rowCount; r++) {
-      for (int c = 0; c < columnCount; c++) {
-        // Get the tile which is from
-        imglib.Image tile = imglib.copyCrop(
-            img, columnCuts[c], rowCuts[r], columnCutWidth, rowCutHeight);
-        Image tileImage = Image.memory(imglib.encodePng(tile) as Uint8List, gaplessPlayback: true,);
-        _cachedTiles[_getKey(tile: start + c, frame: frame)] = tileImage;
+  // A function that converts a response body into a List<Photo>.
+  Map<int, Image> parsePhotos(List<int> frames) {
+    Map<int, Image> tiles = {};
+    for (int frame in frames) {
+      // Get the image from the sequence
+      if (frame < 0 || frame >= frameCount) {
+        throw ArgumentError.value(frame, null,
+            'Frame $frame is out of bounds. Valid frames are 0..$frameCount');
       }
-      start += columnCount;
+
+      final imglib.Image img = sequence.frames[frame];
+
+      int start = 1;
+      for (int r = 0; r < rowCount; r++) {
+        for (int c = 0; c < columnCount; c++) {
+          // Get the tile which is from
+          imglib.Image tile = imglib.copyCrop(
+              img, columnCuts[c], rowCuts[r], columnCutWidth, rowCutHeight);
+          Image tileImage = Image.memory(
+            imglib.encodePng(tile) as Uint8List,
+            gaplessPlayback: true,
+          );
+          tiles[_getKey(tile: start + c, frame: frame)] = tileImage;
+        }
+        start += columnCount;
+      }
     }
+
+    return tiles;
   }
 
   Image? relativeImageFor({required int tile, required double relativeFrame}) {
@@ -113,7 +129,7 @@ class TileImageProvider {
     }
 
     // It's not cached... Generate all of the tiles for the frame
-    _generateTiles(frame: frame);
+    _generateTiles(frames: [frame]);
     return _cachedTiles[key];
   }
 }

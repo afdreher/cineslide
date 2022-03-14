@@ -2,7 +2,6 @@
 import 'dart:async';
 
 // Flutter imports:
-import 'package:cineslide/tile_image_provider/tile_image_provider.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -16,11 +15,24 @@ import 'package:cineslide/layout/layout.dart';
 import 'package:cineslide/models/models.dart';
 import 'package:cineslide/puzzle/puzzle.dart';
 import 'package:cineslide/theme/theme.dart';
+import 'package:cineslide/tile_image_provider/tile_image_provider.dart';
 
-abstract class _TileSize {
+abstract class _EasyTileSize {
+  static double small = 100;
+  static double medium = 136;
+  static double large = 141;
+}
+
+abstract class _NormalTileSize {
   static double small = 75;
   static double medium = 100;
   static double large = 112;
+}
+
+abstract class _HardTileSize {
+  static double small = 59;
+  static double medium = 78;
+  static double large = 88;
 }
 
 class AnimatedTile extends StatelessWidget {
@@ -63,6 +75,8 @@ class AnimatedTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int size = context.read<PuzzleBloc>().size;
+
     return AnimatedAlign(
       // The AnimatedAlign is responsible for the animated 'shift' in the tile
       // pieces.  This should probably be replaced with an animated build to
@@ -77,17 +91,29 @@ class AnimatedTile extends StatelessWidget {
       child: ResponsiveLayoutBuilder(
         small: (_, __, child) => SizedBox.square(
           key: Key('cinematic_puzzle_tile_small_${tile.value}'),
-          dimension: _TileSize.small,
+          dimension: size == 4
+              ? _NormalTileSize.small
+              : size == 3
+                  ? _EasyTileSize.small
+                  : _HardTileSize.small,
           child: child,
         ),
         medium: (_, __, child) => SizedBox.square(
           key: Key('cinematic_puzzle_tile_medium_${tile.value}'),
-          dimension: _TileSize.medium,
+          dimension: size == 4
+              ? _NormalTileSize.medium
+              : size == 3
+                  ? _EasyTileSize.medium
+                  : _HardTileSize.medium,
           child: child,
         ),
         large: (_, __, child) => SizedBox.square(
           key: Key('cinematic_puzzle_tile_large_${tile.value}'),
-          dimension: _TileSize.large,
+          dimension: size == 4
+              ? _NormalTileSize.large
+              : size == 3
+                  ? _EasyTileSize.large
+                  : _HardTileSize.large,
           child: child,
         ),
         child: (_) => MouseRegion(
@@ -162,20 +188,34 @@ class _ResponsiveTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int size = context.read<PuzzleBloc>().size;
+
     return ResponsiveLayoutBuilder(
       small: (_, __, child) => SizedBox.square(
         key: Key('responsive_cinematic_puzzle_tile_image_small_$value'),
-        dimension: _TileSize.small,
+        dimension: size == 4
+              ? _NormalTileSize.small
+              : size == 3
+                  ? _EasyTileSize.small
+                  : _HardTileSize.small,
         child: child,
       ),
       medium: (_, __, child) => SizedBox.square(
         key: Key('responsive_cinematic_puzzle_tile_image_medium_$value'),
-        dimension: _TileSize.medium,
+        dimension: size == 4
+              ? _NormalTileSize.medium
+              : size == 3
+                  ? _EasyTileSize.medium
+                  : _HardTileSize.medium,
         child: child,
       ),
       large: (_, __, child) => SizedBox.square(
         key: Key('responsive_cinematic_puzzle_tile_image_large_$value'),
-        dimension: _TileSize.large,
+        dimension: size == 4
+              ? _NormalTileSize.large
+              : size == 3
+                  ? _EasyTileSize.large
+                  : _HardTileSize.large,
         child: child,
       ),
       child: (_) => image == null
